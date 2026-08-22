@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+<defs>
+  <radialGradient id="bgGlow"><stop offset="0%" stop-color="#7C5CFF" stop-opacity="0.10"/><stop offset="60%" stop-color="#7C5CFF" stop-opacity="0.02"/><stop offset="100%" stop-color="#7C5CFF" stop-opacity="0"/></radialGradient>
+  <radialGradient id="glowViolet"><stop offset="0%" stop-color="#7C5CFF" stop-opacity="0.35"/><stop offset="40%" stop-color="#7C5CFF" stop-opacity="0.12"/><stop offset="100%" stop-color="#7C5CFF" stop-opacity="0"/></radialGradient>
+  <radialGradient id="glowMint"><stop offset="0%" stop-color="#2EE6A8" stop-opacity="0.4"/><stop offset="100%" stop-color="#2EE6A8" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1200" height="675" fill="#0B0E14"/>
+<rect width="1200" height="675" fill="url(#bgGlow)"/>
+<circle cx="867.7" cy="337.5" r="3.7" fill="#2EE6A8" opacity="0.66"/>
+<circle cx="397.1" cy="486.2" r="3.7" fill="#2EE6A8" opacity="0.66"/>
+<circle cx="624.7" cy="112.4" r="2.8" fill="#2EE6A8" opacity="0.49"/>
+<circle cx="776.3" cy="521.5" r="2.0" fill="#7C5CFF" opacity="0.33"/>
+<circle cx="307.4" cy="296.1" r="3.7" fill="#2EE6A8" opacity="0.66"/>
+<circle cx="857.0" cy="206.7" r="3.7" fill="#2EE6A8" opacity="0.66"/>
+<circle cx="519.0" cy="578.5" r="2.5" fill="#2EE6A8" opacity="0.44"/>
+<circle cx="452.8" cy="110.8" r="3.7" fill="#2EE6A8" opacity="0.66"/>
+<circle cx="906.8" cy="427.1" r="3.7" fill="#2EE6A8" opacity="0.66"/>
+<circle cx="346.3" cy="421.3" r="3.7" fill="#2EE6A8" opacity="0.66"/>
+<circle cx="719.5" cy="133.3" r="3.3" fill="#2EE6A8" opacity="0.59"/>
+<circle cx="686.6" cy="558.3" r="1.9" fill="#7C5CFF" opacity="0.31"/>
+<circle cx="343.4" cy="218.5" r="3.7" fill="#2EE6A8" opacity="0.66"/>
+<circle cx="896.8" cy="285.3" r="1.7" fill="#7C5CFF" opacity="0.27"/>
+<circle cx="421.0" cy="541.2" r="2.6" fill="#2EE6A8" opacity="0.44"/>
+<circle cx="559.0" cy="84.7" r="3.7" fill="#2EE6A8" opacity="0.66"/>
+<circle cx="849.3" cy="505.6" r="3.7" fill="#2EE6A8" opacity="0.66"/>
+<circle cx="326.4" cy="346.6" r="1.6" fill="#7C5CFF" opacity="0.26"/>
+<circle cx="799.4" cy="178.8" r="1.6" fill="#7C5CFF" opacity="0.26"/>
+<circle cx="586.7" cy="568.1" r="3.7" fill="#2EE6A8" opacity="0.66"/>
+<circle cx="410.4" cy="155.7" r="2.7" fill="#2EE6A8" opacity="0.46"/>
+<circle cx="900.6" cy="369.9" r="3.7" fill="#2EE6A8" opacity="0.66"/>
+<circle cx="345.0" cy="479.5" r="1.3" fill="#7C5CFF" opacity="0.20"/>
+<circle cx="669.8" cy="89.3" r="3.1" fill="#2EE6A8" opacity="0.55"/>
+<circle cx="761.8" cy="563.4" r="1.6" fill="#7C5CFF" opacity="0.25"/>
+<circle cx="339.7" cy="271.1" r="1.2" fill="#7C5CFF" opacity="0.18"/>
+<circle cx="854.8" cy="243.3" r="2.8" fill="#2EE6A8" opacity="0.48"/>
+<circle cx="488.8" cy="550.0" r="1.2" fill="#7C5CFF" opacity="0.18"/>
+<circle cx="500.0" cy="115.2" r="1.3" fill="#7C5CFF" opacity="0.20"/>
+<circle cx="868.0" cy="450.2" r="1.2" fill="#7C5CFF" opacity="0.18"/>
+<path d="M 600.0 337.5 Q 600.0 382.6 630.8 252.8" fill="none" stroke="rgba(124,92,255,0.32)" stroke-width="1.1"/>
+<path d="M 600.0 337.5 Q 600.0 382.6 678.1 292.4" fill="none" stroke="rgba(124,92,255,0.32)" stroke-width="1.1"/>
+<path d="M 600.0 337.5 Q 600.0 382.6 688.8 353.2" fill="none" stroke="rgba(124,92,255,0.32)" stroke-width="1.1"/>
+<path d="M 600.0 337.5 Q 600.0 382.6 521.9 382.6" fill="none" stroke="rgba(124,92,255,0.55)" stroke-width="1.6"/>
+<path d="M 521.9 382.6 Q 482.9 405.1 715.9 475.6" fill="none" stroke="rgba(138,147,166,0.25)" stroke-width="1.1"/>
+<path d="M 521.9 382.6 Q 482.9 405.1 600.0 517.8" fill="none" stroke="rgba(138,147,166,0.25)" stroke-width="1.1"/>
+<path d="M 521.9 382.6 Q 482.9 405.1 484.1 475.6" fill="none" stroke="rgba(138,147,166,0.25)" stroke-width="1.1"/>
+<path d="M 521.9 382.6 Q 482.9 405.1 422.4 368.8" fill="none" stroke="rgba(124,92,255,0.55)" stroke-width="1.6"/>
+<path d="M 521.9 382.6 Q 482.9 405.1 443.9 247.3" fill="none" stroke="rgba(124,92,255,0.55)" stroke-width="1.6"/>
+<path d="M 521.9 382.6 Q 482.9 405.1 538.3 168.1" fill="none" stroke="rgba(124,92,255,0.32)" stroke-width="1.1"/>
+<circle cx="600.0" cy="337.5" r="45.6" fill="url(#glowViolet)" opacity="0.9"/>
+<circle cx="600.0" cy="337.5" r="8.5" fill="#12161F" stroke="#7C5CFF" stroke-width="1.3"/>
+<circle cx="630.8" cy="252.8" r="52.1" fill="url(#glowViolet)" opacity="0.55"/>
+<circle cx="630.8" cy="252.8" r="9.4" fill="#12161F" stroke="#7C5CFF" stroke-width="1.3"/>
+<circle cx="678.1" cy="292.4" r="51.3" fill="url(#glowViolet)" opacity="0.55"/>
+<circle cx="678.1" cy="292.4" r="9.3" fill="#12161F" stroke="#7C5CFF" stroke-width="1.3"/>
+<circle cx="688.8" cy="353.2" r="50.6" fill="url(#glowViolet)" opacity="0.55"/>
+<circle cx="688.8" cy="353.2" r="9.2" fill="#12161F" stroke="#7C5CFF" stroke-width="1.3"/>
+<circle cx="521.9" cy="382.6" r="53.7" fill="url(#glowViolet)" opacity="0.55"/>
+<circle cx="521.9" cy="382.6" r="9.7" fill="#12161F" stroke="#7C5CFF" stroke-width="1.3"/>
+<circle cx="715.9" cy="475.6" r="52.9" fill="url(#glowViolet)" opacity="0.55"/>
+<circle cx="715.9" cy="475.6" r="9.6" fill="#12161F" stroke="#7C5CFF" stroke-width="1.3"/>
+<circle cx="600.0" cy="517.8" r="52.8" fill="url(#glowViolet)" opacity="0.55"/>
+<circle cx="600.0" cy="517.8" r="9.5" fill="#12161F" stroke="#7C5CFF" stroke-width="1.3"/>
+<circle cx="484.1" cy="475.6" r="54.8" fill="url(#glowViolet)" opacity="0.55"/>
+<circle cx="484.1" cy="475.6" r="9.8" fill="#12161F" stroke="#7C5CFF" stroke-width="1.3"/>
+<circle cx="422.4" cy="368.8" r="39.6" fill="url(#glowViolet)" opacity="0.55"/>
+<circle cx="422.4" cy="368.8" r="7.7" fill="#12161F" stroke="#7C5CFF" stroke-width="1.3"/>
+<circle cx="443.9" cy="247.3" r="56.9" fill="url(#glowViolet)" opacity="0.55"/>
+<circle cx="443.9" cy="247.3" r="10.1" fill="#12161F" stroke="#7C5CFF" stroke-width="1.3"/>
+<circle cx="538.3" cy="168.1" r="54.5" fill="url(#glowViolet)" opacity="0.55"/>
+<circle cx="538.3" cy="168.1" r="9.8" fill="#12161F" stroke="#2EE6A8" stroke-width="2"/>
+<text x="617.5" y="331.5" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="600" fill="#E8ECF4">THE AGENT LOOP</text>
+<text x="649.3" y="246.8" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="600" fill="#E8ECF4">OpenHands</text>
+<text x="649.3" y="261.8" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#8A93A6">85k★</text>
+<text x="696.4" y="286.4" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="600" fill="#E8ECF4">Cline</text>
+<text x="696.4" y="301.4" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#8A93A6">67k★</text>
+<text x="707.0" y="347.2" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="600" fill="#E8ECF4">Goose</text>
+<text x="707.0" y="362.2" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#8A93A6">53k★</text>
+<text x="540.6" y="376.6" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="600" fill="#E8ECF4">Claude Code</text>
+<text x="540.6" y="391.6" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#8A93A6">142k★</text>
+<text x="734.5" y="469.6" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="600" fill="#E8ECF4">Codex CLI</text>
+<text x="734.5" y="484.6" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#8A93A6">112k★</text>
+<text x="618.5" y="511.8" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="600" fill="#E8ECF4">Gemini CLI</text>
+<text x="618.5" y="526.8" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#8A93A6">107k★</text>
+<text x="502.9" y="469.6" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="600" fill="#E8ECF4">OpenCode</text>
+<text x="502.9" y="484.6" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#8A93A6">200k★</text>
+<text x="439.1" y="362.8" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="600" fill="#E8ECF4">Claude Agent SDK</text>
+<text x="439.1" y="377.8" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#8A93A6">2k★</text>
+<text x="463.0" y="241.3" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="600" fill="#E8ECF4">OpenClaw</text>
+<text x="463.0" y="256.3" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#8A93A6">387k★</text>
+<text x="557.1" y="162.1" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="600" fill="#E8ECF4">DeepSeek Harness</text>
+<text x="557.1" y="177.1" font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#2EE6A8">⦿ renders this page</text>
+<text x="24" y="655" font-family="'JetBrains Mono',monospace" font-size="11" fill="#8A93A6">signal genome · lineage · generated from live data</text>
+</svg>
