@@ -83,6 +83,11 @@ export function writeState(next: Record<string, SourceState>): void {
   writeFileSync(join(CONFIG_DIR, "state.json"), JSON.stringify(next, null, 2));
 }
 
+export function writeSourcesFile(): void {
+  mkdirSync(CONFIG_DIR, { recursive: true });
+  writeFileSync(join(CONFIG_DIR, "sources.json"), JSON.stringify(SOURCES, null, 2));
+}
+
 export function patchState(id: string, patch: Partial<SourceState>): SourceState {
   const state = loadState();
   const prev = state[id] ?? {

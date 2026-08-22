@@ -1,3 +1,6 @@
+import { readFileSync, existsSync } from "node:fs";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import type { FastifyInstance } from "fastify";
 import type { Content, Reaction } from "@signal/core";
 import { GENE_BY_ID, GENES } from "@signal/genes";
@@ -6,6 +9,8 @@ import { IngestBatchSchema } from "@signal/core";
 import { bus } from "./bus.js";
 import { getGenomeState, ingestRaw, recordVisit } from "./genome.js";
 import { addReaction, loadContents, loadTags } from "./db.js";
+
+const repoRoot = join(dirname(fileURLToPath(import.meta.url)), "../../..");
 
 function buildView(loaded?: ReturnType<typeof getGenomeState>): Record<string, unknown> {
   const state = loaded ?? getGenomeState();
@@ -61,6 +66,28 @@ export function registerRoutes(app: FastifyInstance): void {
     addReaction(geneId, type as string);
     bus.emitGenome({ type: "reaction", payload: { geneId, type } });
     reply.send({ ok: true });
+  });
+
+  app.get("/api/health", (_req, reply) => {
+    const sourcesPath = join(repoRoot, "config", "sources.json");
+    const statePath = join(repoRoot, "config", "state.json");
+    const sources = existsSync(sourcesPath)
+      ? (JSON.parse(readFileSync(sourcesPath, "utf8")) as Array<{ id: string; name: string; strategy: string }>)
+      : [];
+    const state = existsSync(statePath)
+      ? (JSON.parse(readFileSync(statePath, "utf8")) as Record<string, { status: string; collectorId: string | null; lastCount: number | null; lastRunAt: number | null }>)
+      : {};
+    reply.send(
+      sources.map((s) => ({
+        source: s.id,
+        name: s.name,
+        strategy: s.strategy,
+        status: state[s.id]?.status ?? "unbuilt",
+        collectorId: state[s.id]?.collectorId ?? null,
+        lastCount: state[s.id]?.lastCount ?? null,
+        lastRunAt: state[s.id]?.lastRunAt ?? null,
+      })),
+    );
   });
 
   app.post("/api/visit", (_req, reply) => {

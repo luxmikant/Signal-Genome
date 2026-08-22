@@ -1,7 +1,9 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { loadState, patchState, RAW_DIR, SOURCE_BY_ID, SOURCES } from "./registry.js";
+import { loadState, patchState, writeSourcesFile, RAW_DIR, SOURCE_BY_ID, SOURCES } from "./registry.js";
 import { runHarness } from "./harness.js";
+
+writeSourcesFile();
 
 const CMD = process.argv[2] ?? "harness";
 const rest = process.argv.slice(3);

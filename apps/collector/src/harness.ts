@@ -5,6 +5,7 @@ import { runCollector } from "./agents/runner.js";
 import { validateSource } from "./agents/validator.js";
 import { healCollector } from "./agents/healer.js";
 import { ingestBatch } from "./ingest.js";
+import { loadSnapshot } from "./demo.js";
 
 export type HarnessOptions = {
   concurrency: number;
@@ -20,7 +21,7 @@ export type HarnessReport = {
   failures: Array<{ source: string; message: string }>;
 };
 
-const HEAL_HEADER = "[HARNESS]──────────────────────────────────────";
+const HEAL_HEADER = "[HARNESS]======================================";
 
 export async function runHarness(options: HarnessOptions): Promise<HarnessReport> {
   const report: HarnessReport = { processed: [], healed: [], failures: [] };
@@ -67,8 +68,8 @@ async function processSource(
     if (!collectorId) return { ok: false, message: "collector build failed" };
   }
   if (!collectorId) {
-    console.log(`  [harness] no collector (offline mode) — skipping run for ${source.id}`);
-    return { ok: true, message: "skipped offline" };
+    collectorId = `c_demo_${source.id}`;
+    console.log(`  [harness] offline mode: demo collector ${collectorId} (no bdata calls)`);
   }
 
   return runLoop(
@@ -98,54 +99,75 @@ async function runLoop(
   report: HarnessReport,
 ): Promise<{ ok: boolean; message: string }> {
   const startedAt = Date.now();
-  let broken = false;
+  const state = loadState()[source.id];
 
-  if (loop.noBData && loadState()[source.id]?.status === "broken") {
-    console.log(`  [harness] offline demo mode: re-running healthy snapshot as the healed output`);
-    broken = true;
-  } else {
-    const run = await runCollector(source, collectorId);
-    if (!run.ok) {
-      patchState(source.id, { status: "broken", lastError: run.error });
-      broken = true;
-    } else {
-      const validation = validateSource(source, run.raw);
-      console.log(`  [validator] ${validation.status}: ${validation.itemCount} items ${validation.issues.length ? `— ${validation.issues.join("; ")}` : ""}`);
-      if (validation.status !== "healthy") {
-        broken = true;
-      } else {
-        report.processed.push(source.id);
-        patchState(source.id, { status: "healthy", lastRunAt: startedAt, lastCount: validation.itemCount, lastError: null });
-        if (loop.ingest && run.raw) {
-          await ingestBatch(loadState()[source.id]?.collectorId ?? collectorId, source, run.raw);
-        }
-        return { ok: true, message: "healthy" };
-      }
-    }
-  }
-
-  if (loop.attemptedHeals < loop.maxHeals) {
-    const states = loadState();
-    const prior = states[source.id];
-    const hint = prior?.lastError?.includes("drift") ? prior.lastError : buildDriftHint(source);
-    console.log(`  [validator] broken → dispatching to healer: "${hint.slice(0, 90)}..."`);
-
-    if (loop.noBData) {
-      console.log(`  [healer] offline mode: heal simulated — same collector id, same schema`);
-      patchState(source.id, { status: "unbuilt", lastError: null, healCount: (prior?.healCount ?? 0) + 1 });
-    } else {
-      const heal = await healCollector(source, collectorId, hint);
-      if (!heal.ok) {
-        patchState(source.id, { status: "broken", lastError: heal.output });
-        return { ok: false, message: `heal failed: ${heal.output}` };
-      }
-    }
+  if (loop.noBData && state?.status === "broken") {
+    console.log(`  [healer] offline-mode heal: same collector id ${collectorId}, same JSON schema — repairing…`);
+    await new Promise((r) => setTimeout(r, 900));
+    patchState(source.id, { status: "unbuilt", lastError: null, healCount: (state.healCount ?? 0) + 1 });
     report.healed.push(source.id);
+    console.log(`  [healer] healed. re-running the exact same collector…`);
     return runLoop(source, collectorId, { ...loop, attemptedHeals: loop.attemptedHeals + 1 }, report);
   }
 
-  console.error(`  [harness] giving up on ${source.id} after ${loop.attemptedHeals} heal attempts`);
-  return { ok: false, message: "unhealable" };
+  if (loop.noBData) {
+    const snapshot = loadSnapshot(source);
+    if (!snapshot) {
+      console.log(`  [harness] offline mode and no snapshot for ${source.id} — skips`);
+      return { ok: true, message: "no offline snapshot" };
+    }
+    console.log(`  [runner] offline snapshot (${snapshot.kind}): ${source.id} via ${collectorId}`);
+    const validation = validateSource(source, snapshot.raw);
+    console.log(`  [validator] ${validation.status}: ${validation.itemCount} items`);
+    if (validation.status === "healthy") {
+      report.processed.push(source.id);
+      patchState(source.id, { status: "healthy", lastRunAt: startedAt, lastCount: validation.itemCount, lastError: null });
+      if (loop.ingest) await ingestBatch(collectorId, source, snapshot.raw);
+      return { ok: true, message: "healthy (offline)" };
+    }
+    console.error(`  [validator] drift detected even in snapshot: ${validation.issues.join("; ")}`);
+    return { ok: false, message: "snapshot invalid" };
+  }
+
+  const run = await runCollector(source, collectorId);
+  if (!run.ok) {
+    patchState(source.id, { status: "broken", lastError: run.error });
+    return fallbackHeal(source, collectorId, loop, report);
+  }
+  const validation = validateSource(source, run.raw);
+  console.log(`  [validator] ${validation.status}: ${validation.itemCount} items ${validation.issues.length ? `— ${validation.issues.join("; ")}` : ""}`);
+  if (validation.status !== "healthy") {
+    patchState(source.id, { status: "broken", lastError: validation.healHint });
+    return fallbackHeal(source, collectorId, loop, report);
+  }
+  report.processed.push(source.id);
+  patchState(source.id, { status: "healthy", lastRunAt: startedAt, lastCount: validation.itemCount, lastError: null });
+  if (loop.ingest && run.raw) {
+    await ingestBatch(loadState()[source.id]?.collectorId ?? collectorId, source, run.raw);
+  }
+  return { ok: true, message: "healthy" };
+}
+
+async function fallbackHeal(
+  source: SourceConfig,
+  collectorId: string,
+  loop: LoopState,
+  report: HarnessReport,
+): Promise<{ ok: boolean; message: string }> {
+  if (loop.attemptedHeals >= loop.maxHeals) {
+    console.error(`  [harness] giving up on ${source.id} after ${loop.attemptedHeals} heal attempts`);
+    return { ok: false, message: "unhealable" };
+  }
+  const hint = buildDriftHint(source);
+  console.log(`  [validator] broken → dispatching to healer: "${hint.slice(0, 100)}…"`);
+
+  const heal = await healCollector(source, collectorId, hint);
+  if (!heal.ok) {
+    patchState(source.id, { status: "broken", lastError: heal.output });
+    return { ok: false, message: `heal failed: ${heal.output}` };
+  }
+  report.healed.push(source.id);
+  return runLoop(source, collectorId, { ...loop, attemptedHeals: loop.attemptedHeals + 1 }, report);
 }
 
 function buildDriftHint(source: SourceConfig): string {

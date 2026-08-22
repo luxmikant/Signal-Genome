@@ -1,0 +1,54 @@
+[
+  {
+    "id": "vllm-docs",
+    "name": "vLLM Docs",
+    "url": "https://docs.vllm.ai",
+    "strategy": "sitemap",
+    "prompt": "Extract every documentation page. For each page return: title, page_url, publication date if present, body (markdown content), and code_blocks (list of code snippets). Keep slugs from the sitemap as the stable page identifier.",
+    "expectedFields": [
+      "title",
+      "url",
+      "body"
+    ],
+    "minItems": 8
+  },
+  {
+    "id": "unsloth-blog",
+    "name": "Unsloth Blog",
+    "url": "https://unsloth.ai/blog",
+    "strategy": "discovery",
+    "prompt": "Discover recent blog articles. Return a list of the last 20 posts. For each post return: title, url, published_at, author, body (article text), code_blocks (python snippets), and tags.",
+    "expectedFields": [
+      "title",
+      "url",
+      "body"
+    ],
+    "minItems": 5
+  },
+  {
+    "id": "modal-blog",
+    "name": "Modal Blog",
+    "url": "https://modal.com/blog",
+    "strategy": "discovery",
+    "prompt": "Discover recent technical blog articles. For each post return: title, url, published_at, author, body (article text), code_blocks, and tags.",
+    "expectedFields": [
+      "title",
+      "url",
+      "body"
+    ],
+    "minItems": 5
+  },
+  {
+    "id": "anyscale-blog",
+    "name": "Anyscale Blog",
+    "url": "https://www.anyscale.com/blog",
+    "strategy": "discovery",
+    "prompt": "Discover recent technical blog articles. For each post return: title, url, published_at, author, body (article text), code_blocks, and tags.",
+    "expectedFields": [
+      "title",
+      "url",
+      "body"
+    ],
+    "minItems": 5
+  }
+]

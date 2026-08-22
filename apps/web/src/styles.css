@@ -1,0 +1,123 @@
+:root {
+  color-scheme: dark;
+  --bg: #05070b;
+  --ink: #e8ecf4;
+  --dim: #8b93a7;
+  --faint: #565e72;
+  --glass: rgba(255, 255, 255, 0.045);
+  --glass-strong: rgba(13, 17, 28, 0.72);
+  --line: rgba(255, 255, 255, 0.09);
+  --accent: #7df3a8;
+  --accent2: #22d3ee;
+  --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", monospace;
+  --sans: "Space Grotesk", system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.35);
+}
+
+.status-pill {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: var(--glass);
+  backdrop-filter: blur(8px);
+}
+
+.glass {
+  background: var(--glass-strong);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  backdrop-filter: blur(18px) saturate(1.2);
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.hud-btn {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--dim);
+  background: var(--glass);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 7px 13px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.18s ease;
+}
+
+.hud-btn:hover {
+  color: var(--ink);
+  border-color: rgba(125, 243, 168, 0.45);
+  box-shadow: 0 0 18px rgba(125, 243, 168, 0.18);
+}
+
+.__react_component_tooltip {
+  z-index: 90;
+}
+
+.mono-key {
+  font-family: var(--mono);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+.scroll-slim::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scroll-slim::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}

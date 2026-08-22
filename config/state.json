@@ -1,0 +1,34 @@
+{
+  "vllm-docs": {
+    "collectorId": null,
+    "status": "healthy",
+    "lastRunAt": 1787375389025,
+    "lastCount": 8,
+    "lastError": null,
+    "healCount": 1
+  },
+  "unsloth-blog": {
+    "collectorId": null,
+    "status": "healthy",
+    "lastRunAt": 1787375388122,
+    "lastCount": 6,
+    "lastError": null,
+    "healCount": 0
+  },
+  "modal-blog": {
+    "collectorId": null,
+    "status": "healthy",
+    "lastRunAt": 1787375388193,
+    "lastCount": 6,
+    "lastError": null,
+    "healCount": 0
+  },
+  "anyscale-blog": {
+    "collectorId": null,
+    "status": "healthy",
+    "lastRunAt": 1787375388207,
+    "lastCount": 6,
+    "lastError": null,
+    "healCount": 0
+  }
+}
