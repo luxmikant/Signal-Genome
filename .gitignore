@@ -1,0 +1,15 @@
+node_modules/
+dist/
+build/
+coverage/
+.env
+.env.local
+*.sqlite
+*.sqlite-*
+data/raw/*
+!data/raw/.gitkeep
+data/ingest/*
+!data/ingest/.gitkeep
+.DS_Store
+*.log
+.vite/

@@ -1,0 +1,30 @@
+{
+  "name": "signal-genome",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A self-healing knowledge organism: Bright Data collectors feed a living genomes engine, rendered as an interactive DNA helix.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "sync": "node scripts/sync-workspace.mjs",
+    "postinstall": "node scripts/sync-workspace.mjs",
+    "dev": "pnpm --parallel --filter @signal/api --filter @signal/web dev",
+    "harness": "pnpm sync && pnpm --filter @signal/collector harness",
+    "create": "pnpm sync && pnpm --filter @signal/collector create",
+    "run": "pnpm sync && pnpm --filter @signal/collector run",
+    "heal": "pnpm sync && pnpm --filter @signal/collector heal",
+    "health": "pnpm sync && pnpm --filter @signal/collector health",
+    "demo:break": "pnpm sync && pnpm --filter @signal/collector demo-break",
+    "seed": "pnpm --filter @signal/api seed",
+    "test": "pnpm sync && pnpm -r --if-present test",
+    "typecheck": "pnpm sync && pnpm -r --if-present typecheck",
+    "format:check": "prettier --check \"packages/**/src/**\" \"apps/**/src/**\" \"docs/**\" \"README.md\"",
+    "format:write": "prettier --write \"packages/**/src/**\" \"apps/**/src/**\" \"docs/**\" \"README.md\""
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.3"
+  }
+}
