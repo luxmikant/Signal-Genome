@@ -1,10 +1,10 @@
 {
   "vllm-docs": {
     "collectorId": "c_mt42mr6y1zwlpo0mu1",
-    "status": "unbuilt",
+    "status": "broken",
     "lastRunAt": 1787375389025,
     "lastCount": 8,
-    "lastError": null,
+    "lastError": "Triggering self-healing...\nFailed to start self-healing for collector c_mt42mr6y1zwlpo0mu1: Error: Another refactor job is still in progress\n  Status: 409\nNote: the heal did not complete, but scraper c_mt42mr6y1zwlpo0mu1 is unchanged and still works as it did before.\nOpen https://brightdata.com/cp/scrapers/c_mt42mr6y1zwlpo0mu1 to inspect it, or re-run `bdata scraper heal` with a sharper prompt.\n",
     "healCount": 2
   },
   "unsloth-blog": {
