@@ -1,6 +1,7 @@
 import { GENE_FAMILIES, type Content, type Gene, type Reaction } from "@signal/core";
 import { GENE_BY_ID } from "@signal/genes";
 import { computeStatsWithDates, maturityY, normalizeMomentum, type GeneStats } from "./fitness.js";
+import { nextDirection } from "./ranker.js";
 
 export type GeneView = {
   geneId: string;
@@ -44,15 +45,45 @@ function tagMapOf(
   return out;
 }
 
+export function computeDirection(input: {
+  genes: Gene[];
+  contents: Content[];
+  tags: Map<string, Array<{ geneId: string; weight: number }>>;
+  reactions: Array<{ geneId: string; type: string; at: number }>;
+}): ReturnType<typeof nextDirection> {
+  const items = input.contents.map((c) => ({
+    id: c.id,
+    geneIds: [...(input.tags.get(c.id)?.map((e) => e.geneId) ?? [])],
+    publishedAt: c.publishedAt,
+  }));
+  const stats = normalizeMomentum(computeStatsWithDates(items));
+  const reactionTotals = new Map<string, number>();
+  const visited = new Set<string>();
+  const followed = new Set<string>();
+  for (const r of input.reactions) {
+    const weights: Record<string, number> = { follow: 2, "teach-basics": 1.5, "already-know": -0.5, "not-for-me": -2 };
+    reactionTotals.set(r.geneId, (reactionTotals.get(r.geneId) ?? 0) + (weights[r.type] ?? 0));
+    visited.add(r.geneId);
+    if (r.type === "follow") followed.add(r.geneId);
+  }
+  return nextDirection({
+    genes: input.genes,
+    stats,
+    reactionsByGene: reactionTotals,
+    visitedIds: visited,
+    followedIds: followed,
+  });
+}
+
 export function buildGenomeView(params: {
   genes: Gene[];
   contents: Content[];
   tags: Map<string, Array<{ geneId: string; weight: number }>>;
   reactions: Reaction[];
   lastVisitAt: number | null;
-  direction: { geneId: string; headline: string; reasons: Array<{ label: string; detail: string }> } | null;
+  direction?: { geneId: string; headline: string; reasons: Array<{ label: string; detail: string }> } | null;
 }): GenomeView {
-  const { genes, contents, tags, reactions, lastVisitAt, direction } = params;
+  const { genes, contents, tags, reactions, lastVisitAt } = params;
   const now = Date.now();
 
   const items = contents.map((c) => ({
@@ -112,7 +143,7 @@ export function buildGenomeView(params: {
     totalReactions: reactions.length,
     mutationCount: mutations.length,
     lastMutationAt: lastVisitAt ?? null,
-    direction,
+    direction: params.direction ?? computeDirection({ genes, contents, tags, reactions }),
   };
 }
 
