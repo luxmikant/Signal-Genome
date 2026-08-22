@@ -60,8 +60,9 @@ export function Onboarding() {
           </span>
         </h1>
         <p style={{ color: "var(--dim)", fontSize: 16, maxWidth: 560, margin: "0 auto 34px", lineHeight: 1.5 }}>
-          A DNA helix of knowledge grows from everything the web says about modern LLM inference —
-          scraped, self-healing, and tuned to your interests.
+          A living tree of knowledge grows from everything the web says about AI tooling —
+          scraped live, self-healing, and tuned to your interests. Scroll its lineage:
+          how one idea became a whole family of tools.
         </p>
 
         <motion.div

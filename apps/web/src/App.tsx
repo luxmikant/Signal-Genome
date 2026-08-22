@@ -5,11 +5,13 @@ import { GenePanel } from "./panels/GenePanel.js";
 import { NextDirectionCard } from "./panels/NextDirectionCard.js";
 import { HealthView } from "./panels/HealthView.js";
 import { Onboarding } from "./panels/Onboarding.js";
+import { EcoView } from "./ecosystem/EcoView.js";
 import { subscribeSse, useGenome } from "./store.js";
 import { GENES_MAP } from "./geneMeta.js";
 
 export function App() {
   const stage = useGenome((s) => s.stage);
+  const view = useGenome((s) => s.view);
   const genome = useGenome((s) => s.genome);
   const connected = useGenome((s) => s.connected);
   const openHealth = useGenome((s) => s.openHealth);
@@ -23,11 +25,11 @@ export function App() {
 
   return (
     <div style={{ position: "fixed", inset: 0 }}>
-      <HelixScene />
-
-      {stage === "live" && (
+      {stage === "live" && view === "tree" && <EcoView />}
+      {stage === "live" && view === "helix" && (
         <>
-          <TopHud totalItems={genome?.totalItems ?? 0} genes={genome?.genes.length ?? 0} connected={connected} onHealth={() => openHealth(!healthOpen)} />
+          <HelixScene />
+
           <div style={{ position: "fixed", top: 72, left: 16, zIndex: 50, display: "flex", gap: 6, flexWrap: "wrap", maxWidth: 260 }}>
             {notices.slice(0, 3).map((n) => {
               const color = GENES_MAP[n.geneIds[0] ?? ""]?.color ?? "#5eead4";
@@ -47,16 +49,39 @@ export function App() {
         </>
       )}
 
-      {stage === "live" && <NextDirectionCard />}
-      <GenePanel />
-      <HealthView />
+      {stage === "live" && (
+        <TopHud
+          totalItems={genome?.totalItems ?? 0}
+          genes={genome?.genes.length ?? 0}
+          connected={connected}
+          onHealth={() => openHealth(!healthOpen)}
+          view={view}
+        />
+      )}
+
+      {stage === "live" && view === "helix" && <NextDirectionCard />}
+      {stage === "live" && view === "helix" && <GenePanel />}
+      {stage === "live" && view === "helix" && <HealthView />}
 
       <AnimatePresence>{stage === "intro" && <Onboarding />}</AnimatePresence>
     </div>
   );
 }
 
-function TopHud({ totalItems, genes, connected, onHealth }: { totalItems: number; genes: number; connected: boolean; onHealth: () => void }) {
+function TopHud({
+  totalItems,
+  genes,
+  connected,
+  onHealth,
+  view,
+}: {
+  totalItems: number;
+  genes: number;
+  connected: boolean;
+  onHealth: () => void;
+  view: "tree" | "helix";
+}) {
+  const setView = useGenome((s) => s.setView);
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -80,7 +105,7 @@ function TopHud({ totalItems, genes, connected, onHealth }: { totalItems: number
             fontWeight: 700,
             fontSize: 17,
             letterSpacing: "0.02em",
-            background: "linear-gradient(90deg,#7df3a8,#22d3ee)",
+            background: "linear-gradient(90deg,#7C5CFF,#2EE6A8)",
             WebkitBackgroundClip: "text",
             backgroundClip: "text",
             color: "transparent",
@@ -88,14 +113,28 @@ function TopHud({ totalItems, genes, connected, onHealth }: { totalItems: number
         >
           SIGNAL GENOME
         </span>
-        <span style={{ color: "var(--faint)", fontFamily: "var(--mono)", fontSize: 10.5 }}>LLM INFERENCE · v0.1</span>
+        <span style={{ color: "var(--faint)", fontFamily: "var(--mono)", fontSize: 10.5 }}>
+          {view === "tree" ? "LINEAGE · THE ECOSYSTEM" : "GENOME · LLM INFERENCE"} · v0.1
+        </span>
       </div>
 
       <div style={{ display: "flex", gap: 8, alignItems: "center", pointerEvents: "auto" }}>
+        <div className="view-switch">
+          <button className={view === "tree" ? "is-active" : ""} onClick={() => setView("tree")}>
+            ⌘ lineage
+          </button>
+          <button className={view === "helix" ? "is-active" : ""} onClick={() => setView("helix")}>
+            ✦ genome
+          </button>
+        </div>
         <span className="status-pill">{connected ? "● live" : "○ offline"}</span>
-        <span className="status-pill">{genes} genes</span>
-        <span className="status-pill">{totalItems} evidence pieces</span>
-        <button className="hud-btn" onClick={onHealth}>⛑ source health</button>
+        {view === "helix" && <span className="status-pill">{genes} genes</span>}
+        {view === "helix" && <span className="status-pill">{totalItems} evidence pieces</span>}
+        {view === "helix" && (
+          <button className="hud-btn" onClick={onHealth}>
+            ⛑ source health
+          </button>
+        )}
       </div>
     </motion.div>
   );

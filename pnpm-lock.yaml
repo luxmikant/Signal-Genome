@@ -20,18 +20,6 @@ importers:
       '@fastify/cors':
         specifier: ^10.0.2
         version: 10.1.0
-      '@signal/core':
-        specifier: workspace:*
-        version: link:../../packages/core
-      '@signal/engine':
-        specifier: workspace:*
-        version: link:../../packages/engine
-      '@signal/genes':
-        specifier: workspace:*
-        version: link:../../packages/genes
-      '@signal/seed-content':
-        specifier: workspace:*
-        version: link:../../packages/seed-content
       better-sqlite3:
         specifier: ^11.8.1
         version: 11.10.0
@@ -56,13 +44,6 @@ importers:
         version: 5.9.3
 
   apps/collector:
-    dependencies:
-      '@signal/core':
-        specifier: workspace:*
-        version: link:../../packages/core
-      '@signal/engine':
-        specifier: workspace:*
-        version: link:../../packages/engine
     devDependencies:
       '@types/node':
         specifier: ^22.10.0
@@ -85,9 +66,6 @@ importers:
       '@react-three/postprocessing':
         specifier: ^3.0.4
         version: 3.0.5(@react-three/fiber@9.7.0(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(three@0.172.0))(@types/three@0.172.0)(postprocessing@6.39.4(three@0.172.0))(react@19.2.8)(three@0.172.0)
-      '@signal/core':
-        specifier: workspace:*
-        version: link:../../packages/core
       framer-motion:
         specifier: ^12.0.6
         version: 12.43.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -139,14 +117,19 @@ importers:
         specifier: ^5.7.3
         version: 5.9.3
 
+  packages/ecosystem:
+    devDependencies:
+      '@types/node':
+        specifier: ^22.10.0
+        version: 22.20.1
+      tsx:
+        specifier: ^4.19.2
+        version: 4.23.12
+      typescript:
+        specifier: ^5.7.3
+        version: 5.9.3
+
   packages/engine:
-    dependencies:
-      '@signal/core':
-        specifier: workspace:*
-        version: link:../core
-      '@signal/genes':
-        specifier: workspace:*
-        version: link:../genes
     devDependencies:
       '@types/node':
         specifier: ^22.10.0
@@ -159,10 +142,6 @@ importers:
         version: 5.9.3
 
   packages/genes:
-    dependencies:
-      '@signal/core':
-        specifier: workspace:*
-        version: link:../core
     devDependencies:
       '@types/node':
         specifier: ^22.10.0
@@ -175,10 +154,6 @@ importers:
         version: 5.9.3
 
   packages/seed-content:
-    dependencies:
-      '@signal/core':
-        specifier: workspace:*
-        version: link:../core
     devDependencies:
       '@types/node':
         specifier: ^22.10.0

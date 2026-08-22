@@ -1,0 +1,3729 @@
+{
+  "fetchedAt": "2026-08-22T06:15:01.332Z",
+  "lineage": {
+    "nodes": [
+      {
+        "id": "the-agent-loop",
+        "name": "The Agent Loop",
+        "org": null,
+        "kind": "seed",
+        "story": "Before any product: the idea that an autonomous agent could live in a loop — read code, plan, edit, run, iterate. It first became real projects in spring 2024.",
+        "dates": {
+          "born": "2024-03-01"
+        },
+        "github": null,
+        "homepage": null,
+        "stars": null,
+        "starsUncertain": true,
+        "language": null,
+        "topics": [
+          "agentic-coding",
+          "autonomous-agents"
+        ],
+        "fingerprint": {},
+        "caps": {
+          "loop": 3,
+          "coding": 3
+        },
+        "drift": null,
+        "confidence": "medium",
+        "sources": [],
+        "closed": false,
+        "scraped": false,
+        "metrics": null
+      },
+      {
+        "id": "openhands",
+        "name": "OpenHands",
+        "org": "All Hands AI",
+        "kind": "project",
+        "story": "The older wave: an autonomous software-engineering agent that pre-dates Claude Code by eleven months. Born OpenDevin, renamed OpenHands in mid-2024.",
+        "dates": {
+          "born": "2024-03-13",
+          "renames": [
+            {
+              "from": "OpenDevin",
+              "to": "OpenHands",
+              "at": "2024-07-01",
+              "reason": "renamed ~Jul 2024 (approx.)"
+            }
+          ]
+        },
+        "github": "https://github.com/All-Hands-AI/OpenHands",
+        "homepage": "https://www.all-hands.dev",
+        "stars": 84751,
+        "starsUncertain": false,
+        "language": "Python",
+        "topics": [
+          "ai-agents",
+          "software-engineering"
+        ],
+        "fingerprint": {},
+        "caps": {
+          "loop": 3,
+          "coding": 3,
+          "plugins": 2,
+          "sdk": 2,
+          "providers": 2,
+          "terminal": 1
+        },
+        "drift": [
+          {
+            "geneId": "plugins",
+            "delta": 2,
+            "note": "the idea grows a platform: plugins, SDK, cloud sandboxes"
+          },
+          {
+            "geneId": "providers",
+            "delta": 2,
+            "note": "model-agnostic from the start"
+          }
+        ],
+        "confidence": "high",
+        "sources": [
+          "https://github.com/All-Hands-AI/OpenHands"
+        ],
+        "closed": false,
+        "scraped": false,
+        "metrics": null
+      },
+      {
+        "id": "cline",
+        "name": "Cline",
+        "org": "Cline",
+        "kind": "project",
+        "story": "Started life inside the IDE as 'Claude Dev' — then dropped the Claude name to become Cline, a model-agnostic agent for VS Code and JetBrains.",
+        "dates": {
+          "born": "2024-07-06",
+          "renames": [
+            {
+              "from": "Claude Dev",
+              "to": "Cline",
+              "at": "2024-10-01",
+              "reason": "dropped the Claude name (approx.)"
+            }
+          ]
+        },
+        "github": "https://github.com/cline/cline",
+        "homepage": "https://cline.bot",
+        "stars": 66632,
+        "starsUncertain": false,
+        "language": "TypeScript",
+        "topics": [
+          "ai-agents",
+          "vscode-extension",
+          "coding-assistant"
+        ],
+        "fingerprint": {},
+        "caps": {
+          "coding": 3,
+          "loop": 2,
+          "providers": 2,
+          "plugins": 2,
+          "sdk": 1,
+          "terminal": 0
+        },
+        "drift": [
+          {
+            "geneId": "providers",
+            "delta": 2,
+            "note": "one model's sidekick becomes a model-agnostic IDE agent"
+          },
+          {
+            "geneId": "loop",
+            "delta": -1,
+            "note": "shorter human-in-the-loop cycles inside the editor"
+          }
+        ],
+        "confidence": "high",
+        "sources": [
+          "https://github.com/cline/cline"
+        ],
+        "closed": false,
+        "scraped": false,
+        "metrics": null
+      },
+      {
+        "id": "goose",
+        "name": "Goose",
+        "org": "Block",
+        "kind": "project",
+        "story": "Block's extensible open-source agent: 'beyond code suggestions'. The same loop, rebuilt around an extension system.",
+        "dates": {
+          "born": "2024-08-23"
+        },
+        "github": "https://github.com/block/goose",
+        "homepage": "https://block.github.io/goose/",
+        "stars": 53203,
+        "starsUncertain": false,
+        "language": "Rust",
+        "topics": [
+          "ai-agents",
+          "extensible"
+        ],
+        "fingerprint": {},
+        "caps": {
+          "loop": 2,
+          "coding": 2,
+          "plugins": 3,
+          "providers": 2,
+          "sdk": 2,
+          "terminal": 1
+        },
+        "drift": [
+          {
+            "geneId": "plugins",
+            "delta": 3,
+            "note": "extensions become the point — the loop is a substrate"
+          },
+          {
+            "geneId": "loop",
+            "delta": -1,
+            "note": "autonomy traded for composability"
+          }
+        ],
+        "confidence": "high",
+        "sources": [
+          "https://github.com/block/goose"
+        ],
+        "closed": false,
+        "scraped": false,
+        "metrics": null
+      },
+      {
+        "id": "claude-code",
+        "name": "Claude Code",
+        "org": "Anthropic",
+        "kind": "project",
+        "story": "The idea becomes a product. Anthropic's terminal harness crystallized the agent loop — research preview Feb 2025, then GA with the Agent SDK. The ancestral tool every later one is measured against.",
+        "dates": {
+          "born": "2025-02-22"
+        },
+        "github": "https://github.com/anthropics/claude-code",
+        "homepage": "https://www.anthropic.com/claude-code",
+        "stars": 142330,
+        "starsUncertain": false,
+        "language": "TypeScript",
+        "topics": [
+          "agentic-coding",
+          "cli",
+          "harness"
+        ],
+        "fingerprint": {},
+        "caps": {
+          "loop": 3,
+          "terminal": 3,
+          "coding": 3,
+          "sdk": 1,
+          "plugins": 1,
+          "providers": 1
+        },
+        "drift": [
+          {
+            "geneId": "terminal",
+            "delta": 3,
+            "note": "the loop becomes a terminal ritual — plan, edit, run, repeat"
+          },
+          {
+            "geneId": "sdk",
+            "delta": 1,
+            "note": "later opened up programmatically via the Agent SDK"
+          }
+        ],
+        "confidence": "high",
+        "sources": [
+          "https://github.com/anthropics/claude-code",
+          "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md"
+        ],
+        "closed": false,
+        "scraped": false,
+        "metrics": null
+      },
+      {
+        "id": "claude-agent-sdk",
+        "name": "Claude Agent SDK",
+        "org": "Anthropic",
+        "kind": "project",
+        "story": "Anthropic opens the harness to programmers: the agent loop as a library instead of a terminal ritual.",
+        "dates": {
+          "born": "2025-09-27"
+        },
+        "github": "https://github.com/anthropics/claude-agent-sdk-typescript",
+        "homepage": "https://docs.anthropic.com/en/docs/claude-code/sdk",
+        "stars": 1711,
+        "starsUncertain": false,
+        "language": "TypeScript",
+        "topics": [
+          "sdk",
+          "agentic-coding"
+        ],
+        "fingerprint": {},
+        "caps": {
+          "loop": 2,
+          "sdk": 3,
+          "coding": 2,
+          "plugins": 1,
+          "providers": 1,
+          "terminal": 0
+        },
+        "drift": [
+          {
+            "geneId": "sdk",
+            "delta": 2,
+            "note": "the loop becomes a library — programmatic, not a ritual"
+          },
+          {
+            "geneId": "terminal",
+            "delta": -3,
+            "note": "no terminal needed; it lives inside your program"
+          }
+        ],
+        "confidence": "high",
+        "sources": [
+          "https://github.com/anthropics/claude-agent-sdk-typescript"
+        ],
+        "closed": false,
+        "scraped": false,
+        "metrics": null
+      },
+      {
+        "id": "codex",
+        "name": "Codex CLI",
+        "org": "OpenAI",
+        "kind": "project",
+        "story": "OpenAI's answer, born weeks after Claude Code's preview: a lightweight Rust coding agent for the terminal, local-first.",
+        "dates": {
+          "born": "2025-04-13"
+        },
+        "github": "https://github.com/openai/codex",
+        "homepage": "https://github.com/openai/codex",
+        "stars": 111700,
+        "starsUncertain": false,
+        "language": "Rust",
+        "topics": [
+          "cli",
+          "coding-agent",
+          "agentic-coding"
+        ],
+        "fingerprint": {},
+        "caps": {
+          "loop": 3,
+          "terminal": 3,
+          "coding": 3,
+          "sdk": 1,
+          "providers": 1,
+          "local": 1
+        },
+        "drift": [
+          {
+            "geneId": "local",
+            "delta": 1,
+            "note": "same shape, different soul: Rust, local-first, OpenAI's own models"
+          }
+        ],
+        "confidence": "high",
+        "sources": [
+          "https://github.com/openai/codex"
+        ],
+        "closed": false,
+        "scraped": false,
+        "metrics": null
+      },
+      {
+        "id": "gemini-cli",
+        "name": "Gemini CLI",
+        "org": "Google",
+        "kind": "project",
+        "story": "Google's open-source take on the same loop: terminal agent, Apache-2.0, Gemini models, extension points.",
+        "dates": {
+          "born": "2025-04-17"
+        },
+        "github": "https://github.com/google-gemini/gemini-cli",
+        "homepage": "https://google-gemini.github.io/gemini-cli/",
+        "stars": 106610,
+        "starsUncertain": false,
+        "language": "TypeScript",
+        "topics": [
+          "cli",
+          "agentic-coding",
+          "gemini"
+        ],
+        "fingerprint": {},
+        "caps": {
+          "loop": 3,
+          "terminal": 3,
+          "coding": 3,
+          "plugins": 2,
+          "providers": 1
+        },
+        "drift": [
+          {
+            "geneId": "plugins",
+            "delta": 1,
+            "note": "the loop opens up: extensions where Claude Code had MCP"
+          }
+        ],
+        "confidence": "high",
+        "sources": [
+          "https://github.com/google-gemini/gemini-cli"
+        ],
+        "closed": false,
+        "scraped": false,
+        "metrics": {
+          "stars": 106610,
+          "forks": 14461,
+          "starsPerDay": 216.88580986240814,
+          "created": "2025-04-17T17:04:31Z",
+          "pushed": "2026-08-22T01:10:05Z"
+        }
+      },
+      {
+        "id": "opencode",
+        "name": "OpenCode",
+        "org": "SST / Anomaly",
+        "kind": "project",
+        "story": "The client-driven terminal agent: any model, any provider, runs on your laptop. Started under the SST org.",
+        "dates": {
+          "born": "2025-04-30"
+        },
+        "github": "https://github.com/anomalyco/opencode",
+        "homepage": "https://opencode.ai",
+        "stars": 200060,
+        "starsUncertain": false,
+        "language": "Go",
+        "topics": [
+          "cli",
+          "tui",
+          "agentic-coding"
+        ],
+        "fingerprint": {},
+        "caps": {
+          "loop": 3,
+          "terminal": 2,
+          "coding": 3,
+          "providers": 2,
+          "plugins": 2,
+          "local": 1
+        },
+        "drift": [
+          {
+            "geneId": "providers",
+            "delta": 1,
+            "note": "the model becomes a choice, not an identity"
+          },
+          {
+            "geneId": "local",
+            "delta": 1,
+            "note": "a TUI you can run on your own machine"
+          }
+        ],
+        "confidence": "medium",
+        "sources": [
+          "https://github.com/anomalyco/opencode"
+        ],
+        "closed": false,
+        "scraped": false,
+        "metrics": null
+      },
+      {
+        "id": "openclaw",
+        "name": "OpenClaw",
+        "org": "OpenClaw Foundation",
+        "kind": "project",
+        "story": "The wildest drift: @steipete wrapped Claude Code as a backend and exposed it over WhatsApp, Telegram and friends. Five names in ten weeks — Warelay, Clawdis, Clawdbot, Moltbot, OpenClaw — and it became the most-starred node in the family.",
+        "dates": {
+          "born": "2025-11-24",
+          "renames": [
+            {
+              "from": "Warelay",
+              "to": "Clawdis",
+              "at": "2025-12-19",
+              "reason": "first rebrand, v2 beta"
+            },
+            {
+              "from": "Clawdis",
+              "to": "Clawdbot",
+              "at": "2026-01-05",
+              "reason": "the name that went viral"
+            },
+            {
+              "from": "Clawdbot",
+              "to": "Moltbot",
+              "at": "2026-01-27",
+              "reason": "legacy compatibility kept"
+            },
+            {
+              "from": "Moltbot",
+              "to": "OpenClaw",
+              "at": "2026-01-30",
+              "reason": "final name, OpenClaw Foundation"
+            }
+          ]
+        },
+        "github": "https://github.com/openclaw/openclaw",
+        "homepage": "https://openclaw.ai",
+        "stars": 387064,
+        "starsUncertain": false,
+        "language": "TypeScript",
+        "topics": [
+          "personal-ai-assistant",
+          "gateway",
+          "messaging"
+        ],
+        "fingerprint": {},
+        "caps": {
+          "loop": 2,
+          "terminal": 1,
+          "coding": 1,
+          "gateway": 3,
+          "providers": 3,
+          "plugins": 3,
+          "local": 2,
+          "desktop": 2
+        },
+        "drift": [
+          {
+            "geneId": "gateway",
+            "delta": 3,
+            "note": "the harness leaves the terminal — it lives in your chats"
+          },
+          {
+            "geneId": "providers",
+            "delta": 2,
+            "note": "Claude, Pi, Codex, OpenCode… any agent as a pluggable backend"
+          },
+          {
+            "geneId": "coding",
+            "delta": -2,
+            "note": "it no longer codes for you; it orchestrates agents that do"
+          }
+        ],
+        "confidence": "high",
+        "sources": [
+          "https://github.com/openclaw/openclaw",
+          "https://raw.githubusercontent.com/openclaw/openclaw/main/VISION.md"
+        ],
+        "closed": false,
+        "scraped": false,
+        "metrics": null
+      },
+      {
+        "id": "deepseek-harness",
+        "name": "DeepSeek Harness",
+        "org": "DeepSeek AI",
+        "kind": "project",
+        "story": "DeepSeek's own harness — 'everything is a plugin', built on Cordis. Brand-new, developer preview, and it is the harness behind the very interface you are looking at right now.",
+        "dates": {
+          "born": "2026-08-13"
+        },
+        "github": "https://github.com/deepseek-ai/deepseek-harness",
+        "homepage": "https://deepseek.com/harness",
+        "stars": 182279,
+        "starsUncertain": false,
+        "language": "TypeScript",
+        "topics": [
+          "agent-harness",
+          "plugins",
+          "cordis"
+        ],
+        "fingerprint": {},
+        "caps": {
+          "loop": 3,
+          "terminal": 1,
+          "coding": 1,
+          "gateway": 2,
+          "providers": 2,
+          "plugins": 3,
+          "sdk": 2
+        },
+        "drift": [
+          {
+            "geneId": "plugins",
+            "delta": 2,
+            "note": "plugin-native via Cordis — the architecture IS the plugin system"
+          },
+          {
+            "geneId": "gateway",
+            "delta": 2,
+            "note": "a gateway-style harness, not just a coding loop"
+          },
+          {
+            "geneId": "coding",
+            "delta": -2,
+            "note": "the loop generalizes beyond code"
+          }
+        ],
+        "confidence": "high",
+        "sources": [
+          "https://github.com/deepseek-ai/deepseek-harness",
+          "https://deepseek.com/harness"
+        ],
+        "closed": false,
+        "scraped": false,
+        "metrics": {
+          "stars": 182279,
+          "forks": 20003,
+          "starsPerDay": 20801.30507184967,
+          "created": "2026-08-13T11:56:32Z",
+          "pushed": "2026-08-21T12:35:08Z"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "from": "the-agent-loop",
+        "to": "openhands",
+        "relation": "inspired",
+        "note": "first wave — the idea becomes a real project",
+        "at": "2024-03-13",
+        "confidence": "high"
+      },
+      {
+        "from": "the-agent-loop",
+        "to": "cline",
+        "relation": "inspired",
+        "note": "the idea moves into the IDE",
+        "at": "2024-07-06",
+        "confidence": "high"
+      },
+      {
+        "from": "the-agent-loop",
+        "to": "goose",
+        "relation": "inspired",
+        "note": "the idea becomes an extension platform",
+        "at": "2024-08-23",
+        "confidence": "high"
+      },
+      {
+        "from": "the-agent-loop",
+        "to": "claude-code",
+        "relation": "built-on",
+        "note": "the idea crystallizes into the canonical harness",
+        "at": "2025-02-22",
+        "confidence": "high"
+      },
+      {
+        "from": "claude-code",
+        "to": "codex",
+        "relation": "competitor",
+        "note": "weeks after the preview went viral",
+        "at": "2025-04-13",
+        "confidence": "high"
+      },
+      {
+        "from": "claude-code",
+        "to": "gemini-cli",
+        "relation": "competitor",
+        "note": "same loop, Gemini models, Apache-2.0",
+        "at": "2025-04-17",
+        "confidence": "high"
+      },
+      {
+        "from": "claude-code",
+        "to": "opencode",
+        "relation": "competitor",
+        "note": "client-driven, any model, any provider",
+        "at": "2025-04-30",
+        "confidence": "medium"
+      },
+      {
+        "from": "claude-code",
+        "to": "claude-agent-sdk",
+        "relation": "built-on",
+        "note": "the harness opens up programmatically",
+        "at": "2025-09-27",
+        "confidence": "high"
+      },
+      {
+        "from": "claude-code",
+        "to": "openclaw",
+        "relation": "built-on",
+        "note": "Claude Code wrapped as a backend, exposed over messaging",
+        "at": "2025-11-24",
+        "confidence": "high"
+      },
+      {
+        "from": "claude-code",
+        "to": "deepseek-harness",
+        "relation": "inspired",
+        "note": "the same loop, re-shelled: plugin-native on Cordis",
+        "at": "2026-08-13",
+        "confidence": "high"
+      }
+    ]
+  },
+  "field": [
+    {
+      "id": "gh:affaan-m/ECC",
+      "name": "ECC",
+      "org": "affaan-m",
+      "kind": "project",
+      "story": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.",
+      "dates": {
+        "born": "2026-01-18T00:51:51Z"
+      },
+      "github": "https://github.com/affaan-m/ECC",
+      "homepage": "https://ecc.tools",
+      "stars": 241866,
+      "starsUncertain": false,
+      "language": "JavaScript",
+      "topics": [
+        "ai-agents",
+        "anthropic",
+        "claude",
+        "claude-code",
+        "developer-tools",
+        "llm",
+        "mcp",
+        "productivity"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/affaan-m/ECC"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 241866,
+        "forks": 36666,
+        "starsPerDay": 1118.587656556124,
+        "created": "2026-01-18T00:51:51Z",
+        "pushed": "2026-08-21T03:02:03Z"
+      }
+    },
+    {
+      "id": "gh:NousResearch/hermes-agent",
+      "name": "hermes-agent",
+      "org": "NousResearch",
+      "kind": "project",
+      "story": "The agent that grows with you",
+      "dates": {
+        "born": "2025-07-22T22:22:28Z"
+      },
+      "github": "https://github.com/NousResearch/hermes-agent",
+      "homepage": "https://hermes-agent.nousresearch.com",
+      "stars": 234075,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "ai",
+        "ai-agent",
+        "ai-agents",
+        "anthropic",
+        "chatgpt",
+        "claude",
+        "claude-code",
+        "codex",
+        "hermes",
+        "hermes-agent",
+        "llm",
+        "nous-research",
+        "openai"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/NousResearch/hermes-agent"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 234075,
+        "forks": 47022,
+        "starsPerDay": 592.1029850082349,
+        "created": "2025-07-22T22:22:28Z",
+        "pushed": "2026-08-22T06:07:24Z"
+      }
+    },
+    {
+      "id": "gh:firecrawl/firecrawl",
+      "name": "firecrawl",
+      "org": "firecrawl",
+      "kind": "project",
+      "story": "The context API to search, scrape, and interact with the web at scale. 🔥",
+      "dates": {
+        "born": "2024-04-15T21:02:29Z"
+      },
+      "github": "https://github.com/firecrawl/firecrawl",
+      "homepage": "https://firecrawl.dev",
+      "stars": 170654,
+      "starsUncertain": false,
+      "language": "TypeScript",
+      "topics": [
+        "ai",
+        "ai-agents",
+        "ai-crawler",
+        "ai-scraping",
+        "ai-search",
+        "crawler",
+        "data-extraction",
+        "html-to-markdown",
+        "llm",
+        "markdown",
+        "scraper",
+        "scraping",
+        "web-crawler",
+        "web-data",
+        "web-data-extraction",
+        "web-scraper",
+        "web-scraping",
+        "web-search",
+        "webscraping"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/firecrawl/firecrawl"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 170654,
+        "forks": 9486,
+        "starsPerDay": 198.80852082523674,
+        "created": "2024-04-15T21:02:29Z",
+        "pushed": "2026-08-22T06:10:31Z"
+      }
+    },
+    {
+      "id": "gh:langchain-ai/langchain",
+      "name": "langchain",
+      "org": "langchain-ai",
+      "kind": "project",
+      "story": "The agent engineering platform.",
+      "dates": {
+        "born": "2022-10-17T02:58:36Z"
+      },
+      "github": "https://github.com/langchain-ai/langchain",
+      "homepage": "https://docs.langchain.com/langchain/",
+      "stars": 144745,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "agents",
+        "ai",
+        "ai-agents",
+        "anthropic",
+        "chatgpt",
+        "deepagents",
+        "enterprise",
+        "framework",
+        "gemini",
+        "generative-ai",
+        "langchain",
+        "langgraph",
+        "llm",
+        "multiagent",
+        "open-source",
+        "openai",
+        "pydantic",
+        "python",
+        "rag",
+        "typescript"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/langchain-ai/langchain"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 144745,
+        "forks": 24114,
+        "starsPerDay": 103.0113496931956,
+        "created": "2022-10-17T02:58:36Z",
+        "pushed": "2026-08-22T04:06:49Z"
+      }
+    },
+    {
+      "id": "gh:farion1231/cc-switch",
+      "name": "cc-switch",
+      "org": "farion1231",
+      "kind": "project",
+      "story": "A cross-platform desktop All-in-One assistant for Claude Code, Codex, OpenCode, OpenClaw, Grok Build & Hermes Agent. Only official website: ccswitch.io",
+      "dates": {
+        "born": "2025-08-04T14:16:16Z"
+      },
+      "github": "https://github.com/farion1231/cc-switch",
+      "homepage": "https://ccswitch.io",
+      "stars": 128756,
+      "starsUncertain": false,
+      "language": "Rust",
+      "topics": [
+        "ai-tools",
+        "claude-code",
+        "codex",
+        "desktop-app",
+        "grok",
+        "grokbuild",
+        "hermes",
+        "hermes-agent",
+        "mcp",
+        "open-source",
+        "openclaw",
+        "openclaw-ui",
+        "opencode",
+        "provider-management",
+        "rust",
+        "skills",
+        "skills-management",
+        "tauri",
+        "typescript",
+        "wsl-support"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/farion1231/cc-switch"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 128756,
+        "forks": 8809,
+        "starsPerDay": 336.47111450235064,
+        "created": "2025-08-04T14:16:16Z",
+        "pushed": "2026-08-21T14:55:47Z"
+      }
+    },
+    {
+      "id": "gh:nextlevelbuilder/ui-ux-pro-max-skill",
+      "name": "ui-ux-pro-max-skill",
+      "org": "nextlevelbuilder",
+      "kind": "project",
+      "story": "An AI skill that provides design intelligence for building professional UI/UX across multiple platforms.",
+      "dates": {
+        "born": "2025-11-30T11:36:31Z"
+      },
+      "github": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+      "homepage": "https://www.uupm.cc/",
+      "stars": 119462,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "ai-skills",
+        "antigravity",
+        "claude",
+        "claude-code",
+        "codex",
+        "command-line",
+        "copilot",
+        "cursor-ai",
+        "html5",
+        "kiro",
+        "landing-page",
+        "mobile-ui",
+        "qoder",
+        "react",
+        "tailwindcss",
+        "trae",
+        "ui-design",
+        "uikit",
+        "windsurf-ai"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 119462,
+        "forks": 12832,
+        "starsPerDay": 451.1800595117914,
+        "created": "2025-11-30T11:36:31Z",
+        "pushed": "2026-08-20T11:49:07Z"
+      }
+    },
+    {
+      "id": "gh:browser-use/browser-use",
+      "name": "browser-use",
+      "org": "browser-use",
+      "kind": "project",
+      "story": "🌐 Make websites accessible for AI agents. Automate tasks online with ease.",
+      "dates": {
+        "born": "2024-10-31T16:00:56Z"
+      },
+      "github": "https://github.com/browser-use/browser-use",
+      "homepage": "https://browser-use.com",
+      "stars": 110043,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "ai-agents",
+        "ai-tools",
+        "browser-automation",
+        "browser-use",
+        "llm",
+        "playwright",
+        "python"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/browser-use/browser-use"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 110043,
+        "forks": 12093,
+        "starsPerDay": 166.8346638029474,
+        "created": "2024-10-31T16:00:56Z",
+        "pushed": "2026-08-21T00:00:12Z"
+      }
+    },
+    {
+      "id": "gh:Graphify-Labs/graphify",
+      "name": "graphify",
+      "org": "Graphify-Labs",
+      "kind": "project",
+      "story": "Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor, Codex, and Gemini CLI: local deterministic AST parsing, every edge explained, no vector store.",
+      "dates": {
+        "born": "2026-04-03T15:49:07Z"
+      },
+      "github": "https://github.com/Graphify-Labs/graphify",
+      "homepage": "https://www.graphify.com",
+      "stars": 109319,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "ai-agents",
+        "antigravity",
+        "ast",
+        "claude-code",
+        "code-analysis",
+        "code-search",
+        "codex",
+        "cursor",
+        "developer-tools",
+        "gemini",
+        "graphrag",
+        "knowledge-graph",
+        "leiden",
+        "llm",
+        "mcp",
+        "openclaw",
+        "rag",
+        "skills",
+        "tree-sitter"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/Graphify-Labs/graphify"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 109319,
+        "forks": 10614,
+        "starsPerDay": 777.5103294653554,
+        "created": "2026-04-03T15:49:07Z",
+        "pushed": "2026-08-20T16:39:37Z"
+      }
+    },
+    {
+      "id": "gh:DietrichGebert/ponytail",
+      "name": "ponytail",
+      "org": "DietrichGebert",
+      "kind": "project",
+      "story": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote.",
+      "dates": {
+        "born": "2026-06-12T00:52:37Z"
+      },
+      "github": "https://github.com/DietrichGebert/ponytail",
+      "homepage": "https://ponytail.dev",
+      "stars": 107659,
+      "starsUncertain": false,
+      "language": "JavaScript",
+      "topics": [
+        "agent-skills",
+        "ai-agents",
+        "claude",
+        "claude-code",
+        "claude-code-plugin",
+        "cursor-rules",
+        "developer-tools",
+        "llm",
+        "prompt-engineering",
+        "yagni"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/DietrichGebert/ponytail"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 107659,
+        "forks": 5950,
+        "starsPerDay": 1511.5568566872032,
+        "created": "2026-06-12T00:52:37Z",
+        "pushed": "2026-08-07T21:44:01Z"
+      }
+    },
+    {
+      "id": "gh:JuliusBrussee/caveman",
+      "name": "caveman",
+      "org": "JuliusBrussee",
+      "kind": "project",
+      "story": "🪨 why use many token when few token do trick — Claude Code skill that cuts 65% of tokens by talking like caveman",
+      "dates": {
+        "born": "2026-04-04T10:03:00Z"
+      },
+      "github": "https://github.com/JuliusBrussee/caveman",
+      "homepage": "https://caveman.so/",
+      "stars": 100200,
+      "starsUncertain": false,
+      "language": "Go",
+      "topics": [
+        "ai",
+        "anthropic",
+        "caveman",
+        "claude",
+        "claude-code",
+        "llm",
+        "meme",
+        "prompt-engineering",
+        "skill",
+        "tokens"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/JuliusBrussee/caveman"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 100200,
+        "forks": 5809,
+        "starsPerDay": 716.524394793983,
+        "created": "2026-04-04T10:03:00Z",
+        "pushed": "2026-08-21T03:28:58Z"
+      }
+    },
+    {
+      "id": "gh:thedotmack/claude-mem",
+      "name": "claude-mem",
+      "org": "thedotmack",
+      "kind": "project",
+      "story": "Persistent Context Across Sessions for Every Agent –  Captures everything your agent does during sessions, compresses it with AI, and injects relevant context back into future sessions. Works with Claude Code, OpenClaw, Codex, Gemini, Hermes, Copilot, OpenCode + More",
+      "dates": {
+        "born": "2025-08-31T20:50:03Z"
+      },
+      "github": "https://github.com/thedotmack/claude-mem",
+      "homepage": "https://claude-mem.ai",
+      "stars": 91474,
+      "starsUncertain": false,
+      "language": "JavaScript",
+      "topics": [
+        "ai",
+        "ai-agents",
+        "ai-memory",
+        "anthropic",
+        "artificial-intelligence",
+        "chromadb",
+        "claude",
+        "claude-agent-sdk",
+        "claude-agents",
+        "claude-code",
+        "claude-code-plugin",
+        "claude-skills",
+        "embeddings",
+        "long-term-memory",
+        "mem0",
+        "memory-engine",
+        "openmemory",
+        "rag",
+        "sqlite",
+        "supermemory"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 2
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/thedotmack/claude-mem"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 91474,
+        "forks": 8008,
+        "starsPerDay": 257.3887588577367,
+        "created": "2025-08-31T20:50:03Z",
+        "pushed": "2026-08-21T23:43:00Z"
+      }
+    },
+    {
+      "id": "gh:infiniflow/ragflow",
+      "name": "ragflow",
+      "org": "infiniflow",
+      "kind": "project",
+      "story": "RAGFlow is a leading open-source Retrieval-Augmented Generation (RAG) engine that fuses cutting-edge RAG with Agent capabilities to create a superior context layer for LLMs",
+      "dates": {
+        "born": "2023-12-12T06:13:13Z"
+      },
+      "github": "https://github.com/infiniflow/ragflow",
+      "homepage": "https://ragflow.io",
+      "stars": 89005,
+      "starsUncertain": false,
+      "language": "Go",
+      "topics": [
+        "agent-harness",
+        "agentic-ai",
+        "agentic-retrieval",
+        "agentic-search",
+        "ai",
+        "ai-agents",
+        "context-engine",
+        "context-engineering",
+        "context-management",
+        "harness-engineering",
+        "knowledge-compilation",
+        "llm-apps",
+        "rag",
+        "retrieval-augmented-generation"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 3
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/infiniflow/ragflow"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 89005,
+        "forks": 10456,
+        "starsPerDay": 90.45211828767674,
+        "created": "2023-12-12T06:13:13Z",
+        "pushed": "2026-08-21T13:47:45Z"
+      }
+    },
+    {
+      "id": "gh:addyosmani/agent-skills",
+      "name": "agent-skills",
+      "org": "addyosmani",
+      "kind": "project",
+      "story": "Production-grade engineering skills for AI coding agents.",
+      "dates": {
+        "born": "2026-02-15T20:20:26Z"
+      },
+      "github": "https://github.com/addyosmani/agent-skills",
+      "homepage": "https://skills.addy.ie",
+      "stars": 88970,
+      "starsUncertain": false,
+      "language": "JavaScript",
+      "topics": [
+        "agent-skills",
+        "antigravity",
+        "claude-code",
+        "codex",
+        "cursor",
+        "skills"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/addyosmani/agent-skills"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 88970,
+        "forks": 9531,
+        "starsPerDay": 474.72708796278636,
+        "created": "2026-02-15T20:20:26Z",
+        "pushed": "2026-08-21T18:15:04Z"
+      }
+    },
+    {
+      "id": "gh:lobehub/lobehub",
+      "name": "lobehub",
+      "org": "lobehub",
+      "kind": "project",
+      "story": "🤯 LobeHub is your Chief Agent Operator, organizing your agents into 7×24 operations by hiring, scheduling, and reporting on your entire AI team.",
+      "dates": {
+        "born": "2023-05-21T07:19:12Z"
+      },
+      "github": "https://github.com/lobehub/lobehub",
+      "homepage": "https://lobehub.com",
+      "stars": 81915,
+      "starsUncertain": false,
+      "language": "TypeScript",
+      "topics": [
+        "agent",
+        "agent-collaboration",
+        "agent-harness",
+        "ai",
+        "cao",
+        "chatgpt",
+        "chief-agent-operator",
+        "claude",
+        "deepseek",
+        "fable",
+        "gemini",
+        "glm",
+        "gpt",
+        "knowledge-base",
+        "loop-engineering",
+        "mcp",
+        "openai",
+        "skills"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/lobehub/lobehub"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 81915,
+        "forks": 15815,
+        "starsPerDay": 68.8966081513833,
+        "created": "2023-05-21T07:19:12Z",
+        "pushed": "2026-08-22T06:09:56Z"
+      }
+    },
+    {
+      "id": "gh:bytedance/deer-flow",
+      "name": "deer-flow",
+      "org": "bytedance",
+      "kind": "project",
+      "story": "An open-source long-horizon SuperAgent harness that researches, codes, and creates. With the help of sandboxes, memories, tools, skill, subagents and message gateway, it handles different levels of tasks that could take minutes to hours.",
+      "dates": {
+        "born": "2025-05-07T02:50:19Z"
+      },
+      "github": "https://github.com/bytedance/deer-flow",
+      "homepage": "https://deerflow.tech",
+      "stars": 80516,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "agent",
+        "agentic",
+        "agentic-framework",
+        "agentic-workflow",
+        "ai",
+        "ai-agents",
+        "deep-research",
+        "harness",
+        "langchain",
+        "langgraph",
+        "langmanus",
+        "llm",
+        "multi-agent",
+        "nodejs",
+        "podcast",
+        "python",
+        "superagent",
+        "typescript"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/bytedance/deer-flow"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 80516,
+        "forks": 11049,
+        "starsPerDay": 170.5333758825944,
+        "created": "2025-05-07T02:50:19Z",
+        "pushed": "2026-08-20T00:57:10Z"
+      }
+    },
+    {
+      "id": "gh:Egonex-AI/Understand-Anything",
+      "name": "Understand-Anything",
+      "org": "Egonex-AI",
+      "kind": "project",
+      "story": "Graphs that teach > graphs that impress. Turn any code into an interactive knowledge graph you can explore, search, and ask questions about. Works with Claude Code, Codex, Cursor, Copilot, Gemini CLI, and more.",
+      "dates": {
+        "born": "2026-03-15T02:30:51Z"
+      },
+      "github": "https://github.com/Egonex-AI/Understand-Anything",
+      "homepage": "https://understand-anything.com/",
+      "stars": 80057,
+      "starsUncertain": false,
+      "language": "TypeScript",
+      "topics": [
+        "antigravity-skills",
+        "business-knowledge",
+        "claude-code",
+        "claude-skills",
+        "codebase-analysis",
+        "codex",
+        "codex-skills",
+        "developer-tools-ai-agent",
+        "gemini-cli-skills",
+        "karpathy-llm-wiki",
+        "knowledge-base",
+        "knowledge-graph",
+        "memory",
+        "opencode-skills",
+        "pi-agent",
+        "understandcode",
+        "vibe-coding"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/Egonex-AI/Understand-Anything"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 80057,
+        "forks": 6721,
+        "starsPerDay": 499.86978991146657,
+        "created": "2026-03-15T02:30:51Z",
+        "pushed": "2026-08-11T14:13:37Z"
+      }
+    },
+    {
+      "id": "gh:Leonxlnx/taste-skill",
+      "name": "taste-skill",
+      "org": "Leonxlnx",
+      "kind": "project",
+      "story": "Taste-Skill - gives your AI good taste. stops the AI from generating boring, generic slop ",
+      "dates": {
+        "born": "2026-02-19T21:44:05Z"
+      },
+      "github": "https://github.com/Leonxlnx/taste-skill",
+      "homepage": "https://tasteskill.dev",
+      "stars": 79059,
+      "starsUncertain": false,
+      "language": "JavaScript",
+      "topics": [
+        "agent",
+        "ai",
+        "claude",
+        "claude-code",
+        "codex",
+        "coding",
+        "design",
+        "frontend",
+        "lowcode",
+        "nocode",
+        "skill",
+        "skills",
+        "vibecoding"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/Leonxlnx/taste-skill"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 79059,
+        "forks": 5400,
+        "starsPerDay": 431.1803011268699,
+        "created": "2026-02-19T21:44:05Z",
+        "pushed": "2026-08-21T15:58:56Z"
+      }
+    },
+    {
+      "id": "gh:dair-ai/Prompt-Engineering-Guide",
+      "name": "Prompt-Engineering-Guide",
+      "org": "dair-ai",
+      "kind": "project",
+      "story": "🐙 Guides, papers, lessons, notebooks and resources for prompt engineering, context engineering, RAG, and AI Agents.",
+      "dates": {
+        "born": "2022-12-16T16:04:50Z"
+      },
+      "github": "https://github.com/dair-ai/Prompt-Engineering-Guide",
+      "homepage": "https://www.promptingguide.ai/",
+      "stars": 77677,
+      "starsUncertain": false,
+      "language": "MDX",
+      "topics": [
+        "agent",
+        "agents",
+        "ai-agents",
+        "chatgpt",
+        "deep-learning",
+        "generative-ai",
+        "language-model",
+        "llms",
+        "openai",
+        "prompt-engineering",
+        "rag"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/dair-ai/Prompt-Engineering-Guide"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 77677,
+        "forks": 8533,
+        "starsPerDay": 57.7700079387423,
+        "created": "2022-12-16T16:04:50Z",
+        "pushed": "2026-03-11T20:09:13Z"
+      }
+    },
+    {
+      "id": "gh:nomic-ai/gpt4all",
+      "name": "gpt4all",
+      "org": "nomic-ai",
+      "kind": "project",
+      "story": "GPT4All: Run Local LLMs on Any Device. Open-source and available for commercial use.",
+      "dates": {
+        "born": "2023-03-27T18:49:32Z"
+      },
+      "github": "https://github.com/nomic-ai/gpt4all",
+      "homepage": "https://nomic.ai/gpt4all",
+      "stars": 77400,
+      "starsUncertain": false,
+      "language": "C++",
+      "topics": [
+        "ai-chat",
+        "llm-inference"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/nomic-ai/gpt4all"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 77400,
+        "forks": 8299,
+        "starsPerDay": 62.24486595204446,
+        "created": "2023-03-27T18:49:32Z",
+        "pushed": "2025-05-27T20:05:19Z"
+      }
+    },
+    {
+      "id": "gh:rtk-ai/rtk",
+      "name": "rtk",
+      "org": "rtk-ai",
+      "kind": "project",
+      "story": "CLI proxy that reduces LLM token consumption by 60-90% on common dev commands. Single Rust binary, zero dependencies",
+      "dates": {
+        "born": "2026-01-22T16:54:16Z"
+      },
+      "github": "https://github.com/rtk-ai/rtk",
+      "homepage": "https://www.rtk-ai.app",
+      "stars": 76989,
+      "starsUncertain": false,
+      "language": "Rust",
+      "topics": [
+        "agentic-coding",
+        "ai-coding",
+        "anthropic",
+        "claude-code",
+        "cli",
+        "command-line-tool",
+        "cost-reduction",
+        "developer-tools",
+        "llm",
+        "open-source",
+        "productivity",
+        "rust",
+        "token-optimization"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/rtk-ai/rtk"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 76989,
+        "forks": 4838,
+        "starsPerDay": 363.9176337048246,
+        "created": "2026-01-22T16:54:16Z",
+        "pushed": "2026-08-21T15:48:45Z"
+      }
+    },
+    {
+      "id": "gh:shareAI-lab/learn-claude-code",
+      "name": "learn-claude-code",
+      "org": "shareAI-lab",
+      "kind": "project",
+      "story": "Bash is all you need -  A nano claude code–like 「agent harness」, built from 0 to 1",
+      "dates": {
+        "born": "2025-06-29T15:34:15Z"
+      },
+      "github": "https://github.com/shareAI-lab/learn-claude-code",
+      "homepage": "https://learn.shareai.run",
+      "stars": 74919,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "agent",
+        "agent-development",
+        "ai-agent",
+        "claude",
+        "claude-code",
+        "educational",
+        "llm",
+        "python",
+        "teaching",
+        "tutorial"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/shareAI-lab/learn-claude-code"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 74919,
+        "forks": 12094,
+        "starsPerDay": 178.97016154395348,
+        "created": "2025-06-29T15:34:15Z",
+        "pushed": "2026-08-18T17:42:28Z"
+      }
+    },
+    {
+      "id": "gh:Panniantong/Agent-Reach",
+      "name": "Agent-Reach",
+      "org": "Panniantong",
+      "kind": "project",
+      "story": "Give your AI agent eyes to see the entire internet. Read & search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu — one CLI, zero API fees.",
+      "dates": {
+        "born": "2026-02-24T02:10:24Z"
+      },
+      "github": "https://github.com/Panniantong/Agent-Reach",
+      "homepage": null,
+      "stars": 73935,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "agent-infrastructure",
+        "ai-agent",
+        "ai-search",
+        "automation",
+        "bilibili",
+        "claude-code",
+        "cli",
+        "cursor",
+        "free-api",
+        "llm-tools",
+        "mcp",
+        "python",
+        "reddit-scraper",
+        "twitter-scraper",
+        "web-scraper",
+        "xiaohongshu",
+        "youtube-transcript"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/Panniantong/Agent-Reach"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 73935,
+        "forks": 6300,
+        "starsPerDay": 412.65299695006377,
+        "created": "2026-02-24T02:10:24Z",
+        "pushed": "2026-08-12T03:39:49Z"
+      }
+    },
+    {
+      "id": "gh:thedaviddias/Front-End-Checklist",
+      "name": "Front-End-Checklist",
+      "org": "thedaviddias",
+      "kind": "project",
+      "story": "🗂 The essential checklist for modern web development, for humans and AI agents",
+      "dates": {
+        "born": "2017-10-16T10:12:36Z"
+      },
+      "github": "https://github.com/thedaviddias/Front-End-Checklist",
+      "homepage": "https://frontendchecklist.io",
+      "stars": 73608,
+      "starsUncertain": false,
+      "language": "MDX",
+      "topics": [
+        "ai-agent",
+        "ai-agents",
+        "checklist",
+        "css",
+        "front-end-developer-tool",
+        "front-end-development",
+        "frontend",
+        "guidelines",
+        "html",
+        "javascript",
+        "lists",
+        "reference",
+        "resources",
+        "rules",
+        "web-development"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/thedaviddias/Front-End-Checklist"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 73608,
+        "forks": 6662,
+        "starsPerDay": 22.775914951210222,
+        "created": "2017-10-16T10:12:36Z",
+        "pushed": "2026-08-14T05:59:25Z"
+      }
+    },
+    {
+      "id": "gh:ComposioHQ/awesome-claude-skills",
+      "name": "awesome-claude-skills",
+      "org": "ComposioHQ",
+      "kind": "project",
+      "story": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows",
+      "dates": {
+        "born": "2025-10-17T07:15:01Z"
+      },
+      "github": "https://github.com/ComposioHQ/awesome-claude-skills",
+      "homepage": "",
+      "stars": 72988,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "agent-skills",
+        "ai-agents",
+        "antigravity",
+        "automation",
+        "claude",
+        "claude-code",
+        "codex",
+        "composio",
+        "cursor",
+        "developer-tools",
+        "gemini-cli",
+        "mcp",
+        "openai-codex",
+        "rube",
+        "saas",
+        "skill",
+        "workflow-automation"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/ComposioHQ/awesome-claude-skills"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 72988,
+        "forks": 8360,
+        "starsPerDay": 236.23895355419126,
+        "created": "2025-10-17T07:15:01Z",
+        "pushed": "2026-08-10T21:45:44Z"
+      }
+    },
+    {
+      "id": "gh:Mintplex-Labs/anything-llm",
+      "name": "anything-llm",
+      "org": "Mintplex-Labs",
+      "kind": "project",
+      "story": "Stop renting your intelligence. Own it with AnythingLLM. Everything you need for a powerful local-first agent experience ",
+      "dates": {
+        "born": "2023-06-04T02:29:14Z"
+      },
+      "github": "https://github.com/Mintplex-Labs/anything-llm",
+      "homepage": "https://anythingllm.com",
+      "stars": 65034,
+      "starsUncertain": false,
+      "language": "JavaScript",
+      "topics": [
+        "agent-computer",
+        "agent-harness",
+        "agent-orchestration",
+        "agentic-ai",
+        "ai-agents",
+        "computer-use",
+        "hermes-agent",
+        "llm",
+        "local-ai",
+        "localai",
+        "multimodal",
+        "no-code",
+        "open-claw",
+        "rag",
+        "self-hosted-ai",
+        "vector-database"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/Mintplex-Labs/anything-llm"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 65034,
+        "forks": 7161,
+        "starsPerDay": 55.34069778555079,
+        "created": "2023-06-04T02:29:14Z",
+        "pushed": "2026-08-22T03:50:06Z"
+      }
+    },
+    {
+      "id": "gh:ray-project/ray",
+      "name": "ray",
+      "org": "ray-project",
+      "kind": "project",
+      "story": "Ray is an AI compute engine. Ray consists of a core distributed runtime and a set of AI Libraries for accelerating ML workloads.",
+      "dates": {
+        "born": "2016-10-25T19:38:30Z"
+      },
+      "github": "https://github.com/ray-project/ray",
+      "homepage": "https://ray.io",
+      "stars": 43577,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "data-science",
+        "deep-learning",
+        "deployment",
+        "distributed",
+        "hyperparameter-optimization",
+        "hyperparameter-search",
+        "large-language-models",
+        "llm",
+        "llm-inference",
+        "llm-serving",
+        "machine-learning",
+        "optimization",
+        "parallel",
+        "python",
+        "pytorch",
+        "ray",
+        "reinforcement-learning",
+        "rllib",
+        "serving",
+        "tensorflow"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 3
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/ray-project/ray"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 43577,
+        "forks": 7950,
+        "starsPerDay": 12.147095188016861,
+        "created": "2016-10-25T19:38:30Z",
+        "pushed": "2026-08-22T06:02:12Z"
+      }
+    },
+    {
+      "id": "gh:agentscope-ai/QwenPaw",
+      "name": "QwenPaw",
+      "org": "agentscope-ai",
+      "kind": "project",
+      "story": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple chat apps with easily extensible capabilities.",
+      "dates": {
+        "born": "2026-02-24T03:42:56Z"
+      },
+      "github": "https://github.com/agentscope-ai/QwenPaw",
+      "homepage": "http://qwenpaw.agentscope.io/",
+      "stars": 34309,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "agent",
+        "agent-harness",
+        "agentscope",
+        "ai-agent",
+        "ai-agents",
+        "chatbot",
+        "harness-engineering",
+        "llm-tools",
+        "llms",
+        "loop-engineering",
+        "mcp",
+        "personal-ai-assistant",
+        "self-hosted",
+        "skills",
+        "super-agent",
+        "webui"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/agentscope-ai/QwenPaw"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 34309,
+        "forks": 3015,
+        "starsPerDay": 191.55731030586037,
+        "created": "2026-02-24T03:42:56Z",
+        "pushed": "2026-08-21T10:29:59Z"
+      }
+    },
+    {
+      "id": "gh:gitleaks/gitleaks",
+      "name": "gitleaks",
+      "org": "gitleaks",
+      "kind": "project",
+      "story": "Find secrets with Gitleaks 🔑",
+      "dates": {
+        "born": "2018-01-27T18:19:31Z"
+      },
+      "github": "https://github.com/gitleaks/gitleaks",
+      "homepage": "https://gitleaks.io",
+      "stars": 28896,
+      "starsUncertain": false,
+      "language": "Go",
+      "topics": [
+        "ai-powered",
+        "ci-cd",
+        "cicd",
+        "cli",
+        "data-loss-prevention",
+        "devsecops",
+        "dlp",
+        "git",
+        "gitleaks",
+        "go",
+        "golang",
+        "hacktoberfest",
+        "llm",
+        "llm-inference",
+        "llm-training",
+        "nhi",
+        "open-source",
+        "secret",
+        "security",
+        "security-tools"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/gitleaks/gitleaks"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 28896,
+        "forks": 2205,
+        "starsPerDay": 9.236384428558859,
+        "created": "2018-01-27T18:19:31Z",
+        "pushed": "2026-08-19T04:15:06Z"
+      }
+    },
+    {
+      "id": "gh:liguodongiot/llm-action",
+      "name": "llm-action",
+      "org": "liguodongiot",
+      "kind": "project",
+      "story": "本项目旨在分享大模型相关技术原理以及实战经验（大模型工程化、大模型应用落地）",
+      "dates": {
+        "born": "2023-05-23T05:29:16Z"
+      },
+      "github": "https://github.com/liguodongiot/llm-action",
+      "homepage": "https://www.zhihu.com/column/c_1456193767213043713",
+      "stars": 24928,
+      "starsUncertain": false,
+      "language": "HTML",
+      "topics": [
+        "llm",
+        "llm-inference",
+        "llm-serving",
+        "llm-training",
+        "llmops"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 2
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/liguodongiot/llm-action"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 24928,
+        "forks": 2845,
+        "starsPerDay": 21.000280029708883,
+        "created": "2023-05-23T05:29:16Z",
+        "pushed": "2026-07-19T13:13:31Z"
+      }
+    },
+    {
+      "id": "gh:Lightning-AI/litgpt",
+      "name": "litgpt",
+      "org": "Lightning-AI",
+      "kind": "project",
+      "story": "20+ high-performance LLMs with recipes to pretrain, finetune and deploy at scale.",
+      "dates": {
+        "born": "2023-05-04T17:46:11Z"
+      },
+      "github": "https://github.com/Lightning-AI/litgpt",
+      "homepage": "https://lightning.ai",
+      "stars": 13619,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "ai",
+        "artificial-intelligence",
+        "deep-learning",
+        "large-language-models",
+        "llm",
+        "llm-inference",
+        "llms"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/Lightning-AI/litgpt"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 13619,
+        "forks": 1487,
+        "starsPerDay": 11.29719914948922,
+        "created": "2023-05-04T17:46:11Z",
+        "pushed": "2026-08-17T10:24:35Z"
+      }
+    },
+    {
+      "id": "gh:halfrost/Halfrost-Field",
+      "name": "Halfrost-Field",
+      "org": "halfrost",
+      "kind": "project",
+      "story": "✍🏻 Source Code Deep Dives, System Design & Engineering Blogs | Halfrost-Field 冰霜之地：源码解析、系统设计与工程实践笔记 ",
+      "dates": {
+        "born": "2017-04-02T11:24:18Z"
+      },
+      "github": "https://github.com/halfrost/Halfrost-Field",
+      "homepage": "https://halfrost.com",
+      "stars": 13218,
+      "starsUncertain": false,
+      "language": "Go",
+      "topics": [
+        "algorithms",
+        "blog",
+        "cryptography",
+        "go",
+        "golang",
+        "http2",
+        "inference-engine",
+        "ios",
+        "javascript",
+        "llm",
+        "machine-learning",
+        "network-protocols",
+        "objective-c",
+        "protobuf",
+        "source-code-analysis",
+        "swift",
+        "system-design",
+        "technical-writing",
+        "tls",
+        "vllm"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 2
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/halfrost/Halfrost-Field"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 13218,
+        "forks": 1876,
+        "starsPerDay": 3.8550095654163083,
+        "created": "2017-04-02T11:24:18Z",
+        "pushed": "2026-08-06T08:47:55Z"
+      }
+    },
+    {
+      "id": "gh:bentoml/OpenLLM",
+      "name": "OpenLLM",
+      "org": "bentoml",
+      "kind": "project",
+      "story": "Run any open-source LLMs, such as DeepSeek and Llama, as OpenAI compatible API endpoint in the cloud.",
+      "dates": {
+        "born": "2023-04-19T00:27:52Z"
+      },
+      "github": "https://github.com/bentoml/OpenLLM",
+      "homepage": "https://bentoml.com",
+      "stars": 12504,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "bentoml",
+        "fine-tuning",
+        "llama",
+        "llama2",
+        "llama3-1",
+        "llama3-2",
+        "llama3-2-vision",
+        "llm",
+        "llm-inference",
+        "llm-ops",
+        "llm-serving",
+        "llmops",
+        "mistral",
+        "mlops",
+        "model-inference",
+        "open-source-llm",
+        "openllm",
+        "vicuna"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 3
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/bentoml/OpenLLM"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 12504,
+        "forks": 834,
+        "starsPerDay": 10.238764517950644,
+        "created": "2023-04-19T00:27:52Z",
+        "pushed": "2026-08-17T17:02:07Z"
+      }
+    },
+    {
+      "id": "gh:mistralai/mistral-inference",
+      "name": "mistral-inference",
+      "org": "mistralai",
+      "kind": "project",
+      "story": "Official inference library for Mistral models",
+      "dates": {
+        "born": "2023-09-27T13:05:24Z"
+      },
+      "github": "https://github.com/mistralai/mistral-inference",
+      "homepage": "https://mistral.ai/",
+      "stars": 10830,
+      "starsUncertain": false,
+      "language": "Jupyter Notebook",
+      "topics": [
+        "llm",
+        "llm-inference",
+        "mistralai"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/mistralai/mistral-inference"
+      ],
+      "closed": true,
+      "scraped": true,
+      "metrics": {
+        "stars": 10830,
+        "forks": 1056,
+        "starsPerDay": 10.219728590010137,
+        "created": "2023-09-27T13:05:24Z",
+        "pushed": "2026-06-16T15:40:44Z"
+      }
+    },
+    {
+      "id": "gh:openvinotoolkit/openvino",
+      "name": "openvino",
+      "org": "openvinotoolkit",
+      "kind": "project",
+      "story": "OpenVINO™ is an open source toolkit for optimizing and deploying AI inference",
+      "dates": {
+        "born": "2018-10-15T10:54:40Z"
+      },
+      "github": "https://github.com/openvinotoolkit/openvino",
+      "homepage": "https://docs.openvino.ai",
+      "stars": 10691,
+      "starsUncertain": false,
+      "language": "C++",
+      "topics": [
+        "ai",
+        "computer-vision",
+        "deep-learning",
+        "deploy-ai",
+        "diffusion-models",
+        "generative-ai",
+        "good-first-issue",
+        "inference",
+        "llm-inference",
+        "natural-language-processing",
+        "nlp",
+        "openvino",
+        "optimize-ai",
+        "performance-boost",
+        "recommendation-system",
+        "speech-recognition",
+        "stable-diffusion",
+        "transformers",
+        "yolo"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/openvinotoolkit/openvino"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 10691,
+        "forks": 3328,
+        "starsPerDay": 3.7279372029318467,
+        "created": "2018-10-15T10:54:40Z",
+        "pushed": "2026-08-21T23:06:20Z"
+      }
+    },
+    {
+      "id": "gh:holaboss-ai/holaOS",
+      "name": "holaOS",
+      "org": "holaboss-ai",
+      "kind": "project",
+      "story": "Open-source agentic workspace enterprises can make their own. Connect the systems you already run — 100+ integrations, MCP, chat tools, apps, browser, local files — with shared memory. Any agent (Claude Code, Codex), any model, or BYOK. Set up in clicks, not months. Local-first: your data never leaves your machines.",
+      "dates": {
+        "born": "2026-03-22T07:36:16Z"
+      },
+      "github": "https://github.com/holaboss-ai/holaOS",
+      "homepage": "https://holaos.ai",
+      "stars": 10602,
+      "starsUncertain": false,
+      "language": "TypeScript",
+      "topics": [
+        "agent",
+        "agent-harness",
+        "agent-os",
+        "agentic",
+        "ai",
+        "ai-agent",
+        "ai-agents",
+        "artificial-intelligence",
+        "claude-code",
+        "codex",
+        "electron",
+        "holaboss",
+        "holaos",
+        "llm",
+        "mcp",
+        "memory",
+        "model-context-protocol",
+        "runtime",
+        "typescript",
+        "workspace"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/holaboss-ai/holaOS"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 10602,
+        "forks": 710,
+        "starsPerDay": 69.31965679531078,
+        "created": "2026-03-22T07:36:16Z",
+        "pushed": "2026-08-21T13:11:13Z"
+      }
+    },
+    {
+      "id": "gh:Tiiny-AI/PowerInfer",
+      "name": "PowerInfer",
+      "org": "Tiiny-AI",
+      "kind": "project",
+      "story": "High-speed Large Language Model Serving for Local Deployment",
+      "dates": {
+        "born": "2023-12-15T02:24:10Z"
+      },
+      "github": "https://github.com/Tiiny-AI/PowerInfer",
+      "homepage": "",
+      "stars": 9727,
+      "starsUncertain": false,
+      "language": "C++",
+      "topics": [
+        "large-language-models",
+        "llama",
+        "llm",
+        "llm-inference",
+        "local-inference"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 3
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/Tiiny-AI/PowerInfer"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 9727,
+        "forks": 592,
+        "starsPerDay": 9.91377217664211,
+        "created": "2023-12-15T02:24:10Z",
+        "pushed": "2026-05-11T06:48:06Z"
+      }
+    },
+    {
+      "id": "gh:bentoml/BentoML",
+      "name": "BentoML",
+      "org": "bentoml",
+      "kind": "project",
+      "story": "The easiest way to serve AI apps and models - Build Model Inference APIs, Job queues, LLM apps, Multi-model pipelines, and more!",
+      "dates": {
+        "born": "2019-04-02T01:39:27Z"
+      },
+      "github": "https://github.com/bentoml/BentoML",
+      "homepage": "https://bentoml.com",
+      "stars": 8795,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "ai-inference",
+        "deep-learning",
+        "generative-ai",
+        "inference-platform",
+        "llm",
+        "llm-inference",
+        "llm-serving",
+        "llmops",
+        "machine-learning",
+        "ml-engineering",
+        "mlops",
+        "model-inference-service",
+        "model-serving",
+        "multimodal",
+        "python"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 2
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/bentoml/BentoML"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 8795,
+        "forks": 1012,
+        "starsPerDay": 3.258383250687301,
+        "created": "2019-04-02T01:39:27Z",
+        "pushed": "2026-08-21T07:40:35Z"
+      }
+    },
+    {
+      "id": "gh:InternLM/lmdeploy",
+      "name": "lmdeploy",
+      "org": "InternLM",
+      "kind": "project",
+      "story": "LMDeploy is a toolkit for compressing, deploying, and serving LLMs.",
+      "dates": {
+        "born": "2023-06-15T12:38:06Z"
+      },
+      "github": "https://github.com/InternLM/lmdeploy",
+      "homepage": "https://lmdeploy.readthedocs.io/en/latest",
+      "stars": 8013,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "codellama",
+        "cuda-kernels",
+        "deepspeed",
+        "fastertransformer",
+        "internlm",
+        "llama",
+        "llama2",
+        "llama3",
+        "llm",
+        "llm-inference",
+        "turbomind"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/InternLM/lmdeploy"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 8013,
+        "forks": 728,
+        "starsPerDay": 6.885594193346631,
+        "created": "2023-06-15T12:38:06Z",
+        "pushed": "2026-08-21T14:31:55Z"
+      }
+    },
+    {
+      "id": "gh:ai-dynamo/dynamo",
+      "name": "dynamo",
+      "org": "ai-dynamo",
+      "kind": "project",
+      "story": "A Datacenter Scale Distributed Inference Serving Framework",
+      "dates": {
+        "born": "2025-03-03T18:40:07Z"
+      },
+      "github": "https://github.com/ai-dynamo/dynamo",
+      "homepage": "https://docs.nvidia.com/dynamo/latest",
+      "stars": 7824,
+      "starsUncertain": false,
+      "language": "Rust",
+      "topics": [
+        "diffusion",
+        "disaggregated-serving",
+        "kubernetes",
+        "llm-inference",
+        "omni",
+        "routing-engine",
+        "rust",
+        "sglang",
+        "tensorrt-llm",
+        "vllm"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 2
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/ai-dynamo/dynamo"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 7824,
+        "forks": 1472,
+        "starsPerDay": 14.583884288824986,
+        "created": "2025-03-03T18:40:07Z",
+        "pushed": "2026-08-22T06:09:02Z"
+      }
+    },
+    {
+      "id": "gh:YaoApp/yao",
+      "name": "yao",
+      "org": "YaoApp",
+      "kind": "project",
+      "story": "✨ All your agents and workspaces in one place, on every device you own. Track tasks on a board, accessible from desktop, mobile, browser, or API. Self-hosted.",
+      "dates": {
+        "born": "2021-09-06T09:20:27Z"
+      },
+      "github": "https://github.com/YaoApp/yao",
+      "homepage": "https://yaoagents.com",
+      "stars": 7762,
+      "starsUncertain": false,
+      "language": "Go",
+      "topics": [
+        "agent-harness",
+        "agent-orchestration",
+        "agent-skills",
+        "agent-workspaces",
+        "ai-agents",
+        "ai-native",
+        "claude-code",
+        "coding-agent",
+        "deepseek",
+        "deepseek-harness",
+        "dsh",
+        "dsh-plugin",
+        "local-first",
+        "mcp",
+        "no-code",
+        "own-your-data",
+        "tool-use"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/YaoApp/yao"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 7762,
+        "forks": 693,
+        "starsPerDay": 4.286334473367322,
+        "created": "2021-09-06T09:20:27Z",
+        "pushed": "2026-08-21T06:23:05Z"
+      }
+    },
+    {
+      "id": "gh:algorithmicsuperintelligence/openevolve",
+      "name": "openevolve",
+      "org": "algorithmicsuperintelligence",
+      "kind": "project",
+      "story": "Open-source implementation of AlphaEvolve",
+      "dates": {
+        "born": "2025-05-15T11:46:52Z"
+      },
+      "github": "https://github.com/algorithmicsuperintelligence/openevolve",
+      "homepage": "",
+      "stars": 7249,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "alpha-evolve",
+        "alphacode",
+        "alphaevolve",
+        "coding-agent",
+        "deepmind",
+        "deepmind-lab",
+        "discovery",
+        "distributed-evolutionary-algorithms",
+        "evolutionary-algorithms",
+        "evolutionary-computation",
+        "genetic-algorithm",
+        "genetic-algorithms",
+        "iterative-methods",
+        "iterative-refinement",
+        "llm-engineering",
+        "llm-ensemble",
+        "llm-inference",
+        "openevolve",
+        "optimize"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/algorithmicsuperintelligence/openevolve"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 7249,
+        "forks": 1137,
+        "starsPerDay": 15.630607306745672,
+        "created": "2025-05-15T11:46:52Z",
+        "pushed": "2026-07-18T13:16:12Z"
+      }
+    },
+    {
+      "id": "gh:katanemo/plano",
+      "name": "plano",
+      "org": "katanemo",
+      "kind": "project",
+      "story": "Plano is an AI-native proxy server and data plane for agentic apps. Smart LLM routing, observability, agent orchestration, and guardrails so you stay focused on your agents core logic.",
+      "dates": {
+        "born": "2024-07-09T20:25:56Z"
+      },
+      "github": "https://github.com/katanemo/plano",
+      "homepage": "https://planoai.dev",
+      "stars": 7013,
+      "starsUncertain": false,
+      "language": "Rust",
+      "topics": [
+        "ai-gateway",
+        "ai-gateway-support",
+        "envoy",
+        "envoyproxy",
+        "gateway",
+        "generative-ai",
+        "llm-gateway",
+        "llm-inference",
+        "llm-proxy",
+        "llm-routing",
+        "llmops",
+        "llms",
+        "openai",
+        "prompt",
+        "proxy",
+        "proxy-server",
+        "routing"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/katanemo/plano"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 7013,
+        "forks": 484,
+        "starsPerDay": 9.067646027564745,
+        "created": "2024-07-09T20:25:56Z",
+        "pushed": "2026-08-19T19:29:08Z"
+      }
+    },
+    {
+      "id": "gh:drumih/turbo-fieldfare",
+      "name": "turbo-fieldfare",
+      "org": "drumih",
+      "kind": "project",
+      "story": "Gemma 4 26B-A4B inference in ~2 GB of RAM on any M-series MacBook",
+      "dates": {
+        "born": "2026-07-17T15:57:54Z"
+      },
+      "github": "https://github.com/drumih/turbo-fieldfare",
+      "homepage": "",
+      "stars": 6258,
+      "starsUncertain": false,
+      "language": "Swift",
+      "topics": [
+        "apple-silicon",
+        "gemma",
+        "gemma4",
+        "gemma4-26b-a4b",
+        "gpgpu",
+        "llm",
+        "llm-inference",
+        "local-ai",
+        "macos",
+        "metal",
+        "on-device-ai",
+        "on-device-llm",
+        "swift"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/drumih/turbo-fieldfare"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 6258,
+        "forks": 378,
+        "starsPerDay": 175.81002689522288,
+        "created": "2026-07-17T15:57:54Z",
+        "pushed": "2026-08-21T22:13:25Z"
+      }
+    },
+    {
+      "id": "gh:FareedKhan-dev/kimi-k3-in-c",
+      "name": "kimi-k3-in-c",
+      "org": "FareedKhan-dev",
+      "kind": "project",
+      "story": "A 2.78-trillion-parameter Kimi K3 running inference on a single CPU in 8.24 GB of RAM. Portable C99: no BLAS, no framework, no GPU.",
+      "dates": {
+        "born": "2026-08-01T09:29:38Z"
+      },
+      "github": "https://github.com/FareedKhan-dev/kimi-k3-in-c",
+      "homepage": "https://medium.com/@fareedkhandev/building-kimi-k3-in-c-to-run-a-2-8t-model-on-consumer-hardware-a5792cbf3b59",
+      "stars": 6237,
+      "starsUncertain": false,
+      "language": "C",
+      "topics": [
+        "avx2",
+        "c99",
+        "cpu-inference",
+        "deep-learning",
+        "from-scratch",
+        "inference-engine",
+        "kimi-k3",
+        "linear-attention",
+        "llm",
+        "llm-inference",
+        "machine-learning",
+        "memory-efficient",
+        "mixture-of-experts",
+        "moe",
+        "mxfp4",
+        "quantization",
+        "simd",
+        "systems-programming",
+        "transformer",
+        "zero-dependencies"
+      ],
+      "fingerprint": {
+        "attention": 2,
+        "serving-frameworks": 2,
+        "quantization": 2,
+        "moe-routing": 2
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/FareedKhan-dev/kimi-k3-in-c"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 6237,
+        "forks": 1022,
+        "starsPerDay": 298.9231274762318,
+        "created": "2026-08-01T09:29:38Z",
+        "pushed": "2026-08-07T16:39:26Z"
+      }
+    },
+    {
+      "id": "gh:huangruiteng/loopx",
+      "name": "loopx",
+      "org": "huangruiteng",
+      "kind": "project",
+      "story": "Long-horizon agent control plane for durable, governed work across Codex, Claude Code, and other harnesses.",
+      "dates": {
+        "born": "2026-05-31T14:58:56Z"
+      },
+      "github": "https://github.com/huangruiteng/loopx",
+      "homepage": "https://my.feishu.cn/wiki/CaL5wMk9ui17ngkWzeUcMlAYnZg",
+      "stars": 5009,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "agent-control-plane",
+        "agent-harness",
+        "agent-ops",
+        "ai-agents",
+        "codex",
+        "long-horizon",
+        "long-running-agents",
+        "loop-engineering",
+        "loopx",
+        "workflow-automation"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/huangruiteng/loopx"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 5009,
+        "forks": 435,
+        "starsPerDay": 60.61506430873806,
+        "created": "2026-05-31T14:58:56Z",
+        "pushed": "2026-08-22T05:37:41Z"
+      }
+    },
+    {
+      "id": "gh:FedML-AI/FedML",
+      "name": "FedML",
+      "org": "FedML-AI",
+      "kind": "project",
+      "story": "FEDML - The unified and scalable ML library for large-scale distributed training, model serving, and federated learning. FEDML Launch, a cross-cloud scheduler, further enables running any AI jobs on any GPU cloud or on-premise cluster. Built on this library, TensorOpera AI (https://TensorOpera.ai) is your generative AI platform at scale.",
+      "dates": {
+        "born": "2020-07-21T22:41:25Z"
+      },
+      "github": "https://github.com/FedML-AI/FedML",
+      "homepage": "https://TensorOpera.ai",
+      "stars": 4062,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "ai-agent",
+        "deep-learning",
+        "distributed-training",
+        "edge-ai",
+        "federated-learning",
+        "inference-engine",
+        "machine-learning",
+        "mlops",
+        "model-deployment",
+        "model-serving",
+        "on-device-training"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 3
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/FedML-AI/FedML"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 4062,
+        "forks": 765,
+        "starsPerDay": 1.8278236500449532,
+        "created": "2020-07-21T22:41:25Z",
+        "pushed": "2025-10-28T12:44:12Z"
+      }
+    },
+    {
+      "id": "gh:ai-boost/awesome-harness-engineering",
+      "name": "awesome-harness-engineering",
+      "org": "ai-boost",
+      "kind": "project",
+      "story": "Awesome list for AI agent harness engineering: tools, patterns, evals, memory, MCP, permissions, observability, and orchestration.",
+      "dates": {
+        "born": "2026-03-29T15:39:49Z"
+      },
+      "github": "https://github.com/ai-boost/awesome-harness-engineering",
+      "homepage": "https://github.com/ai-boost/awesome-harness-engineering",
+      "stars": 3685,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "agent-harness",
+        "agent-memory",
+        "agent-orchestration",
+        "ai-agent-harness",
+        "ai-agents",
+        "awesome-list",
+        "context-engineering",
+        "harness-engineering",
+        "mcp"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/ai-boost/awesome-harness-engineering"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 3685,
+        "forks": 442,
+        "starsPerDay": 25.30770455537318,
+        "created": "2026-03-29T15:39:49Z",
+        "pushed": "2026-08-22T02:37:28Z"
+      }
+    },
+    {
+      "id": "gh:zjhellofss/KuiperInfer",
+      "name": "KuiperInfer",
+      "org": "zjhellofss",
+      "kind": "project",
+      "story": "校招、秋招、春招、实习好项目！带你从零实现一个高性能的深度学习推理库，支持大模型 llama2 、Unet、Yolov5、Resnet等模型的推理。Implement a high-performance deep learning inference library step by step",
+      "dates": {
+        "born": "2022-11-21T05:28:01Z"
+      },
+      "github": "https://github.com/zjhellofss/KuiperInfer",
+      "homepage": "",
+      "stars": 3496,
+      "starsUncertain": false,
+      "language": "C++",
+      "topics": [
+        "caffe",
+        "convolution",
+        "deep-learning",
+        "deep-neural-networks",
+        "diy",
+        "graph-algorithms",
+        "inference",
+        "inference-engine",
+        "maxpooling",
+        "ncnn",
+        "pnnx",
+        "pytorch",
+        "relu",
+        "resnet",
+        "sigmoid",
+        "yolo",
+        "yolov5"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 2
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/zjhellofss/KuiperInfer"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 3496,
+        "forks": 372,
+        "starsPerDay": 2.551763937485593,
+        "created": "2022-11-21T05:28:01Z",
+        "pushed": "2025-06-22T07:48:34Z"
+      }
+    },
+    {
+      "id": "gh:peteromallet/desloppify",
+      "name": "desloppify",
+      "org": "peteromallet",
+      "kind": "project",
+      "story": "Agent harness to make your slop code well-engineered and beautiful.",
+      "dates": {
+        "born": "2026-02-11T17:27:42Z"
+      },
+      "github": "https://github.com/peteromallet/desloppify",
+      "homepage": "https://desloppify.it/",
+      "stars": 3029,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "agent-harness"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/peteromallet/desloppify"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 3029,
+        "forks": 234,
+        "starsPerDay": 15.81451431941418,
+        "created": "2026-02-11T17:27:42Z",
+        "pushed": "2026-05-13T20:17:05Z"
+      }
+    },
+    {
+      "id": "gh:trustgraph-ai/trustgraph",
+      "name": "trustgraph",
+      "org": "trustgraph-ai",
+      "kind": "project",
+      "story": "The deterministic context engineering platform for open source AI. Connect open models and ontologies with context graph harnesses to build explainable, reliable agents.",
+      "dates": {
+        "born": "2024-07-10T19:14:04Z"
+      },
+      "github": "https://github.com/trustgraph-ai/trustgraph",
+      "homepage": "https://TrustGraph.ai",
+      "stars": 2585,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "agent",
+        "agent-harness",
+        "context",
+        "context-engineering",
+        "context-graph",
+        "context-harness",
+        "determinism",
+        "explainable-ai",
+        "graph",
+        "graph-engineering",
+        "holon",
+        "hypergraph",
+        "knowledge-graph",
+        "ontology",
+        "open-source",
+        "owl",
+        "rdf",
+        "sparql",
+        "workflow-automation"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/trustgraph-ai/trustgraph"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 2585,
+        "forks": 306,
+        "starsPerDay": 3.3464557223745115,
+        "created": "2024-07-10T19:14:04Z",
+        "pushed": "2026-08-18T16:58:17Z"
+      }
+    },
+    {
+      "id": "gh:Ontos-AI/knowhere",
+      "name": "knowhere",
+      "org": "Ontos-AI",
+      "kind": "project",
+      "story": "Knowhere extracts, parses, and outputs structured chunks ready for AI Agents and RAG.",
+      "dates": {
+        "born": "2026-04-30T03:13:10Z"
+      },
+      "github": "https://github.com/Ontos-AI/knowhere",
+      "homepage": "https://knowhereto.ai",
+      "stars": 2582,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "agent-harness",
+        "ai-agents",
+        "claude-code",
+        "codex",
+        "cursor",
+        "document-intelligence",
+        "langchain",
+        "mutli-agent",
+        "rag-pipeline",
+        "skills",
+        "vector-database"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/Ontos-AI/knowhere"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 2582,
+        "forks": 286,
+        "starsPerDay": 22.624049954482555,
+        "created": "2026-04-30T03:13:10Z",
+        "pushed": "2026-08-20T15:42:48Z"
+      }
+    },
+    {
+      "id": "gh:hyperjumptech/grule-rule-engine",
+      "name": "grule-rule-engine",
+      "org": "hyperjumptech",
+      "kind": "project",
+      "story": "Rule engine implementation in Golang",
+      "dates": {
+        "born": "2019-12-13T09:45:58Z"
+      },
+      "github": "https://github.com/hyperjumptech/grule-rule-engine",
+      "homepage": "",
+      "stars": 2522,
+      "starsUncertain": false,
+      "language": "Go",
+      "topics": [
+        "golang",
+        "hacktoberfest",
+        "hacktoberfest2021",
+        "inference-engine",
+        "rule",
+        "rule-based",
+        "rule-based-engine",
+        "rule-engine"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 3
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/hyperjumptech/grule-rule-engine"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 2522,
+        "forks": 374,
+        "starsPerDay": 1.0319767304882872,
+        "created": "2019-12-13T09:45:58Z",
+        "pushed": "2026-02-10T00:34:37Z"
+      }
+    },
+    {
+      "id": "gh:siliconflow/onediff",
+      "name": "onediff",
+      "org": "siliconflow",
+      "kind": "project",
+      "story": "OneDiff: An out-of-the-box acceleration library for diffusion models.",
+      "dates": {
+        "born": "2022-09-21T07:34:13Z"
+      },
+      "github": "https://github.com/siliconflow/onediff",
+      "homepage": "https://github.com/siliconflow/onediff/wiki",
+      "stars": 1963,
+      "starsUncertain": false,
+      "language": "Jupyter Notebook",
+      "topics": [
+        "aigc-serving",
+        "comfyui",
+        "comfyui-workflow",
+        "cuda",
+        "diffusers",
+        "diffusion-models",
+        "inference-engine",
+        "lcm",
+        "lcm-lora",
+        "lora",
+        "performance-optimization",
+        "pytorch",
+        "sd-webui",
+        "sdxl",
+        "sdxl-turbo",
+        "stable-diffusion",
+        "stable-video-diffusion"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 2
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/siliconflow/onediff"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 1963,
+        "forks": 128,
+        "starsPerDay": 1.3718206751687412,
+        "created": "2022-09-21T07:34:13Z",
+        "pushed": "2025-12-04T01:30:48Z"
+      }
+    },
+    {
+      "id": "gh:dphnAI/sonar",
+      "name": "sonar",
+      "org": "dphnAI",
+      "kind": "project",
+      "story": "Large-scale LLM inference engine",
+      "dates": {
+        "born": "2023-06-23T02:34:29Z"
+      },
+      "github": "https://github.com/dphnAI/sonar",
+      "homepage": "https://sonar.dphn.ai",
+      "stars": 1842,
+      "starsUncertain": false,
+      "language": "C++",
+      "topics": [
+        "api-rest",
+        "cuda",
+        "inference-engine",
+        "inferentia",
+        "intel",
+        "lora",
+        "machine-learning",
+        "rocm",
+        "speculative-decoding",
+        "tpu"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 3,
+        "speculative-decoding": 2
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/dphnAI/sonar"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 1842,
+        "forks": 207,
+        "starsPerDay": 1.5932144704667444,
+        "created": "2023-06-23T02:34:29Z",
+        "pushed": "2026-08-13T03:29:23Z"
+      }
+    },
+    {
+      "id": "gh:Picrew/awesome-agent-harness",
+      "name": "awesome-agent-harness",
+      "org": "Picrew",
+      "kind": "project",
+      "story": "An awesome list of Agent Harness engineering resources, including GitHub projects, tools, benchmarks, and practical guides.",
+      "dates": {
+        "born": "2026-03-30T03:14:38Z"
+      },
+      "github": "https://github.com/Picrew/awesome-agent-harness",
+      "homepage": "https://picrew.github.io/LLM-Harness/",
+      "stars": 1641,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "agent-harness",
+        "context-engineering",
+        "harness-engineering"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/Picrew/awesome-agent-harness"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 1641,
+        "forks": 171,
+        "starsPerDay": 11.307468551220728,
+        "created": "2026-03-30T03:14:38Z",
+        "pushed": "2026-08-13T15:40:57Z"
+      }
+    },
+    {
+      "id": "gh:youssofal/MTPLX",
+      "name": "MTPLX",
+      "org": "youssofal",
+      "kind": "project",
+      "story": "3x faster speeds on MLX | Qwen 3.8 27B | Native MTP Speculative Decoding On Apple Silicon With No External Drafter.",
+      "dates": {
+        "born": "2026-05-02T00:59:09Z"
+      },
+      "github": "https://github.com/youssofal/MTPLX",
+      "homepage": "https://mtplx.com",
+      "stars": 1541,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "anthropic-compatible",
+        "apple-silicon",
+        "inference-engine",
+        "local-ai",
+        "metal",
+        "mlx",
+        "mtp",
+        "mtplx",
+        "native-mtp",
+        "openai-compatible",
+        "qwen",
+        "qwen3-next",
+        "speculative-decoding",
+        "speculative-sampling"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 2,
+        "speculative-decoding": 3
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/youssofal/MTPLX"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 1541,
+        "forks": 108,
+        "starsPerDay": 13.732028692557769,
+        "created": "2026-05-02T00:59:09Z",
+        "pushed": "2026-08-20T09:36:45Z"
+      }
+    },
+    {
+      "id": "gh:xLLM-AI/xllm",
+      "name": "xllm",
+      "org": "xLLM-AI",
+      "kind": "project",
+      "story": "A high-performance inference engine for LLM, VLM, DiT and REC models, optimized for diverse AI accelerators. It is hosted in OpenAtom Foundation.",
+      "dates": {
+        "born": "2025-08-12T13:16:07Z"
+      },
+      "github": "https://github.com/xLLM-AI/xllm",
+      "homepage": "https://xllm-ai.com/",
+      "stars": 1529,
+      "starsUncertain": false,
+      "language": "C++",
+      "topics": [
+        "deepseek",
+        "glm",
+        "inference",
+        "inference-engine",
+        "large-language-models",
+        "llm-inference",
+        "qwen"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 3
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/xLLM-AI/xllm"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 1529,
+        "forks": 282,
+        "starsPerDay": 4.080514871736863,
+        "created": "2025-08-12T13:16:07Z",
+        "pushed": "2026-08-21T03:36:45Z"
+      }
+    },
+    {
+      "id": "gh:limecloud/lime",
+      "name": "lime",
+      "org": "limecloud",
+      "kind": "project",
+      "story": "Full-stack AI agent for coding, files, terminals, tools, research, content, multimodal work, and multi-agent workflows.",
+      "dates": {
+        "born": "2025-12-13T17:23:15Z"
+      },
+      "github": "https://github.com/limecloud/lime",
+      "homepage": "https://limeai.run",
+      "stars": 1466,
+      "starsUncertain": false,
+      "language": "TypeScript",
+      "topics": [
+        "agent",
+        "agent-collaboration",
+        "agent-harness",
+        "agentic-ai",
+        "ai",
+        "claw",
+        "content-creation",
+        "creators",
+        "deepseek",
+        "desktop-app",
+        "knowledge-base",
+        "mcp",
+        "research-tool",
+        "skills",
+        "workflow",
+        "writing-tool"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/limecloud/lime"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 1466,
+        "forks": 206,
+        "starsPerDay": 5.828191507462983,
+        "created": "2025-12-13T17:23:15Z",
+        "pushed": "2026-08-21T22:46:50Z"
+      }
+    },
+    {
+      "id": "gh:tmgthb/Autonomous-Agents",
+      "name": "Autonomous-Agents",
+      "org": "tmgthb",
+      "kind": "project",
+      "story": "Autonomous Agents (LLMs) research papers. Updated Daily.",
+      "dates": {
+        "born": "2023-09-16T15:09:48Z"
+      },
+      "github": "https://github.com/tmgthb/Autonomous-Agents",
+      "homepage": "",
+      "stars": 1370,
+      "starsUncertain": false,
+      "language": null,
+      "topics": [
+        "agent",
+        "agent-context",
+        "agent-harness",
+        "agentic",
+        "agentic-ai",
+        "agents",
+        "ai",
+        "ai-agents",
+        "aiagent",
+        "aiagents",
+        "autonomous-agents",
+        "cognitive-agents",
+        "computer-use-agent",
+        "embodied-agent",
+        "generalist-agent",
+        "language-agent",
+        "llm",
+        "llm-agents",
+        "llmagents",
+        "research-paper"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/tmgthb/Autonomous-Agents"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 1370,
+        "forks": 101,
+        "starsPerDay": 1.2796219914165907,
+        "created": "2023-09-16T15:09:48Z",
+        "pushed": "2026-06-24T17:03:27Z"
+      }
+    },
+    {
+      "id": "gh:FailproofAI/failproofai",
+      "name": "failproofai",
+      "org": "FailproofAI",
+      "kind": "project",
+      "story": "Observability and enforcement for AI agent harnesses. Capture every run and runtime reliability with policy enforcement.  40 built-in policies, a local dashboard, no account required with a generous free cloud plan",
+      "dates": {
+        "born": "2026-04-06T01:56:39Z"
+      },
+      "github": "https://github.com/FailproofAI/failproofai",
+      "homepage": "https://befailproof.ai",
+      "stars": 1333,
+      "starsUncertain": false,
+      "language": "MDX",
+      "topics": [
+        "agent-failure",
+        "agent-harness",
+        "agent-observability",
+        "agent-reliability",
+        "agent-tracing",
+        "ai-agent",
+        "claude-code",
+        "codex",
+        "enforcement",
+        "evals",
+        "guardrails",
+        "hermes",
+        "hooks",
+        "llm",
+        "llm-failures",
+        "llm-observability",
+        "npm-package",
+        "observability",
+        "openclaw",
+        "reliability"
+      ],
+      "fingerprint": {},
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/FailproofAI/failproofai"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 1333,
+        "forks": 246,
+        "starsPerDay": 9.646874052466464,
+        "created": "2026-04-06T01:56:39Z",
+        "pushed": "2026-08-21T20:39:00Z"
+      }
+    },
+    {
+      "id": "gh:Tencent/FeatherCNN",
+      "name": "FeatherCNN",
+      "org": "Tencent",
+      "kind": "project",
+      "story": "FeatherCNN is a high performance inference engine for convolutional neural networks.",
+      "dates": {
+        "born": "2018-04-27T02:21:30Z"
+      },
+      "github": "https://github.com/Tencent/FeatherCNN",
+      "homepage": "",
+      "stars": 1228,
+      "starsUncertain": false,
+      "language": "C++",
+      "topics": [
+        "android",
+        "arm-neon",
+        "caffe",
+        "convolutional-neural-networks",
+        "inference-engine",
+        "ios"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 3
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/Tencent/FeatherCNN"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 1228,
+        "forks": 275,
+        "starsPerDay": 0.404058722352018,
+        "created": "2018-04-27T02:21:30Z",
+        "pushed": "2019-09-24T06:34:01Z"
+      }
+    },
+    {
+      "id": "gh:qualcomm/ai-hub-models",
+      "name": "ai-hub-models",
+      "org": "qualcomm",
+      "kind": "project",
+      "story": "Qualcomm® AI Hub Models is our collection of state-of-the-art machine learning models optimized for performance (latency, memory etc.) and ready to deploy on Qualcomm® devices.",
+      "dates": {
+        "born": "2023-12-20T18:41:48Z"
+      },
+      "github": "https://github.com/qualcomm/ai-hub-models",
+      "homepage": "https://aihub.qualcomm.com/models",
+      "stars": 1191,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "deeplearning",
+        "demos",
+        "inference",
+        "inference-api",
+        "inference-engine",
+        "machine-learning",
+        "machinelearning",
+        "onnx",
+        "pytorch",
+        "qnn",
+        "tensorflow-lite"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 2
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/qualcomm/ai-hub-models"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 1191,
+        "forks": 205,
+        "starsPerDay": 1.2209355734224043,
+        "created": "2023-12-20T18:41:48Z",
+        "pushed": "2026-08-22T04:09:46Z"
+      }
+    },
+    {
+      "id": "gh:ovg-project/kvcached",
+      "name": "kvcached",
+      "org": "ovg-project",
+      "kind": "project",
+      "story": "Virtualized Elastic KV Cache for Dynamic GPU Sharing and Beyond",
+      "dates": {
+        "born": "2025-05-27T17:34:02Z"
+      },
+      "github": "https://github.com/ovg-project/kvcached",
+      "homepage": "",
+      "stars": 1140,
+      "starsUncertain": false,
+      "language": "Python",
+      "topics": [
+        "elastic-kvcache",
+        "gpu-mutiplexing",
+        "gpu-sharing",
+        "inference-engine",
+        "kvcache",
+        "kvcache-optimization",
+        "kvcached",
+        "llm",
+        "llm-framework",
+        "llm-inference",
+        "llm-serving",
+        "ollama",
+        "online-offline-coserve",
+        "serverless",
+        "sglang",
+        "vllm"
+      ],
+      "fingerprint": {
+        "kv-cache": 3,
+        "serving-frameworks": 2
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/ovg-project/kvcached"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 1140,
+        "forks": 132,
+        "starsPerDay": 2.524757532540839,
+        "created": "2025-05-27T17:34:02Z",
+        "pushed": "2026-08-20T23:16:04Z"
+      }
+    },
+    {
+      "id": "gh:PaddlePaddle/Paddle.js",
+      "name": "Paddle.js",
+      "org": "PaddlePaddle",
+      "kind": "project",
+      "story": "Paddle.js is a web project for Baidu PaddlePaddle, which is an open source deep learning framework running in the browser. Paddle.js can either load a pre-trained model, or transforming a model from paddle-hub with model transforming tools provided by Paddle.js. It could run in every browser with WebGL/WebGPU/WebAssembly supported. It could also run in Baidu Smartprogram and WX miniprogram.",
+      "dates": {
+        "born": "2020-03-26T03:43:58Z"
+      },
+      "github": "https://github.com/PaddlePaddle/Paddle.js",
+      "homepage": "https://paddlejs.baidu.com",
+      "stars": 1103,
+      "starsUncertain": false,
+      "language": "JavaScript",
+      "topics": [
+        "deep-learning",
+        "inference-engine",
+        "model",
+        "ocr",
+        "paddlepaddle",
+        "webassembly",
+        "webgl",
+        "webgpu"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 2
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/PaddlePaddle/Paddle.js"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 1103,
+        "forks": 154,
+        "starsPerDay": 0.47134638279154867,
+        "created": "2020-03-26T03:43:58Z",
+        "pushed": "2024-04-03T03:25:39Z"
+      }
+    },
+    {
+      "id": "gh:nobodywho-ooo/nobodywho",
+      "name": "nobodywho",
+      "org": "nobodywho-ooo",
+      "kind": "project",
+      "story": "NobodyWho is an inference engine that lets you run LLMs locally and efficiently on any device.  ",
+      "dates": {
+        "born": "2024-09-03T12:53:14Z"
+      },
+      "github": "https://github.com/nobodywho-ooo/nobodywho",
+      "homepage": "https://nobodywho.ai",
+      "stars": 1071,
+      "starsUncertain": false,
+      "language": "Rust",
+      "topics": [
+        "ai",
+        "flutter",
+        "godot",
+        "godot-engine",
+        "godot-plugin",
+        "godot4",
+        "inference-engine",
+        "kotlin",
+        "llm",
+        "on-device-ai",
+        "python",
+        "python-llm",
+        "react-native",
+        "slm",
+        "stt",
+        "swift",
+        "tts"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 3
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/nobodywho-ooo/nobodywho"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 1071,
+        "forks": 75,
+        "starsPerDay": 1.4922180882574276,
+        "created": "2024-09-03T12:53:14Z",
+        "pushed": "2026-08-21T19:08:57Z"
+      }
+    },
+    {
+      "id": "gh:wangeai/K3Flight",
+      "name": "K3Flight",
+      "org": "wangeai",
+      "kind": "project",
+      "story": "Run Kimi K3 locally on CPU with ~55GB measured runtime RAM. A single-file Linux inference server powered by cPilot Runtime.",
+      "dates": {
+        "born": "2026-07-30T12:21:48Z"
+      },
+      "github": "https://github.com/wangeai/K3Flight",
+      "homepage": "https://onetoken-oss.github.io/K3Flight/",
+      "stars": 1019,
+      "starsUncertain": false,
+      "language": "HTML",
+      "topics": [
+        "cpu-inference",
+        "edge-ai",
+        "inference-engine",
+        "kimi-k3",
+        "local-llm",
+        "low-memory",
+        "moe"
+      ],
+      "fingerprint": {
+        "serving-frameworks": 3,
+        "moe-routing": 2
+      },
+      "drift": null,
+      "confidence": "high",
+      "sources": [
+        "https://github.com/wangeai/K3Flight"
+      ],
+      "closed": false,
+      "scraped": true,
+      "metrics": {
+        "stars": 1019,
+        "forks": 1,
+        "starsPerDay": 44.80039330488853,
+        "created": "2026-07-30T12:21:48Z",
+        "pushed": "2026-07-31T11:04:00Z"
+      }
+    }
+  ],
+  "queries": [
+    {
+      "q": "topic:llm-inference",
+      "count": 15
+    },
+    {
+      "q": "topic:ai-agents",
+      "count": 15
+    },
+    {
+      "q": "topic:claude-code",
+      "count": 15
+    },
+    {
+      "q": "topic:inference-engine",
+      "count": 15
+    },
+    {
+      "q": "topic:agent-harness",
+      "count": 15
+    }
+  ]
+}

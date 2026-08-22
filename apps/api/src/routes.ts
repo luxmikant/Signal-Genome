@@ -9,6 +9,7 @@ import { IngestBatchSchema } from "@signal/core";
 import { bus } from "./bus.js";
 import { getGenomeState, ingestRaw, recordVisit } from "./genome.js";
 import { addReaction, loadContents, loadTags } from "./db.js";
+import { loadEcosystem } from "@signal/ecosystem";
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), "../../..");
 
@@ -66,6 +67,15 @@ export function registerRoutes(app: FastifyInstance): void {
     addReaction(geneId, type as string);
     bus.emitGenome({ type: "reaction", payload: { geneId, type } });
     reply.send({ ok: true });
+  });
+
+  app.get("/api/ecosystem", (_req, reply) => {
+    const snapshot = loadEcosystem();
+    if (!snapshot) {
+      reply.code(404).send({ error: "no ecosystem data — run `pnpm trends` first" });
+      return;
+    }
+    reply.send(snapshot);
   });
 
   app.get("/api/health", (_req, reply) => {

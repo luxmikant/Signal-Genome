@@ -12,6 +12,7 @@
   "dependencies": {
     "@fastify/cors": "^10.0.2",
     "@signal/core": "workspace:*",
+    "@signal/ecosystem": "workspace:*",
     "@signal/engine": "workspace:*",
     "@signal/genes": "workspace:*",
     "@signal/seed-content": "workspace:*",

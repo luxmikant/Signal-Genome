@@ -10,9 +10,11 @@ import type {
 import { getGene, getGenome, getHealth, postReaction, postVisit } from "./api.js";
 
 export type Stage = "intro" | "live";
+export type View = "tree" | "helix";
 
 type GenomeStore = {
   stage: Stage;
+  view: View;
   genome: Genome | null;
   selected: string | null;
   hovered: string | null;
@@ -23,6 +25,7 @@ type GenomeStore = {
   notices: MutationNotice[];
   connected: boolean;
   begin: () => void;
+  setView: (view: View) => void;
   select: (geneId: string | null) => void;
   hover: (geneId: string | null) => void;
   react: (geneId: string, type: string) => void;
@@ -36,6 +39,7 @@ const MAX_NOTICES = 6;
 
 export const useGenome = create<GenomeStore>((set, get) => ({
   stage: "intro",
+  view: "tree",
   genome: null,
   selected: null,
   hovered: null,
@@ -51,6 +55,8 @@ export const useGenome = create<GenomeStore>((set, get) => ({
     void postVisit().catch(() => {});
     void get().refresh();
   },
+
+  setView: (view) => set({ view, healthOpen: false }),
 
   select: (geneId) => {
     set({ selected: geneId, healthOpen: false });

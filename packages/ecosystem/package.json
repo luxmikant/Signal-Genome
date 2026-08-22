@@ -1,0 +1,31 @@
+{
+  "name": "@signal/ecosystem",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./tree": {
+      "types": "./src/tree.ts",
+      "default": "./src/tree.ts"
+    }
+  },
+  "scripts": {
+    "fetch": "tsx src/cli.ts fetch",
+    "snapshot": "tsx src/snapshot.ts",
+    "test": "node --test --import tsx \"src/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@signal/core": "workspace:*",
+    "@signal/genes": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}

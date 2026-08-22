@@ -25,3 +25,6 @@ export function postVisit() {
 export function getHealth<T>() {
   return json<T>("/health");
 }
+export function getEcosystem<T>() {
+  return json<T>("/ecosystem");
+}
