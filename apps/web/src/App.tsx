@@ -6,6 +6,7 @@ import { NextDirectionCard } from "./panels/NextDirectionCard.js";
 import { HealthView } from "./panels/HealthView.js";
 import { Onboarding } from "./panels/Onboarding.js";
 import { EcoView } from "./ecosystem/EcoView.js";
+import { CityView } from "./city/CityView.js";
 import { subscribeSse, useGenome } from "./store.js";
 import { GENES_MAP } from "./geneMeta.js";
 
@@ -25,6 +26,7 @@ export function App() {
 
   return (
     <div style={{ position: "fixed", inset: 0 }}>
+      {stage === "live" && view === "city" && <CityView />}
       {stage === "live" && view === "tree" && <EcoView />}
       {stage === "live" && view === "helix" && (
         <>
@@ -79,9 +81,11 @@ function TopHud({
   genes: number;
   connected: boolean;
   onHealth: () => void;
-  view: "tree" | "helix";
+  view: "city" | "tree" | "helix";
 }) {
   const setView = useGenome((s) => s.setView);
+  const label =
+    view === "city" ? "THE KNOWLEDGE CITY" : view === "tree" ? "LINEAGE · THE ECOSYSTEM" : "GENOME · LLM INFERENCE";
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -105,7 +109,7 @@ function TopHud({
             fontWeight: 700,
             fontSize: 17,
             letterSpacing: "0.02em",
-            background: "linear-gradient(90deg,#7C5CFF,#2EE6A8)",
+            background: "linear-gradient(90deg,#A7FF83,#E8D9A8)",
             WebkitBackgroundClip: "text",
             backgroundClip: "text",
             color: "transparent",
@@ -114,12 +118,15 @@ function TopHud({
           SIGNAL GENOME
         </span>
         <span style={{ color: "var(--faint)", fontFamily: "var(--mono)", fontSize: 10.5 }}>
-          {view === "tree" ? "LINEAGE · THE ECOSYSTEM" : "GENOME · LLM INFERENCE"} · v0.1
+          {label} · v0.2
         </span>
       </div>
 
       <div style={{ display: "flex", gap: 8, alignItems: "center", pointerEvents: "auto" }}>
         <div className="view-switch">
+          <button className={view === "city" ? "is-active" : ""} onClick={() => setView("city")}>
+            ⌂ city
+          </button>
           <button className={view === "tree" ? "is-active" : ""} onClick={() => setView("tree")}>
             ⌘ lineage
           </button>

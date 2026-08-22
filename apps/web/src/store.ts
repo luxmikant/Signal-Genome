@@ -10,7 +10,7 @@ import type {
 import { getGene, getGenome, getHealth, postReaction, postVisit } from "./api.js";
 
 export type Stage = "intro" | "live";
-export type View = "tree" | "helix";
+export type View = "city" | "tree" | "helix";
 
 type GenomeStore = {
   stage: Stage;
@@ -39,7 +39,7 @@ const MAX_NOTICES = 6;
 
 export const useGenome = create<GenomeStore>((set, get) => ({
   stage: "intro",
-  view: "tree",
+  view: "city",
   genome: null,
   selected: null,
   hovered: null,

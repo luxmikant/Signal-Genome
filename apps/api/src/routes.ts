@@ -10,6 +10,7 @@ import { bus } from "./bus.js";
 import { getGenomeState, ingestRaw, recordVisit } from "./genome.js";
 import { addReaction, loadContents, loadTags } from "./db.js";
 import { loadEcosystem } from "@signal/ecosystem";
+import { buildCityModel } from "./city.js";
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), "../../..");
 
@@ -76,6 +77,10 @@ export function registerRoutes(app: FastifyInstance): void {
       return;
     }
     reply.send(snapshot);
+  });
+
+  app.get("/api/city", (_req, reply) => {
+    reply.send(buildCityModel());
   });
 
   app.get("/api/health", (_req, reply) => {

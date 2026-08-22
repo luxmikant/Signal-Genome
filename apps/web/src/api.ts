@@ -28,3 +28,6 @@ export function getHealth<T>() {
 export function getEcosystem<T>() {
   return json<T>("/ecosystem");
 }
+export function getCity<T>() {
+  return json<T>("/city");
+}

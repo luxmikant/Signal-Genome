@@ -1,6 +1,6 @@
 # Signal Genome
 
-Your radar for what's changing in AI tooling. Bright Data scrapes the web, a self-healing agent loop keeps the scrapers alive when sites change, and the data comes out as two views: a **lineage tree** of the AI-tool ecosystem, and a **personal genome** of concepts worth learning.
+Your radar for what's changing in AI tooling. Bright Data scrapes the web, a self-healing agent loop keeps the scrapers alive when sites change, and the data comes out as three views: a **3D Knowledge City** of the evidence, a **lineage tree** of the AI-tool ecosystem, and a **personal genome** of concepts worth learning.
 
 Built for **Into the Scrape-Verse** (WeMakeDevs × Bright Data, Aug 2026).
 
@@ -37,17 +37,23 @@ pnpm health              # per-source status board
 
 ## How we visualize it
 
-The default view is **LINEAGE**, a radial evolution tree:
+The default view is **THE KNOWLEDGE CITY** — a 3D city where every building is a real fact:
+
+- **Districts** are concepts; **buildings** are sources (blog posts, docs, changelogs)
+- **Building height** = relevance to you; **lit windows** = fresh evidence
+- **Construction cranes** swing over emerging ideas; **gold obelisks** mark foundational ones
+- **Roads** connect prerequisite concepts; a health beacon per district shows collector state
+- Click a building to open its evidence document; the system panel never hides collection failures
+
+The second view is **LINEAGE**, a radial evolution tree that also carries live GitHub trends:
 
 - the root is the idea — "the agent loop" — and everything branches from it
 - branch width = how many descendants that node spawned
 - node size = GitHub stars; pulse = live activity
-- scrolling runs an 8-chapter story; the camera flies to each node
-- hover = profile; click = **drift diff** against its ancestor
 - a time scrubber un-grows the tree back to 2024
-- scraped repos orbit outside as "field pulse" — top movers by star velocity
+- click any node for its **drift diff** vs the ancestor — renames, capability deltas, sources
 
-The second view is **GENOME**: the original personal helix of 14 concepts, scored by fitness and momentum, with reactions and a "learn this next" card that explains itself.
+The third view is **GENOME**: the original personal helix of 14 concepts, scored by fitness and momentum, with reactions and a "learn this next" card that explains itself.
 
 ## How we represent the data
 
@@ -65,10 +71,12 @@ Bright Data Scraper Studio (c_* collectors)
   → SQLite
   → gene tagger + fitness + ranker
   → REST /api/genome + SSE /api/events
-  → LINEAGE tree + GENOME helix
+  → KNOWLEDGE CITY (3D) + GENOME helix
 
 GitHub API + curated lineage facts
   → data/ecosystem.json → GET /api/ecosystem → LINEAGE
+
+GET /api/city → districts, buildings (sources), roads (prerequisites), learn-next route
 ```
 
 ## What's unique here
