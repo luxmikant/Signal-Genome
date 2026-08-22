@@ -13,3 +13,4 @@ data/ingest/*
 .DS_Store
 *.log
 .vite/
+.sf/
