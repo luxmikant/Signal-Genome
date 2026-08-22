@@ -4,7 +4,7 @@ import { registerRoutes } from "./routes.js";
 
 const PORT = Number(process.env.PORT ?? 8787);
 
-const app = Fastify({ logger: { level: "info" } });
+const app = Fastify({ logger: { level: "info" }, bodyLimit: 64 * 1024 * 1024 });
 await app.register(cors, { origin: true });
 registerRoutes(app);
 
