@@ -37,14 +37,19 @@ const W_CONNECTED = 0.8;
 export function nextDirection(input: RankerInput): Direction | null {
   const { genes, stats, reactionsByGene, visitedIds, followedIds } = input;
   const maxMomentum = Math.max(0, ...[...stats.values()].map((s) => s.momentum));
-  const maxConnected = Math.max(0, ...[...genes].map((g) =>
-    g.prerequisites.length + g.prerequisites.filter((p) => followedIds.has(p)).length,
-  ));
+  const maxConnected = Math.max(
+    0,
+    ...[...genes].map(
+      (g) => g.prerequisites.length + g.prerequisites.filter((p) => followedIds.has(p)).length,
+    ),
+  );
 
   const candidates: Candidate[] = [];
   for (const gene of genes) {
     if (visitedIds.has(gene.id) || followedIds.has(gene.id)) continue;
-    const prereqMissing = gene.prerequisites.filter((p) => !visitedIds.has(p) && !followedIds.has(p)).length;
+    const prereqMissing = gene.prerequisites.filter(
+      (p) => !visitedIds.has(p) && !followedIds.has(p),
+    ).length;
     const momentum = (stats.get(gene.id)?.momentum ?? 0) / (maxMomentum || 1);
     const affinity = reactionsByGene.get(gene.id) ?? 0;
     const connectedNeighbors = gene.prerequisites.filter((p) => followedIds.has(p)).length;
@@ -54,7 +59,14 @@ export function nextDirection(input: RankerInput): Direction | null {
       W_MOMENTUM * momentum +
       W_AFFINITY * affinity +
       W_CONNECTED * connectedness;
-    candidates.push({ geneId: gene.id, prereqMissing, momentum, affinity, connectedNeighbors, score });
+    candidates.push({
+      geneId: gene.id,
+      prereqMissing,
+      momentum,
+      affinity,
+      connectedNeighbors,
+      score,
+    });
   }
 
   if (candidates.length === 0) return null;
@@ -76,7 +88,9 @@ function buildReasons(best: Candidate, input: RankerInput): DirectionReason[] {
   const stats = input.stats.get(best.geneId);
 
   if (best.prereqMissing > 0) {
-    const name = gene.prerequisites.find((p) => !input.visitedIds.has(p) && !input.followedIds.has(p));
+    const name = gene.prerequisites.find(
+      (p) => !input.visitedIds.has(p) && !input.followedIds.has(p),
+    );
     if (name) {
       const prereq = GENE_BY_ID[name];
       reasons.push({

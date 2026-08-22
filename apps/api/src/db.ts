@@ -44,11 +44,14 @@ db.exec(`
 `);
 
 export function setMeta(key: string, value: string): void {
-  db.prepare("INSERT INTO meta (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value").run(key, value);
+  db.prepare(
+    "INSERT INTO meta (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value",
+  ).run(key, value);
 }
 
 export function getMeta(key: string): string | null {
-  const row = db.prepare("SELECT value FROM meta WHERE key = ?").get(key) as { value: string } | undefined;
+  const row = db.prepare("SELECT value FROM meta WHERE key = ?").get(key) as
+    { value: string } | undefined;
   return row?.value ?? null;
 }
 
@@ -57,7 +60,7 @@ export function loadContents(): Content[] {
   return rows.map((r) => ({
     id: String(r.id),
     source: String(r.source),
-    sourceType: (String(r.source_type) as Content["sourceType"]),
+    sourceType: String(r.source_type) as Content["sourceType"],
     title: String(r.title),
     url: String(r.url),
     publishedAt: String(r.published_at),
@@ -69,7 +72,9 @@ export function loadContents(): Content[] {
 }
 
 export function loadTags(): Map<string, Array<{ geneId: string; weight: number }>> {
-  const rows = db.prepare("SELECT content_id, gene_id, weight FROM tags").all() as Array<Record<string, unknown>>;
+  const rows = db.prepare("SELECT content_id, gene_id, weight FROM tags").all() as Array<
+    Record<string, unknown>
+  >;
   const map = new Map<string, Array<{ geneId: string; weight: number }>>();
   for (const row of rows) {
     const contentId = String(row.content_id);
@@ -81,10 +86,13 @@ export function loadTags(): Map<string, Array<{ geneId: string; weight: number }
 }
 
 export function loadReactions(): Array<{ geneId: string; type: string; at: number }> {
-  return db.prepare("SELECT gene_id, type, at FROM reactions").all().map((r) => {
-    const row = r as Record<string, unknown>;
-    return { geneId: String(row.gene_id), type: String(row.type), at: Number(row.at) };
-  });
+  return db
+    .prepare("SELECT gene_id, type, at FROM reactions")
+    .all()
+    .map((r) => {
+      const row = r as Record<string, unknown>;
+      return { geneId: String(row.gene_id), type: String(row.type), at: Number(row.at) };
+    });
 }
 
 export function upsertContent(content: {
@@ -113,12 +121,19 @@ export function upsertContent(content: {
   return result.changes > 0;
 }
 
-export function replaceTagsForContent(contentId: string, edges: Array<{ geneId: string; weight: number }>): void {
+export function replaceTagsForContent(
+  contentId: string,
+  edges: Array<{ geneId: string; weight: number }>,
+): void {
   db.prepare("DELETE FROM tags WHERE content_id = ?").run(contentId);
   const insert = db.prepare("INSERT INTO tags (content_id, gene_id, weight) VALUES (?, ?, ?)");
   for (const edge of edges) insert.run(contentId, edge.geneId, edge.weight);
 }
 
 export function addReaction(geneId: string, type: string): void {
-  db.prepare("INSERT INTO reactions (gene_id, type, at) VALUES (?, ?, ?)").run(geneId, type, Date.now());
+  db.prepare("INSERT INTO reactions (gene_id, type, at) VALUES (?, ?, ?)").run(
+    geneId,
+    type,
+    Date.now(),
+  );
 }

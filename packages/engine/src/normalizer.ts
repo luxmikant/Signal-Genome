@@ -26,7 +26,11 @@ function asDate(value: unknown): string | null {
 
 function asTags(value: unknown): string[] {
   if (Array.isArray(value)) return value.map((t) => asText(t)).filter(Boolean);
-  if (typeof value === "string") return value.split(",").map((t) => t.trim()).filter(Boolean);
+  if (typeof value === "string")
+    return value
+      .split(",")
+      .map((t) => t.trim())
+      .filter(Boolean);
   return [];
 }
 
@@ -136,8 +140,11 @@ export function normalizeSourceItems(
         sourceType: shape.sourceType,
         title,
         url,
-        publishedAt: asDate(pick(item, shape.dateKeys)) ?? new Date(nowMs).toISOString().slice(0, 10),
-        ...(asText(pick(item, shape.authorKeys)) ? { author: asText(pick(item, shape.authorKeys)) } : {}),
+        publishedAt:
+          asDate(pick(item, shape.dateKeys)) ?? new Date(nowMs).toISOString().slice(0, 10),
+        ...(asText(pick(item, shape.authorKeys))
+          ? { author: asText(pick(item, shape.authorKeys)) }
+          : {}),
         body,
         codeBlocks: asList(pick(item, shape.codeKeys)),
         tags: asTags(pick(item, shape.tagsKeys)),

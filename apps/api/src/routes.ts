@@ -72,10 +72,22 @@ export function registerRoutes(app: FastifyInstance): void {
     const sourcesPath = join(repoRoot, "config", "sources.json");
     const statePath = join(repoRoot, "config", "state.json");
     const sources = existsSync(sourcesPath)
-      ? (JSON.parse(readFileSync(sourcesPath, "utf8")) as Array<{ id: string; name: string; strategy: string }>)
+      ? (JSON.parse(readFileSync(sourcesPath, "utf8")) as Array<{
+          id: string;
+          name: string;
+          strategy: string;
+        }>)
       : [];
     const state = existsSync(statePath)
-      ? (JSON.parse(readFileSync(statePath, "utf8")) as Record<string, { status: string; collectorId: string | null; lastCount: number | null; lastRunAt: number | null }>)
+      ? (JSON.parse(readFileSync(statePath, "utf8")) as Record<
+          string,
+          {
+            status: string;
+            collectorId: string | null;
+            lastCount: number | null;
+            lastRunAt: number | null;
+          }
+        >)
       : {};
     reply.send(
       sources.map((s) => ({
@@ -105,7 +117,10 @@ export function registerRoutes(app: FastifyInstance): void {
     for (const mutation of result.mutations) {
       bus.emitGenome({ type: "mutation", payload: mutation });
     }
-    bus.emitGenome({ type: "genome", payload: { sourceId: parsed.data.sourceId, count: result.count } });
+    bus.emitGenome({
+      type: "genome",
+      payload: { sourceId: parsed.data.sourceId, count: result.count },
+    });
     reply.send({ count: result.count, mutations: result.mutations.length });
   });
 

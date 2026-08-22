@@ -6,8 +6,12 @@ async function json<T>(path: string, init?: RequestInit): Promise<T> {
   return (await res.json()) as T;
 }
 
-export function getGenome<T>() { return json<T>("/genome"); }
-export function getGene<T>(geneId: string) { return json<T>(`/gene/${geneId}`); }
+export function getGenome<T>() {
+  return json<T>("/genome");
+}
+export function getGene<T>(geneId: string) {
+  return json<T>(`/gene/${geneId}`);
+}
 export function postReaction(geneId: string, type: string) {
   return json<{ ok: boolean }>("/reactions", {
     method: "POST",
@@ -18,4 +22,6 @@ export function postReaction(geneId: string, type: string) {
 export function postVisit() {
   return json<{ ok: boolean }>("/visit", { method: "POST" });
 }
-export function getHealth<T>() { return json<T>("/health"); }
+export function getHealth<T>() {
+  return json<T>("/health");
+}

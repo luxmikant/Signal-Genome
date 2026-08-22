@@ -9,7 +9,11 @@ export type RunOutcome = {
   error: string | null;
 };
 
-export async function runCollector(source: SourceConfig, collectorId: string, over: number = 0): Promise<RunOutcome> {
+export async function runCollector(
+  source: SourceConfig,
+  collectorId: string,
+  over: number = 0,
+): Promise<RunOutcome> {
   console.log(`  [runner] executing collector ${collectorId} -> ${source.url}`);
   const result = await bdata(["scraper", "run", collectorId, source.url, "--pretty"]);
 

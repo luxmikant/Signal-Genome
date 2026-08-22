@@ -7,23 +7,49 @@ import { nextDirection } from "./ranker.js";
 import { computeStatsWithDates, maturityY } from "./fitness.js";
 
 const gene = (id: string, prereqs: string[] = []): Gene => ({
-  id, label: id, family: "attention", maturity: "active", blurb: "", aliases: [], keywords: [], prerequisites: prereqs,
+  id,
+  label: id,
+  family: "attention",
+  maturity: "active",
+  blurb: "",
+  aliases: [],
+  keywords: [],
+  prerequisites: prereqs,
 });
 
 const content = (id: string, publishedAt: string): Content => ({
-  id, source: "s", sourceType: "blog", title: id, url: `https://e.com/${id}`, publishedAt, body: id, codeBlocks: [], tags: [],
+  id,
+  source: "s",
+  sourceType: "blog",
+  title: id,
+  url: `https://e.com/${id}`,
+  publishedAt,
+  body: id,
+  codeBlocks: [],
+  tags: [],
 });
 
-function tagsFor(map: Record<string, string[]>): Map<string, Array<{ geneId: string; weight: number }>> {
-  return new Map(Object.entries(map).map(([k, v]) => [k, v.map((geneId) => ({ geneId, weight: 1 }))]));
+function tagsFor(
+  map: Record<string, string[]>,
+): Map<string, Array<{ geneId: string; weight: number }>> {
+  return new Map(
+    Object.entries(map).map(([k, v]) => [k, v.map((geneId) => ({ geneId, weight: 1 }))]),
+  );
 }
 
 test("rankers picks un-explored gene with missing prerequisites", () => {
-  const genes = [gene("attention"), gene("kv-cache", ["attention"]), gene("emitting", ["attention"])];
-  const stats = computeStatsWithDates([
-    { id: "a", geneIds: ["attention"], publishedAt: "2026-01-01" },
-    { id: "b", geneIds: ["emitting"], publishedAt: "2026-01-01" },
-  ], Date.parse("2026-06-01T00:00:00Z"));
+  const genes = [
+    gene("attention"),
+    gene("kv-cache", ["attention"]),
+    gene("emitting", ["attention"]),
+  ];
+  const stats = computeStatsWithDates(
+    [
+      { id: "a", geneIds: ["attention"], publishedAt: "2026-01-01" },
+      { id: "b", geneIds: ["emitting"], publishedAt: "2026-01-01" },
+    ],
+    Date.parse("2026-06-01T00:00:00Z"),
+  );
   const d = nextDirection({
     genes,
     stats,
@@ -50,10 +76,7 @@ test("reaction affinity is reflected in reasons", () => {
 
 test("genome view computes pulse for items newer than last visit", () => {
   const genes = [gene("attention")];
-  const contents = [
-    content("old", "2026-01-01"),
-    content("new", "2026-08-10"),
-  ];
+  const contents = [content("old", "2026-01-01"), content("new", "2026-08-10")];
   const { genes: views } = buildGenomeView({
     genes,
     contents,
@@ -66,7 +89,9 @@ test("genome view computes pulse for items newer than last visit", () => {
 });
 
 test("maturity maps to vertical axis order", () => {
-  const foundational = gene("found", []); foundational.maturity = "foundational";
-  const emerging = gene("emerge", []); emerging.maturity = "emerging";
+  const foundational = gene("found", []);
+  foundational.maturity = "foundational";
+  const emerging = gene("emerge", []);
+  emerging.maturity = "emerging";
   assert.ok(maturityY(emerging) > maturityY(foundational));
 });

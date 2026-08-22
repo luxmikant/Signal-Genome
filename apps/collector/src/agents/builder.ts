@@ -5,12 +5,11 @@ export async function buildCollector(source: SourceConfig): Promise<string | nul
   console.log(`  [builder] asking Scraper Studio to build a collector for ${source.name}`);
   patchState(source.id, { status: "building" });
 
-  const result = await bdata([
-    "scraper", "create", source.url,
-    source.prompt,
-  ]);
+  const result = await bdata(["scraper", "create", source.url, source.prompt]);
   if (!result.ok) {
-    console.error(`  [builder] failed to create collector: ${lastLines(result.stderr || result.stdout, 6)}`);
+    console.error(
+      `  [builder] failed to create collector: ${lastLines(result.stderr || result.stdout, 6)}`,
+    );
     patchState(source.id, { status: "broken", lastError: "create failed" });
     return null;
   }

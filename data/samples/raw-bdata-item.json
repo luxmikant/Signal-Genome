@@ -1,0 +1,14 @@
+{
+  "note": "Illustrative example: the raw JSON shape returned by a Scraper Studio sitemap collector for docs.vllm.ai",
+  "collector_id": "c_abc12321x",
+  "source": "vllm-docs",
+  "strategy": "sitemap",
+  "item": {
+    "title": "How vLLM manages the KV cache with PagedAttention",
+    "page_url": "https://docs.vllm.ai/latest/design/paged-attention",
+    "published_at": "2026-07-30",
+    "body": "PagedAttention maintains the key-value cache in fixed-size blocks managed by a block table...",
+    "code_blocks": ["block_manager.allocate(seq_id, num_blocks)"],
+    "tags": ["kv cache", "paged attention"]
+  }
+}

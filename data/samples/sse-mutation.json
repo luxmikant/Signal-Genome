@@ -1,0 +1,11 @@
+{
+  "note": "The exact SSE frame a connected browser receives when the harness ingests a fresh item — drives the mutation particles and Plasmi's reaction",
+  "event": "mutation",
+  "data": {
+    "contentId": "modal-blog::9f1k2mc",
+    "geneIds": ["speculative-decoding", "serving-frameworks"],
+    "title": "Serving vLLM with speculative decoding",
+    "source": "modal-blog",
+    "at": 1787372001462
+  }
+}

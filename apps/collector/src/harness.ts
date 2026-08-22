@@ -43,7 +43,9 @@ export async function runHarness(options: HarnessOptions): Promise<HarnessReport
   await Promise.all(workers);
 
   console.log(HEAL_HEADER);
-  console.log(`[harness] done: ${report.processed.length} runs, ${report.healed.length} heals, ${report.failures.length} failures`);
+  console.log(
+    `[harness] done: ${report.processed.length} runs, ${report.healed.length} heals, ${report.failures.length} failures`,
+  );
   return report;
 }
 
@@ -102,12 +104,23 @@ async function runLoop(
   const state = loadState()[source.id];
 
   if (loop.noBData && state?.status === "broken") {
-    console.log(`  [healer] offline-mode heal: same collector id ${collectorId}, same JSON schema — repairing…`);
+    console.log(
+      `  [healer] offline-mode heal: same collector id ${collectorId}, same JSON schema — repairing…`,
+    );
     await new Promise((r) => setTimeout(r, 900));
-    patchState(source.id, { status: "unbuilt", lastError: null, healCount: (state.healCount ?? 0) + 1 });
+    patchState(source.id, {
+      status: "unbuilt",
+      lastError: null,
+      healCount: (state.healCount ?? 0) + 1,
+    });
     report.healed.push(source.id);
     console.log(`  [healer] healed. re-running the exact same collector…`);
-    return runLoop(source, collectorId, { ...loop, attemptedHeals: loop.attemptedHeals + 1 }, report);
+    return runLoop(
+      source,
+      collectorId,
+      { ...loop, attemptedHeals: loop.attemptedHeals + 1 },
+      report,
+    );
   }
 
   if (loop.noBData) {
@@ -121,7 +134,12 @@ async function runLoop(
     console.log(`  [validator] ${validation.status}: ${validation.itemCount} items`);
     if (validation.status === "healthy") {
       report.processed.push(source.id);
-      patchState(source.id, { status: "healthy", lastRunAt: startedAt, lastCount: validation.itemCount, lastError: null });
+      patchState(source.id, {
+        status: "healthy",
+        lastRunAt: startedAt,
+        lastCount: validation.itemCount,
+        lastError: null,
+      });
       if (loop.ingest) await ingestBatch(collectorId, source, snapshot.raw);
       return { ok: true, message: "healthy (offline)" };
     }
@@ -135,13 +153,20 @@ async function runLoop(
     return fallbackHeal(source, collectorId, loop, report);
   }
   const validation = validateSource(source, run.raw);
-  console.log(`  [validator] ${validation.status}: ${validation.itemCount} items ${validation.issues.length ? `— ${validation.issues.join("; ")}` : ""}`);
+  console.log(
+    `  [validator] ${validation.status}: ${validation.itemCount} items ${validation.issues.length ? `— ${validation.issues.join("; ")}` : ""}`,
+  );
   if (validation.status !== "healthy") {
     patchState(source.id, { status: "broken", lastError: validation.healHint });
     return fallbackHeal(source, collectorId, loop, report);
   }
   report.processed.push(source.id);
-  patchState(source.id, { status: "healthy", lastRunAt: startedAt, lastCount: validation.itemCount, lastError: null });
+  patchState(source.id, {
+    status: "healthy",
+    lastRunAt: startedAt,
+    lastCount: validation.itemCount,
+    lastError: null,
+  });
   if (loop.ingest && run.raw) {
     await ingestBatch(loadState()[source.id]?.collectorId ?? collectorId, source, run.raw);
   }
@@ -155,7 +180,9 @@ async function fallbackHeal(
   report: HarnessReport,
 ): Promise<{ ok: boolean; message: string }> {
   if (loop.attemptedHeals >= loop.maxHeals) {
-    console.error(`  [harness] giving up on ${source.id} after ${loop.attemptedHeals} heal attempts`);
+    console.error(
+      `  [harness] giving up on ${source.id} after ${loop.attemptedHeals} heal attempts`,
+    );
     return { ok: false, message: "unhealable" };
   }
   const hint = buildDriftHint(source);

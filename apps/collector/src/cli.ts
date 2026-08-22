@@ -1,6 +1,13 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { loadState, patchState, writeSourcesFile, RAW_DIR, SOURCE_BY_ID, SOURCES } from "./registry.js";
+import {
+  loadState,
+  patchState,
+  writeSourcesFile,
+  RAW_DIR,
+  SOURCE_BY_ID,
+  SOURCES,
+} from "./registry.js";
 import { runHarness } from "./harness.js";
 
 writeSourcesFile();
@@ -18,7 +25,9 @@ function main(): void {
     case "create":
     case "run":
     case "heal":
-      console.log(`single-command flows use: pnpm > ${CMD} <source-id>  — or start from the harness with pnpm harness`);
+      console.log(
+        `single-command flows use: pnpm > ${CMD} <source-id>  — or start from the harness with pnpm harness`,
+      );
       console.log("available sources:", SOURCES.map((s) => s.id).join(", "));
       break;
     case "harness": {
@@ -31,8 +40,13 @@ function main(): void {
         maxHealAttempts: flag("--no-heal") ? 0 : 2,
         noBData: flag("--offline"),
       }).then((report) => {
-        const failed = report.failures.length > 0 ? `\n[cli] failures: ${report.failures.map((f) => `${f.source} (${f.message})`).join("; ")}` : "";
-        process.stdout.write(`[cli] harness finished: ${report.processed.length} healthy, ${report.healed.length} healed${failed}\n`);
+        const failed =
+          report.failures.length > 0
+            ? `\n[cli] failures: ${report.failures.map((f) => `${f.source} (${f.message})`).join("; ")}`
+            : "";
+        process.stdout.write(
+          `[cli] harness finished: ${report.processed.length} healthy, ${report.healed.length} healed${failed}\n`,
+        );
       });
       break;
     }
@@ -60,14 +74,25 @@ function main(): void {
       }
       patchState(target, {
         status: "broken",
-        lastError: "validator: layout drift — site moved article content into a main-content section; body coverage 0.00",
+        lastError:
+          "validator: layout drift — site moved article content into a main-content section; body coverage 0.00",
       });
       writeFileSync(
         join(RAW_DIR, `${target}.drift-notes.json`),
-        JSON.stringify({ detectedAt: new Date().toISOString(), target, schema: SOURCE_BY_ID[target]!.expectedFields }, null, 2),
+        JSON.stringify(
+          {
+            detectedAt: new Date().toISOString(),
+            target,
+            schema: SOURCE_BY_ID[target]!.expectedFields,
+          },
+          null,
+          2,
+        ),
       );
       console.log(`[demo] simulated layout change for ${target}`);
-      console.log(`[demo] next: pnpm heal ${target}   (or: pnpm harness)  to watch the loop repair it`);
+      console.log(
+        `[demo] next: pnpm heal ${target}   (or: pnpm harness)  to watch the loop repair it`,
+      );
       break;
     }
     default:

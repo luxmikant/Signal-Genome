@@ -1,0 +1,23 @@
+{
+  "note": "The normalized ContentSchema written to SQLite by apps/api after normalizer + tagger",
+  "content": {
+    "id": "vllm-docs::j9k2m3a",
+    "source": "vllm-docs",
+    "sourceType": "docs",
+    "title": "How vLLM manages the KV cache with PagedAttention",
+    "url": "https://docs.vllm.ai/latest/design/paged-attention",
+    "publishedAt": "2026-07-30",
+    "body": "PagedAttention maintains the key-value cache in fixed-size blocks managed by a block table...",
+    "codeBlocks": ["block_manager.allocate(seq_id, num_blocks)"],
+    "tags": ["kv cache", "paged attention"]
+  },
+  "geneEdges": [
+    { "geneId": "kv-cache", "weight": 3 },
+    { "geneId": "paged-attention", "weight": 3 },
+    { "geneId": "long-context", "weight": 1 }
+  ],
+  "effectsOnGenome": {
+    "kv-cache": { "evidenceCount": "+1", "momentum": "recency-weighted" },
+    "paged-attention": { "evidenceCount": "+1", "momentum": "recency-weighted" }
+  }
+}

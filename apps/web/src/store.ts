@@ -1,5 +1,12 @@
 import { create } from "zustand";
-import type { Direction, GeneDetail, GeneView, Genome, HealthRow, MutationNotice } from "./types.js";
+import type {
+  Direction,
+  GeneDetail,
+  GeneView,
+  Genome,
+  HealthRow,
+  MutationNotice,
+} from "./types.js";
 import { getGene, getGenome, getHealth, postReaction, postVisit } from "./api.js";
 
 export type Stage = "intro" | "live";
@@ -80,7 +87,9 @@ export const useGenome = create<GenomeStore>((set, get) => ({
   openHealth: (open) => {
     set({ healthOpen: open, selected: null });
     if (open && !get().health) {
-      void getHealth<HealthRow[]>().then((health) => set({ health })).catch(() => set({ health: [] }));
+      void getHealth<HealthRow[]>()
+        .then((health) => set({ health }))
+        .catch(() => set({ health: [] }));
     }
   },
 

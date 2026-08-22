@@ -3,7 +3,17 @@ import { GENES } from "@signal/genes";
 import { tagContent } from "@signal/genes";
 import { normalizeSourceItems } from "@signal/engine";
 import { SEED_ITEMS } from "@signal/seed-content";
-import { addReaction, db, getMeta, loadContents, loadReactions, loadTags, replaceTagsForContent, setMeta, upsertContent } from "./db.js";
+import {
+  addReaction,
+  db,
+  getMeta,
+  loadContents,
+  loadReactions,
+  loadTags,
+  replaceTagsForContent,
+  setMeta,
+  upsertContent,
+} from "./db.js";
 
 export function seedGenome(): { items: number; tags: number } {
   const existing = new Set(loadContents().map((c) => c.id));
@@ -63,7 +73,9 @@ export function getGenes(): unknown[] {
 
 export function recordReaction(geneId: string, type: string): void {
   addReaction(geneId, type);
-  db.prepare("DELETE FROM reactions WHERE rowid NOT IN (SELECT rowid FROM reactions ORDER BY at DESC LIMIT 200)").run();
+  db.prepare(
+    "DELETE FROM reactions WHERE rowid NOT IN (SELECT rowid FROM reactions ORDER BY at DESC LIMIT 200)",
+  ).run();
 }
 
 export function recordVisit(): void {

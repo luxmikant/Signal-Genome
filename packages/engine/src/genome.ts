@@ -29,7 +29,11 @@ export type GenomeView = {
   totalReactions: number;
   mutationCount: number;
   lastMutationAt: number | null;
-  direction: { geneId: string; headline: string; reasons: Array<{ label: string; detail: string }> } | null;
+  direction: {
+    geneId: string;
+    headline: string;
+    reasons: Array<{ label: string; detail: string }>;
+  } | null;
 };
 
 function tagMapOf(
@@ -37,10 +41,7 @@ function tagMapOf(
 ): Map<string, Map<string, number>> {
   const out = new Map<string, Map<string, number>>();
   for (const [contentId, edges] of tags) {
-    out.set(
-      contentId,
-      new Map(edges.map((e) => [e.geneId, e.weight])),
-    );
+    out.set(contentId, new Map(edges.map((e) => [e.geneId, e.weight])));
   }
   return out;
 }
@@ -61,7 +62,12 @@ export function computeDirection(input: {
   const visited = new Set<string>();
   const followed = new Set<string>();
   for (const r of input.reactions) {
-    const weights: Record<string, number> = { follow: 2, "teach-basics": 1.5, "already-know": -0.5, "not-for-me": -2 };
+    const weights: Record<string, number> = {
+      follow: 2,
+      "teach-basics": 1.5,
+      "already-know": -0.5,
+      "not-for-me": -2,
+    };
     reactionTotals.set(r.geneId, (reactionTotals.get(r.geneId) ?? 0) + (weights[r.type] ?? 0));
     visited.add(r.geneId);
     if (r.type === "follow") followed.add(r.geneId);
@@ -81,7 +87,11 @@ export function buildGenomeView(params: {
   tags: Map<string, Array<{ geneId: string; weight: number }>>;
   reactions: Reaction[];
   lastVisitAt: number | null;
-  direction?: { geneId: string; headline: string; reasons: Array<{ label: string; detail: string }> } | null;
+  direction?: {
+    geneId: string;
+    headline: string;
+    reasons: Array<{ label: string; detail: string }>;
+  } | null;
 }): GenomeView {
   const { genes, contents, tags, reactions, lastVisitAt } = params;
   const now = Date.now();
@@ -111,7 +121,9 @@ export function buildGenomeView(params: {
   const views: GeneView[] = genes.map((gene) => {
     const statsFor = stats.get(gene.id);
     const bucket = followCounts.get(gene.id);
-    const interest = bucket ? Math.min(3, bucket.follow * 2 + bucket.other * 1.5 - bucket.negative * 2) : 0;
+    const interest = bucket
+      ? Math.min(3, bucket.follow * 2 + bucket.other * 1.5 - bucket.negative * 2)
+      : 0;
     const isFollowed = !!bucket && bucket.follow > bucket.negative;
     return {
       geneId: gene.id,

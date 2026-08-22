@@ -24,17 +24,23 @@ export function validateSource(source: SourceConfig, raw: unknown): ValidationRe
 
   const issues: string[] = [];
   if (items.length === 0) issues.push("zero items extracted");
-  if (items.length > 0 && items.length < source.minItems) issues.push(`only ${items.length} of ${source.minItems} expected items`);
+  if (items.length > 0 && items.length < source.minItems)
+    issues.push(`only ${items.length} of ${source.minItems} expected items`);
   if ((coverage.title ?? 1) < 0.8) issues.push("title coverage dropped below 80%");
   if ((coverage.body ?? 1) < 0.8) issues.push("body coverage dropped below 80%");
   if ((coverage.url ?? 1) < 0.8) issues.push("url coverage dropped below 80%");
 
-  const status: ValidationReport["status"] = issues.length === 0 ? "healthy" : issues.length === 1 ? "degraded" : "broken";
+  const status: ValidationReport["status"] =
+    issues.length === 0 ? "healthy" : issues.length === 1 ? "degraded" : "broken";
   const healHint = healDescription(source, issues, coverage);
   return { status, itemCount: items.length, coverage, issues, healHint };
 }
 
-function healDescription(source: SourceConfig, issues: string[], coverage: Partial<Record<string, number>>): string {
+function healDescription(
+  source: SourceConfig,
+  issues: string[],
+  coverage: Partial<Record<string, number>>,
+): string {
   const failed = Object.entries(coverage)
     .filter(([, v]) => (v ?? 1) < 0.8)
     .map(([k]) => k)

@@ -4,20 +4,27 @@ export type CommandResult = { ok: boolean; stdout: string; stderr: string; timed
 
 const DEFAULT_TIMEOUT_MS = Number(process.env.COLLECTOR_TIMEOUT_MS ?? 1_500_000);
 
-export function bdata(args: string[], timeoutMs: number = DEFAULT_TIMEOUT_MS): Promise<CommandResult> {
+export function bdata(
+  args: string[],
+  timeoutMs: number = DEFAULT_TIMEOUT_MS,
+): Promise<CommandResult> {
   const command = `npx -p @brightdata/cli bdata ${args.map(shellQuote).join(" ")}`;
   return new Promise((resolve) => {
     let settled = false;
-    const child = exec(command, { timeout: timeoutMs, maxBuffer: 256 * 1024 * 1024 }, (error, stdout, stderr) => {
-      if (settled) return;
-      settled = true;
-      resolve({
-        ok: !error || (error as NodeJS.ErrnoException).code === undefined,
-        stdout: stdout ?? "",
-        stderr: stderr ?? "",
-        timedOut: (error as NodeJS.ErrnoException)?.code === "ETIMEDOUT",
-      });
-    });
+    const child = exec(
+      command,
+      { timeout: timeoutMs, maxBuffer: 256 * 1024 * 1024 },
+      (error, stdout, stderr) => {
+        if (settled) return;
+        settled = true;
+        resolve({
+          ok: !error || (error as NodeJS.ErrnoException).code === undefined,
+          stdout: stdout ?? "",
+          stderr: stderr ?? "",
+          timedOut: (error as NodeJS.ErrnoException)?.code === "ETIMEDOUT",
+        });
+      },
+    );
     child.on("error", () => {
       if (settled) return;
       settled = true;
