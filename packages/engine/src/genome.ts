@@ -25,6 +25,7 @@ export type GeneView = {
 
 export type GenomeView = {
   genes: GeneView[];
+  buildings: BuildingView[];
   totalItems: number;
   totalReactions: number;
   mutationCount: number;
@@ -34,6 +35,17 @@ export type GenomeView = {
     headline: string;
     reasons: Array<{ label: string; detail: string }>;
   } | null;
+};
+
+export type BuildingView = {
+  id: string;
+  title: string;
+  source: string;
+  sourceType: string;
+  publishedAt: string;
+  author: string | null;
+  geneIds: string[];
+  weight: number;
 };
 
 function tagMapOf(
@@ -149,8 +161,23 @@ export function buildGenomeView(params: {
     };
   });
 
+  const buildings: BuildingView[] = contents.map((c) => {
+    const edges = tags.get(c.id) ?? [];
+    return {
+      id: c.id,
+      title: c.title,
+      source: c.source,
+      sourceType: c.sourceType,
+      publishedAt: c.publishedAt,
+      author: c.author ?? null,
+      geneIds: edges.map((e) => e.geneId),
+      weight: Math.max(1, ...edges.map((e) => e.weight)),
+    };
+  });
+
   return {
     genes: views,
+    buildings,
     totalItems: contents.length,
     totalReactions: reactions.length,
     mutationCount: mutations.length,

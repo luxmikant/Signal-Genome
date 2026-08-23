@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import type { FastifyInstance } from "fastify";
 import type { Content, Reaction } from "@signal/core";
 import { GENE_BY_ID, GENES } from "@signal/genes";
-import { buildGenomeView, timelineForGene } from "@signal/engine";
+import { buildGenomeView, timelineForGene, trendSeries } from "@signal/engine";
 import { IngestBatchSchema } from "@signal/core";
 import { bus } from "./bus.js";
 import { getGenomeState, ingestRaw, recordVisit } from "./genome.js";
@@ -79,8 +79,16 @@ export function registerRoutes(app: FastifyInstance): void {
     reply.send(snapshot);
   });
 
-  app.get("/api/city", (_req, reply) => {
-    reply.send(buildCityModel());
+  app.get("/api/city", (req, reply) => {
+    const query = req.query as { at?: string };
+    const at = query.at && !Number.isNaN(Date.parse(query.at)) ? Date.parse(query.at) : Date.now();
+    reply.send(buildCityModel(at));
+  });
+
+  app.get("/api/trends", (_req, reply) => {
+    const contents = loadContents();
+    const tags = loadTags();
+    reply.send(trendSeries({ genes: GENES, contents, tagMap: tags }));
   });
 
   app.get("/api/health", (_req, reply) => {

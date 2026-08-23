@@ -118,15 +118,18 @@ export function buildCityModel(now: number = Date.now()): CityModel {
   const reactions = loadReactions();
   const sources = loadSourceStates();
 
-  const items = contents.map((c) => ({
-    id: c.id,
-    geneIds: [...(tags.get(c.id)?.map((e) => e.geneId) ?? [])],
-    publishedAt: c.publishedAt,
-  }));
+  const items = contents
+    .map((c) => ({
+      id: c.id,
+      geneIds: [...(tags.get(c.id)?.map((e) => e.geneId) ?? [])],
+      publishedAt: c.publishedAt,
+    }))
+    .filter((c) => Date.parse(`${c.publishedAt}T00:00:00Z`) <= now);
   const stats = normalizeMomentum(computeStatsWithDates(items, now));
 
   const buildings: CityBuilding[] = [];
   const districts: CityDistrict[] = [];
+  const atMs = now;
 
   for (const gene of GENES) {
     const geneStats = stats.get(gene.id);
@@ -136,13 +139,15 @@ export function buildCityModel(now: number = Date.now()): CityModel {
         .map(([id, es]) => [id, es.find((e) => e.geneId === gene.id)!.weight] as const),
     );
 
-    // buildings: most relevant items for this gene
+    // buildings: most relevant items for this gene, built no later than `atMs`
     const buildingStart = buildings.length;
     const candidates = [...edges.entries()]
       .map(([id, weight]) => {
         const c = contents.find((x) => x.id === id);
         if (!c) return null;
-        const decay = Math.exp(-Math.max(0, now - new Date(`${c.publishedAt}T00:00:00Z`).getTime()) / (45 * DAY));
+        const published = new Date(`${c.publishedAt}T00:00:00Z`).getTime();
+        if (Number.isNaN(published) || published > atMs) return null;
+        const decay = Math.exp(-Math.max(0, atMs - published) / (45 * DAY));
         return { c, weight, decay };
       })
       .filter((x): x is NonNullable<typeof x> => !!x)
@@ -162,10 +167,10 @@ export function buildCityModel(now: number = Date.now()): CityModel {
         excerpt: c.body.slice(0, 240).replace(/\s+/g, " ").trim(),
         geneId: gene.id,
         weight,
-        importance: Math.max(0.18, Math.min(1, 0.28 + weight / 3 * 0.42 + decay * 0.5)),
+        importance: Math.max(0.18, Math.min(1, 0.28 + (weight / 3) * 0.42 + decay * 0.5)),
         freshness: decay,
         health,
-        archived: now - new Date(`${c.publishedAt}T00:00:00Z`).getTime() > 90 * DAY,
+        archived: atMs - new Date(`${c.publishedAt}T00:00:00Z`).getTime() > 90 * DAY,
       });
     }
 
@@ -215,9 +220,10 @@ export function buildCityModel(now: number = Date.now()): CityModel {
       }
     : null;
 
-  const newThisWeek = contents.filter(
-    (c) => now - new Date(`${c.publishedAt}T00:00:00Z`).getTime() <= WEEK,
-  ).length;
+  const newThisWeek = contents.filter((c) => {
+    const published = new Date(`${c.publishedAt}T00:00:00Z`).getTime();
+    return published > 0 && published <= atMs && atMs - published <= WEEK;
+  }).length;
 
   let sourcesTotal = 0;
   let sourcesHealthy = 0;

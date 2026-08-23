@@ -1,24 +1,25 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree, type ThreeEvent } from "@react-three/fiber";
 import { Html, Line, OrbitControls } from "@react-three/drei";
 import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 import * as THREE from "three";
+import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import {
   districtOf,
   useCity,
   type CityBuilding,
   type CityModel,
 } from "./cityStore.js";
+import { Companion } from "../scene/Companion.js";
 
 const VOID = "#08110F";
 const PHOSPHOR = "#A7FF83";
 const GOLD = "#E8D9A8";
-const EMBER = "#FFB45B";
 const CORAL = "#FF6E6E";
 const GRID = "#1E3931";
 const RING_R = 26;
 
-export function CityScene() {
+export function CityScene({ interactive = true }: { interactive?: boolean }) {
   return (
     <Canvas
       dpr={[1, 1.6]}
@@ -29,6 +30,7 @@ export function CityScene() {
       <color attach="background" args={[VOID]} />
       <fog attach="fog" args={[VOID, 45, 170]} />
       <CityWorld />
+      {interactive && <Companion variant="city" />}
       <CameraRig />
       <EffectComposer>
         <Bloom intensity={0.55} luminanceThreshold={0.18} luminanceSmoothing={0.8} mipmapBlur radius={0.7} />
@@ -40,7 +42,7 @@ export function CityScene() {
 
 // ---------------------------------------------------------------------------
 
-function districtPos(index: number, count: number): [number, number, number] {
+export function districtPos(index: number, count: number): [number, number, number] {
   const a = (index / count) * Math.PI * 2 - Math.PI / 2;
   return [Math.cos(a) * RING_R, 0, Math.sin(a) * RING_R];
 }
@@ -48,9 +50,9 @@ function districtPos(index: number, count: number): [number, number, number] {
 function slotPos(index: number): [number, number] {
   const col = index % 4;
   const row = Math.floor(index / 4);
-  const jx = ((index * 2654435761) % 97) / 97 - 0.5;
-  const jz = ((index * 40503) % 101) / 101 - 0.5;
-  return [(col - 1.5) * 1.5 + jx * 0.9, (row - 1.5) * 1.5 + jz * 0.9];
+  const jx = (((index * 2654435761) % 97) / 97 - 0.5) * 0.9;
+  const jz = (((index * 40503) % 101) / 101 - 0.5) * 0.9;
+  return [(col - 1.5) * 1.5 + jx, (row - 1.5) * 1.5 + jz];
 }
 
 function buildingColor(b: CityBuilding): THREE.Color {
@@ -65,7 +67,7 @@ function buildingColor(b: CityBuilding): THREE.Color {
 
 const BEACON_COLOR: Record<string, string> = {
   healthy: PHOSPHOR,
-  healing: EMBER,
+  healing: "#FFB45B",
   failed: CORAL,
   stale: "#56635a",
 };
@@ -76,7 +78,19 @@ function CityWorld() {
   const mapRef = useRef<Array<CityBuilding | null>>([]);
   const hoverIdx = useRef(-1);
 
-  // per-instance matrices + colors
+  const hotId = useMemo(() => {
+    if (!model) return null;
+    let hot = model.districts[0]?.id ?? null;
+    let best = -1;
+    for (const d of model.districts) {
+      if (d.momentum > best) {
+        best = d.momentum;
+        hot = d.id;
+      }
+    }
+    return hot;
+  }, [model]);
+
   useEffect(() => {
     const mesh = instRef.current;
     if (!mesh || !model) return;
@@ -137,12 +151,19 @@ function CityWorld() {
       <gridHelper args={[150, 30, GRID, "#12251f"]} position={[0, -0.01, 0]} />
 
       {model.districts.map((d, i) => (
-        <District key={d.id} index={i} count={model.districts.length} id={d.id} />
+        <District
+          key={d.id}
+          index={i}
+          count={model.districts.length}
+          id={d.id}
+          hot={hotId === d.id}
+          interactive={true}
+        />
       ))}
 
       <instancedMesh
         ref={instRef}
-        args={[undefined, undefined, 260]}
+        args={[undefined, undefined, 420]}
         frustumCulled={false}
         onPointerMove={onMove}
         onPointerOut={() => {
@@ -162,7 +183,19 @@ function CityWorld() {
 
 // ---------------------------------------------------------------------------
 
-function District({ index, count, id }: { index: number; count: number; id: string }) {
+function District({
+  index,
+  count,
+  id,
+  hot,
+  interactive,
+}: {
+  index: number;
+  count: number;
+  id: string;
+  hot: boolean;
+  interactive: boolean;
+}) {
   const d = districtOf(useCity((s) => s.model), id);
   const focused = useCity((s) => s.district) === id;
   const [x, , z] = districtPos(index, count);
@@ -172,12 +205,13 @@ function District({ index, count, id }: { index: number; count: number; id: stri
 
   return (
     <group position={[x, 0, z]}>
-      {/* district plot */}
       <mesh rotation-x={-Math.PI / 2} position={[0, 0.02, 0]} raycast={() => {}}>
         <ringGeometry args={[2.0, 4.4, 48]} />
         <meshBasicMaterial color={dim} transparent opacity={focused ? 0.55 : 0.3} />
       </mesh>
-      {/* health beacon on the plot edge */}
+
+      {hot && <HotBeacon color={d.color} />}
+
       <mesh position={[0, 0.4, 3.3]} raycast={() => {}}>
         <sphereGeometry args={[0.34, 12, 12]} />
         <meshBasicMaterial color={BEACON_COLOR[d.beacon]} />
@@ -196,9 +230,8 @@ function District({ index, count, id }: { index: number; count: number; id: stri
         </group>
       )}
 
-      {d.emerging && <Crane x={-0.4} z={0.4} phase={index} />}
+      {d.emerging && interactive && <Crane x={-0.4} z={0.4} phase={index} color={d.color} districtId={d.id} />}
 
-      {/* district label */}
       <Html position={[0, 5.6, 0]} center distanceFactor={17} zIndexRange={[40, 0]}>
         <button
           className={`city-label ${focused ? "is-focused" : ""}`}
@@ -215,19 +248,47 @@ function District({ index, count, id }: { index: number; count: number; id: stri
   );
 }
 
-function Crane({ x, z, phase }: { x: number; z: number; phase: number }) {
+function HotBeacon({ color }: { color: string }) {
+  const ring = useRef<THREE.Mesh>(null);
+  useFrame(({ clock }) => {
+    if (!ring.current) return;
+    const t = clock.elapsedTime;
+    ring.current.scale.setScalar(1.25 + 0.4 * Math.sin(t * 2.2));
+    const m = ring.current.material as THREE.MeshBasicMaterial;
+    m.opacity = 0.5 + 0.3 * Math.sin(t * 2.2);
+  });
+  return (
+    <mesh ref={ring} rotation-x={-Math.PI / 2} position={[0, 0.05, 0]} raycast={() => {}}>
+      <ringGeometry args={[5.4, 5.7, 64]} />
+      <meshBasicMaterial color={color} transparent opacity={0.6} />
+    </mesh>
+  );
+}
+
+function Crane({ x, z, phase, color, districtId }: { x: number; z: number; phase: number; color: string; districtId: string }) {
   const arm = useRef<THREE.Group>(null);
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const [hovered, setHovered] = useState(false);
+  const reduced = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   useFrame((state) => {
     if (arm.current && !reduced) {
       arm.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.55 + phase * 1.7) * 0.35;
     }
   });
+
   return (
-    <group position={[x, 0, z]} raycast={() => {}}>
+    <group
+      position={[x, 0, z]}
+      onClick={(e) => {
+        e.stopPropagation();
+        useCity.getState().focusDistrict(districtId);
+      }}
+      onPointerOver={() => setHovered(true)}
+      onPointerOut={() => setHovered(false)}
+    >
       <mesh position={[0, 1.8, 0]}>
         <boxGeometry args={[0.16, 3.6, 0.16]} />
-        <meshBasicMaterial color={GRID} />
+        <meshBasicMaterial color={hovered ? "#3D6A5C" : "#2A4A41"} />
       </mesh>
       <group ref={arm} position={[0, 3.6, 0]}>
         <mesh position={[1.3, 0, 0]}>
@@ -239,6 +300,14 @@ function Crane({ x, z, phase }: { x: number; z: number; phase: number }) {
           <meshBasicMaterial color={PHOSPHOR} />
         </mesh>
       </group>
+      {hovered && (
+        <Html center position={[0, 5.2, 0]} zIndexRange={[45, 0]} style={{ pointerEvents: "none" }}>
+          <div className="city-crane-note">
+            <span style={{ color }}>⛏ construction site</span>
+            <span>fresh ideas are rising here — click</span>
+          </div>
+        </Html>
+      )}
     </group>
   );
 }
@@ -265,6 +334,17 @@ function curvePoints(a: [number, number, number], b: [number, number, number], s
 
 function Roads({ model }: { model: CityModel }) {
   const focusId = useCity((s) => s.district) ?? useCity((s) => s.hoverBuilding);
+  const hotId = useMemo(() => {
+    let hot = model.districts[0]?.id ?? null;
+    let best = -1;
+    for (const d of model.districts) {
+      if (d.momentum > best) {
+        best = d.momentum;
+        hot = d.id;
+      }
+    }
+    return hot;
+  }, [model]);
   return (
     <>
       {model.roads.map((r, i) => {
@@ -274,30 +354,65 @@ function Roads({ model }: { model: CityModel }) {
         const a = districtPos(ia, model.districts.length);
         const b = districtPos(ib, model.districts.length);
         const lit = focusId === r.from || focusId === r.to;
+        const from = model.districts[ia]!;
+        const to = model.districts[ib]!;
+        const busy = lit || hotId === r.from || hotId === r.to;
         return (
-          <Line
-            key={`${r.from}-${r.to}-${i}`}
-            points={curvePoints(a, b)}
-            color={lit ? PHOSPHOR : "#26443B"}
-            transparent
-            opacity={lit ? 0.9 : 0.45}
-            lineWidth={lit ? 1.6 : 1}
-          />
+          <group key={`${r.from}-${r.to}-${i}`}>
+            <Line
+              points={curvePoints(a, b)}
+              color={lit ? PHOSPHOR : "#26443B"}
+              transparent
+              opacity={lit ? 0.9 : 0.45}
+              lineWidth={lit ? 1.6 : 1}
+            />
+            {busy && <TrafficDots points={curvePoints(a, b)} color={from.color} speed={0.35 + to.momentum * 0.8} />}
+          </group>
         );
       })}
     </>
   );
 }
 
+function TrafficDots({ points, color, speed }: { points: Array<[number, number, number]>; color: string; speed: number }) {
+  const group = useRef<THREE.Group>(null);
+  const reduced = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  useFrame(({ clock }) => {
+    if (!group.current || reduced || points.length < 2) return;
+    const t = clock.elapsedTime * speed;
+    group.current.children.forEach((child, i) => {
+      const p = (t / Math.PI + i * 0.33) % 1;
+      const idx = p * (points.length - 1);
+      const i0 = Math.floor(idx);
+      const i1 = Math.min(points.length - 1, i0 + 1);
+      const f = idx - i0;
+      const [ax, ay, az] = points[i0]!;
+      const [bx, by, bz] = points[i1]!;
+      const pos = new THREE.Vector3(ax + (bx - ax) * f, ay + (by - ay) * f, az + (bz - az) * f);
+      child.position.copy(pos);
+    });
+  });
+  return (
+    <group ref={group}>
+      {[0, 1, 2].map((i) => (
+        <mesh key={i}>
+          <sphereGeometry args={[0.32, 8, 8]} />
+          <meshBasicMaterial color={color} transparent opacity={0.75} blending={THREE.AdditiveBlending} depthWrite={false} />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
 function CameraRig() {
-  const controls = useRef<any>(null);
+  const controls = useRef<OrbitControlsImpl | null>(null);
   const { camera } = useThree();
   const lastKey = useRef("");
   const flightUntil = useRef(0);
 
   useFrame((state, dt) => {
     const s = useCity.getState();
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduced = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const key = `${s.scene}:${s.district ?? ""}`;
     if (key !== lastKey.current) {
       lastKey.current = key;

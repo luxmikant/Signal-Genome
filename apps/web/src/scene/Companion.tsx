@@ -7,17 +7,23 @@ import { useGenome } from "../store.js";
 const EXCITEMENTS = [
   "ooh, new evidence!",
   "mutation landed!",
-  "the helix grew!",
+  "the city grew!",
   "the web said something new!",
   "followed. lighting it up!",
   "something new just arrived…",
 ];
 
-export function Companion() {
+const VARIANTS = {
+  orbit: { home: [0, 2.2, 5.4] as const, scale: 1.25, drift: 1.1, float: 0.32 },
+  city: { home: [0, 24, 0] as const, scale: 9, drift: 4.5, float: 1.6 },
+};
+
+export function Companion({ variant = "orbit" }: { variant?: "orbit" | "city" }) {
   const group = useRef<THREE.Group>(null);
   const blob = useRef<THREE.Mesh>(null);
   const eyeL = useRef<THREE.Mesh>(null);
   const eyeR = useRef<THREE.Mesh>(null);
+  const cfg = VARIANTS[variant];
 
   const hovered = useGenome((s) => s.hovered);
   const notice = useGenome((s) => s.notices[0]);
@@ -33,9 +39,13 @@ export function Companion() {
     }
 
     if (group.current) {
-      const float = Math.sin(t * 0.7) * 0.32;
-      const drift = Math.sin(t * 0.23) * 1.1;
-      group.current.position.lerp(new THREE.Vector3(drift, 2.2 + float, 5.4), Math.min(1, delta * 2.4));
+      const float = Math.sin(t * 0.7) * cfg.float;
+      const drift = Math.sin(t * 0.23) * cfg.drift;
+      const home = cfg.home;
+      group.current.position.lerp(
+        new THREE.Vector3(drift, home[1] + float, home[2]),
+        Math.min(1, delta * 2.4),
+      );
       group.current.rotation.y = Math.sin(t * 0.4) * 0.5;
     }
 
@@ -56,7 +66,7 @@ export function Companion() {
   const bubbleText = notice && Date.now() - notice.at < 4800 ? notice.title : null;
 
   return (
-    <group ref={group} position={[0, 2.2, 5.4]} scale={1.25}>
+    <group ref={group} position={cfg.home as unknown as [number, number, number]} scale={cfg.scale}>
       <mesh ref={blob}>
         <sphereGeometry args={[0.5, 48, 48]} />
         <MeshDistortMaterial

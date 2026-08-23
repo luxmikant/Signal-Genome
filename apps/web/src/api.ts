@@ -28,6 +28,9 @@ export function getHealth<T>() {
 export function getEcosystem<T>() {
   return json<T>("/ecosystem");
 }
-export function getCity<T>() {
-  return json<T>("/city");
+export function getCity<T>(path = "/city") {
+  return json<T>(path);
+}
+export function getTrends<T>() {
+  return json<T>("/trends");
 }

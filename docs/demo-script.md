@@ -3,41 +3,38 @@
 ## Beats
 
 ### 0:00 — The pitch (15 seconds)
-> "This is Signal Genome. A self-healing knowledge organism. Bright Data collectors read the web; an agent harness heals itself when the web moves; and the result is a DNA helix of what matters in LLM inference — and what you should learn next."
+> "This is Signal Genome — a living knowledge city. Bright Data collectors read the web; an agent harness heals itself when the web moves; and the city you see is built entirely from real evidence — every building is a source, every crane a rising idea."
 
-### 0:15 — Terminal: the harness
-```
-pnpm harness
-```
-Show the loop: planner → builder → runner → validator → healer. Point at the logger: each agent states what it did. Mention that each `bdata scraper run` costs 10–15 minutes, so the harness parallelizes sources at concurrency 2 and writes raw JSON to `data/raw/`.
+### 0:15 — The arrival (cinematic)
+- The city hovers in the dark. The overlay reads: *"A feed is a blur — a city, you can remember."*
+- Enter. The camera dives from above the city into the ring of districts.
+- Point out the grammar in one line: *"Buildings are evidence, height is relevance, lit windows are freshness, cranes are emerging ideas."*
 
 ### 0:45 — The break (the money moment)
 ```
 pnpm demo:break --source vllm-docs
 pnpm harness
 ```
-- Validator reports `broken` (coverage dropped).
-- Healer dispatches `bdata scraper heal c_xxxxx "The site changed its layout… Keep the JSON schema unchanged"` — **same Collector ID**.
-- Re-run the exact same collector. Same schema returns.
-- In the demo video this beat is also shown with **real** bdata output if credits allow (see docs/about.md).
+- The validator reports a break; the healer dispatches `bdata scraper heal c_xxxxx "The site changed… keep the JSON schema unchanged"` — **same Collector ID**.
+- The district beacon flickers amber then green; nothing downstream skipped a beat.
+- This is also visible in the city without any action: the health beacon per district turns red for any source currently broken — failures are never hidden.
 
-### 1:20 — The helix (theater)
-- Open http://localhost:5173 → onboarding (`What do you want to understand next?`) → "Sequence my genome".
-- Explain the two strands in one line: *"Left is what the web says, right is what you care about, bridges show where they meet."*
-- If mutated while open: plasmon particles spiral into the gene; **Plasmi**, the companion, flashes a bubble: *"mutation! the web said something new."*
-- Click **KV Cache** → panel opens: blurb, momentum pills, learn-first prerequisites, recent mutations with source cards linking to the original public pages.
+### 1:20 — Trends become geography
+- Drag the bottom time slider back to 2023 and press ▶. The city builds itself month by month: empty grid → Attention quarter → memory quarter flares up → cranes rise in 2025–26.
+- Point at the HUD badges: **▲ Paged Attention +1264%** — the trend is a number AND a block of buildings you can fly into.
 
-### 2:10 — Next best direction
-- Show the bottom-left card. Read one reason: *"Missing prerequisite — FlashAttention is the foundation you have not touched yet."*
-- Click a reaction button. Watch the interest strand light up in real time; the recommendation card recomputes.
+### 1:50 — The crane (the hook)
+- Click a **construction crane**. The site card opens: *"Speculative decoding — 32 fresh sources this month; learn KV Cache first."*
+- Click the route step; the camera flies there. The learn-next strip shows the prerequisite chain, each step clickable.
 
-### 2:35 — Source health
-- Top-right: **source health** drawer — per-source status, collector ids, extracted counts.
+### 2:20 — Evidence is real
+- Click any building → the evidence drawer opens with the original source link (open it live if online).
+- Traffic pulses run along the prerequisite roads; the hot ring marks the busiest district.
 
-### 2:50 — Close
-> "No feed, no chatbot. Your own evolving genome: the web keeps changing, and this organism never breaks."
+### 2:45 — Close
+> "No feed. No chatbot. A city that grows while the web keeps changing — because the scrapers it's built on heal themselves."
 
 ## Rehearsal notes
-- Run `pnpm dev` (api + web) before guests arrive; seed is automatic on first boot.
-- Keep a second terminal with `pnpm harness` pre-typed.
-- If web fonts don't load (no internet at venue): the UI falls back to system fonts — still fine.
+- Run `pnpm dev` in advance; `pnpm seed` on a fresh clone; the arrival screen needs no login.
+- Keep a second terminal with `pnpm harness` and `pnpm demo:break` pre-typed.
+- Live collectors already present in `config/state.json` (real `c_*` ids) — evidence the flow ran against real sites.

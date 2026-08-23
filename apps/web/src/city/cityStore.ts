@@ -1,5 +1,7 @@
 import { create } from "zustand";
-import { getCity } from "../api.js";
+import { getCity, getTrends } from "../api.js";
+
+export type RisingSignal = { geneId: string; label: string; deltaPct: number };
 
 export type CityHealth = "healthy" | "healing" | "failed" | "stale";
 
@@ -62,12 +64,25 @@ type CityState = {
   district: string | null;
   building: CityBuilding | null;
   hoverBuilding: string | null;
-  load: () => Promise<void>;
+  at: number | null;
+  playing: boolean;
+  rising: RisingSignal[];
+  load: (at?: number | null) => Promise<void>;
+  loadRising: () => Promise<void>;
   enter: () => void;
   focusDistrict: (id: string | null) => void;
   selectBuilding: (b: CityBuilding | null) => void;
   setHoverBuilding: (id: string | null) => void;
+  setAt: (at: number | null) => void;
+  setPlaying: (playing: boolean) => void;
 };
+
+export const CITY_RANGE = {
+  min: Date.parse("2023-06-01T00:00:00Z"),
+  max: Date.now(),
+};
+
+const loadReq = { current: 0 };
 
 export const useCity = create<CityState>((set, get) => ({
   model: null,
@@ -76,31 +91,46 @@ export const useCity = create<CityState>((set, get) => ({
   district: null,
   building: null,
   hoverBuilding: null,
+  at: null,
+  playing: false,
+  rising: [],
 
-  load: async () => {
-    if (get().loading) return;
-    set({ loading: true });
+  load: async (at) => {
+    const effective = at === undefined ? get().at : at;
+    const requestId = (loadReq.current += 1);
+    set({ loading: true, at: effective });
     try {
-      const model = await getCity<CityModel>();
-      set({ model, loading: false });
+      const param = effective ? `?at=${new Date(effective).toISOString()}` : "";
+      const model = await getCity<CityModel>(`/city${param}`);
+      if (loadReq.current === requestId) set({ model, loading: false });
     } catch {
-      set({ loading: false });
+      if (loadReq.current === requestId) set({ loading: false });
+    }
+  },
+
+  loadRising: async () => {
+    try {
+      const trends = await getTrends<{ rising: RisingSignal[] }>();
+      set({ rising: trends.rising });
+    } catch {
+      set({ rising: [] });
     }
   },
 
   enter: () => set({ scene: "overview", district: null, building: null }),
 
-  focusDistrict: (id) =>
-    set((s) => ({
-      district: id,
-      building: null,
-      scene: "overview",
-      ...(s.scene === "arrival" ? {} : {}),
-    })),
+  focusDistrict: (id) => set({ district: id, building: null }),
 
   selectBuilding: (b) => set({ building: b }),
 
   setHoverBuilding: (id) => set({ hoverBuilding: id }),
+
+  setAt: (at) => {
+    set({ at });
+    void get().load(at);
+  },
+
+  setPlaying: (playing) => set({ playing }),
 }));
 
 export function districtOf(model: CityModel | null, id: string | null): CityDistrict | null {
@@ -116,4 +146,8 @@ export function buildingsOf(model: CityModel | null, geneId: string): CityBuildi
 export function fmtCityDate(ts: number | null): string {
   if (!ts) return "—";
   return new Date(ts).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+}
+
+export function fmtMonth(ts: number): string {
+  return new Date(ts).toLocaleDateString(undefined, { month: "short", year: "numeric" });
 }

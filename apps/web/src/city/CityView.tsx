@@ -1,9 +1,11 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   buildingsOf,
+  CITY_RANGE,
   districtOf,
   fmtCityDate,
+  fmtMonth,
   useCity,
   type CityBuilding,
   type CityDistrict,
@@ -22,6 +24,7 @@ export function CityView() {
 
   useEffect(() => {
     void load();
+    void useCity.getState().loadRising();
   }, [load]);
 
   // live reload on genome mutations (new scraped evidence lands in the city)
@@ -65,8 +68,12 @@ export function CityView() {
         <>
           <CityBreadcrumb />
           {activeDistrict && <DistrictCard district={activeDistrict} />}
+          {activeDistrict?.emerging && <ConstructionNote district={activeDistrict} />}
           <HealthPanel model={model} />
           <RouteStrip model={model} />
+          <TimeJourney />
+          <Legend />
+          <HoverPill />
           {building && activeDistrict && <EvidenceDrawer building={building} />}
         </>
       )}
@@ -82,8 +89,8 @@ function Arrival({ onEnter }: { onEnter: () => void }) {
   const { stats } = model;
   const headline =
     stats.newThisWeek > 0
-      ? `${stats.newThisWeek} new signals reshaped your inference map this week.`
-      : "The city is quiet tonight — every building stands on collected evidence.";
+      ? `${stats.newThisWeek} new signals reshaped your inference city this week.`
+      : "Every standing building was built from collected evidence.";
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -92,23 +99,47 @@ function Arrival({ onEnter }: { onEnter: () => void }) {
       className="city-arrival"
     >
       <div className="city-arrival-inner">
-        <div className="city-arrival-kicker">signal genome · {model.domain} district</div>
+        <div className="city-arrival-kicker">signal genome · knowledge city</div>
         <h1 className="city-arrival-title">
           The signal is <em>alive</em>.
         </h1>
-        <p className="city-arrival-body">{headline}</p>
-        <div className="city-arrival-stats">
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25, duration: 0.5 }}
+          className="city-arrival-body"
+        >
+          A feed is a blur — a city, you can remember. {headline}
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.55, duration: 0.5 }}
+          className="city-arrival-stats"
+        >
           <span>
             <b>{stats.totalItems}</b> evidence items
           </span>
           <span>
-            <b>{stats.sourcesHealthy}</b> of {stats.sourcesTotal} collectors healthy
-          </span>
-          <span>
             <b>{model.districts.length}</b> districts
           </span>
-        </div>
+          <span>
+            <b>{stats.sourcesHealthy}</b>/<b>{stats.sourcesTotal}</b> collectors healthy
+          </span>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.95, duration: 0.5 }}
+          className="city-arrival-hint"
+        >
+          buildings are sources · height is relevance · lit windows are fresh evidence · cranes are rising
+          ideas — and when the web changes, the harness heals the scrapers so the lights stay on
+        </motion.div>
         <motion.button
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2, duration: 0.4 }}
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           className="city-enter-btn"
@@ -116,13 +147,147 @@ function Arrival({ onEnter }: { onEnter: () => void }) {
         >
           Enter the city ↓
         </motion.button>
-        <div className="city-arrival-hint">
-          buildings are sources · height is relevance · lit windows are fresh evidence
+      </div>
+    </motion.div>
+  );
+}
+
+function ConstructionNote({ district }: { district: CityDistrict }) {
+  const route = useCity((s) => s.model)?.route;
+  const focus = useCity((s) => s.focusDistrict);
+  const firstStep = route?.steps.find((st) => st.geneId !== district.id) ?? route?.steps[0];
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -12 }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      className="city-construction"
+    >
+      <span className="city-construction-ico">⛏</span>
+      <div>
+        <div className="city-construction-head">construction site · {district.label}</div>
+        <div className="city-construction-body">
+          {district.recentCount > 0
+            ? `${district.recentCount} fresh sources this month, and the idea is still rising.`
+            : "This idea is still under construction — the first bricks are arriving."}
+          {firstStep && (
+            <>
+              {district.recentCount === 0 && ""}{" "}
+              <button className="city-construction-link" onClick={() => focus(firstStep.geneId)}>
+                learn {firstStep.label} first →
+              </button>
+            </>
+          )}
         </div>
       </div>
     </motion.div>
   );
 }
+
+function TimeJourney() {
+  const at = useCity((s) => s.at);
+  const playing = useCity((s) => s.playing);
+  const setAt = useCity((s) => s.setAt);
+  const setPlaying = useCity((s) => s.setPlaying);
+  const [pending, setPending] = useState<number | null>(null);
+
+  const value = pending ?? at ?? CITY_RANGE.max;
+  const stepMonths = (CITY_RANGE.max - CITY_RANGE.min) / (36 * 30 * 86_400_000);
+
+  const commit = (next: number): void => {
+    if (next >= CITY_RANGE.max - 10 * 86_400_000) setAt(null);
+    else setAt(next);
+  };
+
+  useEffect(() => {
+    if (!playing) return;
+    const id = window.setInterval(() => {
+      const current = useCity.getState().at ?? CITY_RANGE.max;
+      const next = current + 30 * 86_400_000;
+      if (next >= CITY_RANGE.max) {
+        setPlaying(false);
+        setAt(null);
+      } else {
+        setAt(next);
+      }
+    }, 800);
+    return () => window.clearInterval(id);
+  }, [playing, setAt, setPlaying]);
+
+  return (
+    <div className="city-scrub">
+      <button
+        className={`city-scrub-play ${playing ? "is-playing" : ""}`}
+        onClick={() => setPlaying(!playing)}
+        title="watch the city get built"
+      >
+        {playing ? "⏸" : "▶"}
+      </button>
+      <input
+        type="range"
+        min={CITY_RANGE.min}
+        max={CITY_RANGE.max}
+        step={stepMonths}
+        value={value}
+        onChange={(e) => {
+          const v = Number(e.target.value);
+          setPending(v);
+          commit(v);
+        }}
+        onPointerUp={() => setPending(null)}
+      />
+      <span className="city-scrub-label">
+        {at ? fmtMonth(at) : "now"} · build the city over time
+      </span>
+    </div>
+  );
+}
+
+function HoverPill() {
+  const hoverBuilding = useCity((s) => s.hoverBuilding);
+  const model = useCity((s) => s.model);
+  const b = useMemo(
+    () => model?.buildings.find((x) => x.id === hoverBuilding) ?? null,
+    [model, hoverBuilding],
+  );
+  return (
+    <AnimatePresence>
+      {b && (
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 8 }}
+          transition={{ duration: 0.15 }}
+          className="city-hoverpill"
+        >
+          <span className="city-hoverpill-title">{b.title}</span>
+          <span className="city-hoverpill-meta">
+            {b.source} · {b.sourceType} · {b.health} · dim builds whisper
+          </span>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+function Legend() {
+  return (
+    <div className="city-legend">
+      <div className="city-legend-head">reading the city</div>
+      <div className="city-legend-items">
+        <span className="city-legend-item"><i className="city-swatch" style={{ background: "#A7FF83" }} /> lit = fresh evidence</span>
+        <span className="city-legend-item"><i className="city-swatch" style={{ background: "#FFB45B" }} /> hot ring = most active district</span>
+        <span className="city-legend-item"><i className="city-swatch-ico">⛏</i> crane = emerging idea</span>
+        <span className="city-legend-item"><i className="city-swatch" style={{ background: "#E8D9A8" }} /> monument = foundation</span>
+        <span className="city-legend-item"><i className="city-swatch" style={{ background: "#4d5a52" }} /> dim = abandoned</span>
+        <span className="city-legend-item"><i className="city-swatch" style={{ background: "#FF6E6E" }} /> red = broken source</span>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
 
 function CityBreadcrumb() {
   const district = useCity((s) => s.district);
@@ -206,6 +371,7 @@ function EvidenceDrawer({ building }: { building: CityBuilding }) {
         <span>{building.sourceType}</span>
         <span>{building.publishedAt ? new Date(building.publishedAt).toLocaleDateString() : "no date"}</span>
         <span className={`city-beacon city-beacon-${building.health}`}>{building.health}</span>
+        {building.archived && <span className="city-beacon city-beacon-stale">abandoned</span>}
         {d && <span style={{ color: d.color }}>{d.label}</span>}
       </div>
       <blockquote className="city-drawer-excerpt">“{building.excerpt}…”</blockquote>
