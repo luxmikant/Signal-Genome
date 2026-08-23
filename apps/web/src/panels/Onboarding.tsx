@@ -44,7 +44,7 @@ export function Onboarding() {
       >
         <div className="status-pill" style={{ marginBottom: 26, display: "inline-flex", alignItems: "center", gap: 8 }}>
           <span style={{ color: connected ? "#2fbf71" : "#7c8fa0" }}>{connected ? "●" : "○"}</span>
-          signal genome · the knowledge city is booting
+          Signal City · the knowledge city is booting
         </div>
 
         <h1

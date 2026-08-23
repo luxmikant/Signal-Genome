@@ -1,4 +1,4 @@
-# 🏙 Signal Genome — the Knowledge City
+# 🏙 Signal City — the Knowledge City
 
 > **The web's knowledge about fast-moving tech, built into a living city.**
 > Bright Data Scraper Studio collectors pull public engineering content; a five-agent
@@ -13,7 +13,7 @@ Built for **Into the Scrape-Verse** (WeMakeDevs × Bright Data, Aug 2026).
 
 ## What it is doing
 
-Signal Genome turns fragmented public technical knowledge (blogs, docs, changelogs) into
+Signal City turns fragmented public technical knowledge (blogs, docs, changelogs) into
 **one spatial picture you can remember**: a city. Instead of a feed that answers "what was
 published today", the city answers **what matters, how things connect, what changed, and
 what to learn next** — and it keeps working when the web moves under it.

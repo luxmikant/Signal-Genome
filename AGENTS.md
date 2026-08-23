@@ -1,4 +1,4 @@
-# Signal Genome
+# Signal City
 
 This file is pinned into every coding-agent session.
 

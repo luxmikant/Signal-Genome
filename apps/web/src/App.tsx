@@ -50,15 +50,15 @@ function TopHud({ connected }: { connected: boolean }) {
             fontWeight: 700,
             fontSize: 17,
             letterSpacing: "0.02em",
-            background: "linear-gradient(90deg,#A7FF83,#E8D9A8)",
+            background: "linear-gradient(90deg,#0f766e,#7c3aed)",
             WebkitBackgroundClip: "text",
             backgroundClip: "text",
             color: "transparent",
           }}
         >
-          SIGNAL GENOME
+          SIGNAL CITY
         </span>
-        <span style={{ color: "var(--faint)", fontFamily: "var(--mono)", fontSize: 10.5 }}>knowledge city · v0.3</span>
+        <span style={{ color: "var(--faint)", fontFamily: "var(--mono)", fontSize: 10.5 }}>the knowledge city that never goes dark · v0.4</span>
       </div>
 
       <div style={{ display: "flex", gap: 8, alignItems: "center", pointerEvents: "auto" }}>

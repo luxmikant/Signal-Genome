@@ -3,7 +3,7 @@
 ## Beats
 
 ### 0:00 — The pitch (15 seconds)
-> "This is Signal Genome — a living knowledge city. Bright Data collectors read the web; an agent harness heals itself when the web moves; and the city you see is built entirely from real evidence — every building is a source, every crane a rising idea."
+> "This is Signal City — a living knowledge city. Bright Data collectors read the web; an agent harness heals itself when the web moves; and the city you see is built entirely from real evidence — every building is a source, every crane a rising idea."
 
 ### 0:15 — The arrival (cinematic)
 - The city hovers in the dark. The overlay reads: *"A feed is a blur — a city, you can remember."*

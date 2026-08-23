@@ -889,3 +889,207 @@ h3 {
   border-color: rgba(15, 118, 110, 0.35);
   background: rgba(15, 118, 110, 0.06);
 }
+
+/* ------------------------------ hero story ------------------------------ */
+
+.city-hero {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  overflow-y: auto;
+  scroll-snap-type: y proximity;
+  pointer-events: auto;
+  background:
+    radial-gradient(ellipse 65% 50% at 50% 118%, rgba(245, 185, 66, 0.3) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 42% at 82% 8%, rgba(124, 58, 237, 0.12) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(207, 228, 247, 0.94) 0%, rgba(238, 244, 250, 0.96) 60%, rgba(247, 243, 232, 0.97) 100%);
+  backdrop-filter: blur(3px);
+}
+
+.city-hero-skip {
+  position: fixed;
+  top: 22px;
+  right: 24px;
+  z-index: 75;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--dim);
+  background: var(--glass-strong);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.city-hero-skip:hover {
+  color: var(--ink);
+  border-color: rgba(15, 118, 110, 0.5);
+  transform: translateY(-1px);
+}
+
+.city-hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 90px 24px 140px;
+  scroll-snap-align: start;
+}
+
+.city-hero-section > div {
+  max-width: 760px;
+  text-align: center;
+}
+
+.city-hero-kicker {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 20px;
+}
+
+.city-hero-title {
+  font-size: clamp(30px, 5.4vw, 56px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+
+.city-hero-title em {
+  font-style: normal;
+  background: linear-gradient(90deg, #0f766e, #7c3aed);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.city-hero-body {
+  font-size: 16.5px;
+  color: var(--dim);
+  line-height: 1.65;
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.city-hero-chips {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.city-hero-chip {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--dim);
+  background: var(--glass-strong);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 9px 16px;
+}
+
+.city-hero-scrollhint {
+  margin-top: 40px;
+  font-size: 12px;
+  color: var(--faint);
+  font-family: var(--mono);
+  animation: city-floaty 2.4s ease-in-out infinite;
+}
+
+@keyframes city-floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+.city-hero-legend-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+  margin-top: 26px;
+  font-size: 13.5px;
+  color: var(--dim);
+}
+
+.city-hero-legend-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.city-hero-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.city-hero-ctabar {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 22px 24px 30px;
+  background: linear-gradient(180deg, transparent 0%, rgba(238, 244, 250, 0.94) 45%);
+}
+
+.city-hero-cta-hint {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--faint);
+}
+
+/* larger, tappable city components */
+.city-label {
+  padding: 7px 13px;
+  min-width: 96px;
+  gap: 2px;
+  box-shadow: 0 4px 16px rgba(19, 34, 45, 0.08);
+}
+
+.city-label-name {
+  font-size: 14px;
+}
+
+.city-label-meta {
+  font-size: 10px;
+}
+
+.city-label:hover,
+.city-label.is-focused {
+  transform: translateY(-2px) scale(1.05);
+}
+
+.city-landmark-label {
+  padding: 8px 16px;
+}
+
+.city-landmark-name {
+  font-size: 15px;
+}
+
+.city-landmark-meta {
+  font-size: 10.5px;
+}
+
+.city-bridge-label {
+  padding: 6px 13px;
+}
+
+.city-enter-btn {
+  font-size: 18px;
+  padding: 17px 46px;
+}
+
+.city-scrub-play {
+  width: 40px;
+  height: 40px;
+  font-size: 15px;
+}

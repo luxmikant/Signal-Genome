@@ -62,7 +62,7 @@ export function CityView() {
         </div>
       )}
 
-      <AnimatePresence>{scene === "arrival" && model && <Arrival onEnter={enter} />}</AnimatePresence>
+      <AnimatePresence>{scene === "arrival" && model && <Hero onEnter={enter} />}</AnimatePresence>
 
       {model && scene === "overview" && (
         <>
@@ -74,7 +74,7 @@ export function CityView() {
           <TimeJourney />
           <Legend />
           <HoverPill />
-          {building && activeDistrict && <EvidenceDrawer building={building} />}
+          {building && <EvidenceDrawer building={building} />}
         </>
       )}
     </div>
@@ -83,70 +83,107 @@ export function CityView() {
 
 // ---------------------------------------------------------------------------
 
-function Arrival({ onEnter }: { onEnter: () => void }) {
+function Hero({ onEnter }: { onEnter: () => void }) {
   const model = useCity((s) => s.model);
   if (!model) return null;
   const { stats } = model;
-  const headline =
-    stats.newThisWeek > 0
-      ? `${stats.newThisWeek} new signals reshaped your inference city this week.`
-      : "Every standing building was built from collected evidence.";
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 0.6 } }}
-      className="city-arrival"
+      exit={{ opacity: 0, transition: { duration: 0.5 } }}
+      className="city-hero"
     >
-      <div className="city-arrival-inner">
-        <div className="city-arrival-kicker">signal genome · knowledge city</div>
-        <h1 className="city-arrival-title">
-          The signal is <em>alive</em>.
-        </h1>
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25, duration: 0.5 }}
-          className="city-arrival-body"
-        >
-          A feed is a blur — a city, you can remember. {headline}
-        </motion.p>
+      <button className="city-hero-skip" onClick={onEnter}>
+        skip story →
+      </button>
+
+      <section className="city-hero-section">
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.55, duration: 0.5 }}
-          className="city-arrival-stats"
+          transition={{ delay: 0.15, duration: 0.6 }}
         >
-          <span>
-            <b>{stats.totalItems}</b> evidence items
-          </span>
-          <span>
-            <b>{model.districts.length}</b> districts
-          </span>
-          <span>
-            <b>{stats.sourcesHealthy}</b>/<b>{stats.sourcesTotal}</b> collectors healthy
-          </span>
+          <div className="city-hero-kicker">signal city · a story in three parts</div>
+          <h1 className="city-hero-title">
+            Your feed knows <em>what happened</em>.<br />
+            It doesn't know <em>what matters</em>.
+          </h1>
+          <p className="city-hero-body">
+            Every week, the important ideas about a fast-moving field are scattered across
+            engineering blogs, documentation pages and changelogs. Feeds hand you the noise
+            in chronological order — never the picture.
+          </p>
+          <div className="city-hero-chips">
+            <span className="city-hero-chip">◔ fragmented signal</span>
+            <span className="city-hero-chip">⤳ chronological, not educational</span>
+            <span className="city-hero-chip">✂ scrapers that silently break</span>
+          </div>
         </motion.div>
+        <div className="city-hero-scrollhint">scroll ↓ the city is already growing behind this</div>
+      </section>
+
+      <section className="city-hero-section">
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.95, duration: 0.5 }}
-          className="city-arrival-hint"
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6 }}
         >
-          buildings are sources · height is relevance · lit windows are fresh evidence · cranes are rising
-          ideas — and when the web changes, the harness heals the scrapers so the lights stay on
+          <div className="city-hero-kicker">part two · the idea</div>
+          <h2 className="city-hero-title">
+            So we built a <em>city</em> from the web's public knowledge.
+          </h2>
+          <p className="city-hero-body">
+            A feed is a blur — a city, you can remember. Every building is one real source.
+            Height is relevance. Lit windows are fresh evidence. Roads show how ideas depend
+            on each other, and cranes mark what's rising.
+          </p>
+          <div className="city-hero-legend-row">
+            <span><i className="city-hero-swatch" style={{ background: "#5b8def" }} /> buildings = sources</span>
+            <span><i className="city-hero-swatch" style={{ background: "#ffd97a" }} /> lit windows = fresh evidence</span>
+            <span><i className="city-hero-swatch" style={{ background: "#f5b942" }} /> cranes = emerging ideas</span>
+            <span><i className="city-hero-swatch" style={{ background: "#ff6e6e" }} /> red = a broken source, never hidden</span>
+          </div>
         </motion.div>
+      </section>
+
+      <section className="city-hero-section">
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="city-hero-kicker">part three · the organism</div>
+          <h2 className="city-hero-title">
+            And we taught it to <em>heal itself</em>.
+          </h2>
+          <p className="city-hero-body">
+            When a site changes its layout, the collector goes dark — the harness notices,
+            asks Scraper Studio to rewrite the extraction, and re-runs the <b>same collector ID</b>.
+            Nothing downstream ever sees a gap. The city keeps its lights on.
+          </p>
+          <div className="city-arrival-stats">
+            <span><b>{stats.totalItems}</b> evidence items</span>
+            <span><b>{stats.sourcesHealthy}</b>/<b>{stats.sourcesTotal}</b> collectors healthy</span>
+            <span><b>{model.districts.length}</b> districts</span>
+            <span><b>{stats.newThisWeek}</b> new this week</span>
+          </div>
+        </motion.div>
+      </section>
+
+      <div className="city-hero-ctabar">
         <motion.button
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.4 }}
-          whileHover={{ scale: 1.03 }}
+          whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.97 }}
           className="city-enter-btn"
           onClick={onEnter}
         >
           Enter the city ↓
         </motion.button>
+        <span className="city-hero-cta-hint">drag to orbit · click any building · press ▶ to watch it get built</span>
       </div>
     </motion.div>
   );

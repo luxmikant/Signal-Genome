@@ -1,12 +1,12 @@
-# Signal Genome — about
+# Signal City — about
 
 ## The one-liner
 
-**Signal Genome is a self-healing, personalized technology radar.** Bright Data Scraper Studio collectors continuously pull public technical knowledge from blogs, documentation, changelogs and community sources. A multi-agent harness builds, runs, validates and rep — **heals** — those collectors when a site changes layout. Normalized content feeds a fitness engine that scores ~14 canonical genes of knowledge for a user's personal genome, rendered as a living DNA helix. The left strand is what the web says; the right strand is what you care about; the bridges show where they meet.
+**Signal City is a self-healing, personalized technology radar.** Bright Data Scraper Studio collectors continuously pull public technical knowledge from blogs, documentation, changelogs and community sources. A multi-agent harness builds, runs, validates and rep — **heals** — those collectors when a site changes layout. Normalized content feeds a fitness engine that scores ~14 canonical genes of knowledge for a user's personal genome, rendered as a living DNA helix. The left strand is what the web says; the right strand is what you care about; the bridges show where they meet.
 
 ## Why not another feed?
 
-A feed answers "what happened". Signal Genome answers:
+A feed answers "what happened". Signal City answers:
 
 - What does this new information connect to?
 - Why should I care right now?

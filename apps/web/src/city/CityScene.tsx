@@ -114,13 +114,46 @@ function buildingColor(b: CityBuilding): THREE.Color {
   const model = useCity.getState().model;
   const d = model?.districts.find((x) => x.id === b.geneId);
   const base = new THREE.Color(d?.color ?? "#7aa7c8");
-  if (b.archived) return base.clone().multiplyScalar(0.55).lerp(new THREE.Color("#b9c6d2"), 0.55);
+  base.offsetHSL(((hash33(b.id) % 5) - 2) * 0.012, 0.08, 0.02);
+  if (b.archived) return base.multiplyScalar(0.55).lerp(new THREE.Color("#b9c6d2"), 0.55);
   const lit = base
     .clone()
-    .lerp(new THREE.Color("#ffffff"), 0.35 + b.freshness * 0.4)
-    .multiplyScalar(0.8 + b.freshness * 0.2);
+    .lerp(new THREE.Color("#ffffff"), 0.22 + b.freshness * 0.38)
+    .multiplyScalar(0.85 + b.freshness * 0.15);
   if (b.health === "failed") lit.lerp(new THREE.Color(CORAL), 0.25);
   return lit;
+}
+
+function makeWindowTexture(): THREE.CanvasTexture {
+  const canvas = document.createElement("canvas");
+  canvas.width = 64;
+  canvas.height = 128;
+  const ctx = canvas.getContext("2d")!;
+  ctx.fillStyle = "#16303f";
+  ctx.fillRect(0, 0, 64, 128);
+  for (let y = 6; y < 122; y += 12) {
+    for (let x = 6; x < 58; x += 10) {
+      const lit = (x * 7 + y * 13) % 5 < 3 ? 1 : 0.25;
+      ctx.fillStyle = `rgba(255, 224, 150, ${lit})`;
+      ctx.fillRect(x, y, 5, 7);
+    }
+  }
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+
+function makeShadowTexture(): THREE.CanvasTexture {
+  const canvas = document.createElement("canvas");
+  canvas.width = 64;
+  canvas.height = 64;
+  const ctx = canvas.getContext("2d")!;
+  const g = ctx.createRadialGradient(32, 32, 6, 32, 32, 32);
+  g.addColorStop(0, "rgba(10, 26, 38, 0.5)");
+  g.addColorStop(1, "rgba(10, 26, 38, 0)");
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, 64, 64);
+  return new THREE.CanvasTexture(canvas);
 }
 
 const BEACON_COLOR: Record<string, string> = {
@@ -133,8 +166,14 @@ const BEACON_COLOR: Record<string, string> = {
 function CityWorld() {
   const model = useCity((s) => s.model);
   const instRef = useRef<THREE.InstancedMesh>(null);
+  const coreRef = useRef<THREE.InstancedMesh>(null);
+  const shadowRef = useRef<THREE.InstancedMesh>(null);
+  const spireRef = useRef<THREE.InstancedMesh>(null);
   const mapRef = useRef<Array<CityBuilding | null>>([]);
   const hoverIdx = useRef(-1);
+
+  const windowTexture = useMemo(() => makeWindowTexture(), []);
+  const shadowTexture = useMemo(() => makeShadowTexture(), []);
 
   const hotId = useMemo(() => {
     if (!model) return null;
@@ -151,11 +190,19 @@ function CityWorld() {
 
   useEffect(() => {
     const mesh = instRef.current;
-    if (!mesh || !model) return;
+    const core = coreRef.current;
+    const shadow = shadowRef.current;
+    const spire = spireRef.current;
+    if (!mesh || !core || !shadow || !spire || !model) return;
     const all = model.buildings;
+    const repos = all.filter((b) => b.kind === "repository");
     mesh.count = all.length;
+    core.count = all.length;
+    shadow.count = all.length;
+    spire.count = repos.length;
     const dummy = new THREE.Object3D();
     const perGene = new Map<string, number>();
+    let spireIdx = 0;
     all.forEach((b, i) => {
       let px: number, pz: number;
       if (b.kind === "repository") {
@@ -170,17 +217,51 @@ function CityWorld() {
         px = gx + lx;
         pz = gz + lz;
       }
-      const h = b.kind === "repository" ? 0.9 + b.importance * 3.4 : 0.3 + b.importance * 1.15;
+      const isRepo = b.kind === "repository";
+      const h = isRepo ? 0.9 + b.importance * 3.4 : 0.3 + b.importance * 1.15;
+      const w = isRepo ? 1.35 : 0.95;
+
       dummy.position.set(px, h / 2, pz);
-      dummy.scale.set(0.95, h, 0.95);
+      dummy.scale.set(w, h, w);
       dummy.updateMatrix();
       mesh.setMatrixAt(i, dummy.matrix);
       mesh.setColorAt(i, buildingColor(b));
+
+      // lit-window facade core
+      dummy.position.set(px, h / 2, pz);
+      dummy.scale.set(w * 0.72, h * 0.98, w * 0.72);
+      dummy.updateMatrix();
+      core.setMatrixAt(i, dummy.matrix);
+      const glow = b.archived ? 0.02 : 0.2 + b.freshness * 0.8;
+      core.setColorAt(i, new THREE.Color(glow, glow, glow));
+
+      // soft ground shadow
+      dummy.position.set(px, 0.035, pz);
+      dummy.scale.set(Math.max(1.2, w * 1.5), 1, Math.max(1.2, w * 1.5));
+      dummy.rotation.set(-Math.PI / 2, 0, 0);
+      dummy.updateMatrix();
+      shadow.setMatrixAt(i, dummy.matrix);
+      dummy.rotation.set(0, 0, 0);
+
+      // landmark spire
+      if (isRepo) {
+        dummy.position.set(px, h + 0.5, pz);
+        dummy.scale.setScalar(1);
+        dummy.updateMatrix();
+        spire.setMatrixAt(spireIdx, dummy.matrix);
+        spire.setColorAt(spireIdx, new THREE.Color(b.bridge ? "#f5b942" : "#ffffff"));
+        spireIdx += 1;
+      }
     });
     mesh.instanceMatrix.needsUpdate = true;
+    core.instanceMatrix.needsUpdate = true;
+    shadow.instanceMatrix.needsUpdate = true;
+    spire.instanceMatrix.needsUpdate = true;
     if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+    if (core.instanceColor) core.instanceColor.needsUpdate = true;
+    if (spire.instanceColor) spire.instanceColor.needsUpdate = true;
     mapRef.current = all;
-  }, [model]);
+  }, [model, windowTexture, shadowTexture]);
 
   const paint = (idx: number): void => {
     const mesh = instRef.current;
@@ -246,7 +327,22 @@ function CityWorld() {
         onClick={onClick}
       >
         <boxGeometry args={[1, 1, 1]} />
-        <meshLambertMaterial color="#ffffff" />
+        <meshStandardMaterial color="#ffffff" roughness={0.55} metalness={0.12} />
+      </instancedMesh>
+
+      <instancedMesh ref={coreRef} args={[undefined, undefined, 520]} frustumCulled={false} raycast={() => null}>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshBasicMaterial map={windowTexture} toneMapped={false} />
+      </instancedMesh>
+
+      <instancedMesh ref={shadowRef} args={[undefined, undefined, 520]} frustumCulled={false} raycast={() => null}>
+        <planeGeometry args={[1, 1]} />
+        <meshBasicMaterial map={shadowTexture} transparent opacity={0.5} depthWrite={false} />
+      </instancedMesh>
+
+      <instancedMesh ref={spireRef} args={[undefined, undefined, 40]} frustumCulled={false} raycast={() => null}>
+        <coneGeometry args={[0.16, 1, 6]} />
+        <meshBasicMaterial toneMapped={false} />
       </instancedMesh>
 
       <Avenue model={model} />
@@ -308,7 +404,7 @@ function District({ id, x, z, hot, interactive }: { id: string; x: number; z: nu
         </group>
       )}
       {d.emerging && interactive && <Crane x={-0.5} z={0.6} phase={x + z} color={d.color} districtId={d.id} />}
-      <Html position={[0, 4.4, 0]} center distanceFactor={15} zIndexRange={[40, 0]}>
+      <Html position={[0, 4.4, 0]} center distanceFactor={15} zIndexRange={[40, 0]} style={{ pointerEvents: "auto" }}>
         <button
           className={`city-label ${focused ? "is-focused" : ""}`}
           onClick={() => useCity.getState().focusDistrict(d.id)}
@@ -359,6 +455,10 @@ function Crane({ x, z, phase, color, districtId }: { x: number; z: number; phase
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
     >
+      <mesh position={[0, 2.2, 0]}>
+        <sphereGeometry args={[2.4, 8, 8]} />
+        <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+      </mesh>
       <mesh position={[0, 1.7, 0]}>
         <boxGeometry args={[0.15, 3.4, 0.15]} />
         <meshBasicMaterial color={hovered ? "#8a6a2f" : "#6d5830"} />
@@ -506,7 +606,7 @@ function Avenue({ model }: { model: CityModel }) {
         return (
           <group key={end.id} position={[x, 0, z]}>
             <EndCap color={i === 0 ? "#0f766e" : "#b45309"} />
-            <Html center position={[0, 7.6, 0]} zIndexRange={[40, 0]}>
+            <Html center position={[0, 7.6, 0]} zIndexRange={[40, 0]} style={{ pointerEvents: "auto" }}>
               <button className="city-landmark-label" onClick={() => useCity.getState().selectBuilding(b)}>
                 <span className="city-landmark-name">{end.label}</span>
                 <span className="city-landmark-meta">{b.stars ? `${(b.stars / 1000).toFixed(0)}k ★` : "landmark"}</span>
@@ -523,7 +623,7 @@ function Avenue({ model }: { model: CityModel }) {
           return (
             <group key={b.id} position={pos}>
               <BridgeRing />
-              <Html center position={[0, 5.6, 0]} zIndexRange={[40, 0]}>
+              <Html center position={[0, 5.6, 0]} zIndexRange={[40, 0]} style={{ pointerEvents: "auto" }}>
                 <button className="city-bridge-label" onClick={() => useCity.getState().selectBuilding(b)}>
                   <span className="city-landmark-name">{b.title}</span>
                   <span className="city-landmark-meta">bridge · {b.stars ? `${(b.stars / 1000).toFixed(1)}k ★` : ""}</span>
