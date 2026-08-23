@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { GENE_FAMILIES } from "@signal/core";
 import { GENES, GENE_BY_ID } from "@signal/genes";
 import { computeStatsWithDates, normalizeMomentum } from "@signal/engine";
+import { AVENUE_ENDS, LANDMARK_BY_ID, LANDMARK_REPOS, REPO_RELATIONS, repoImportance } from "@signal/ecosystem";
 import { loadContents, loadReactions, loadTags } from "./db.js";
 import { computeDirection } from "@signal/engine";
 
@@ -24,6 +25,13 @@ export type CityBuilding = {
   freshness: number; //  0..1 — drives window light (45-day decay)
   health: CityBuildingHealth;
   archived: boolean;
+  kind?: "evidence" | "repository";
+  org?: string;
+  stars?: number;
+  growth?: number;
+  language?: string;
+  bridge?: boolean;
+  avenueSlot?: number;
 };
 
 export type CityDistrict = {
@@ -44,11 +52,17 @@ export type CityDistrict = {
 export type CityRoad = {
   from: string;
   to: string;
-  relationship: "prerequisite" | "related_to";
+  relationship: "prerequisite" | "related_to" | "fork_of" | "builds_on" | "integrates" | "reimplements";
   strength: number;
+  kind: "concept" | "repo";
 };
 
 export type CityRouteStep = { geneId: string; label: string; blurb: string; depth: number };
+
+export type CityAvenue = {
+  ends: Array<{ id: string; label: string }>;
+  bridges: Array<{ id: string; label: string }>;
+};
 
 export type CityModel = {
   domain: string;
@@ -65,6 +79,7 @@ export type CityModel = {
     newThisWeek: number;
   };
   route: { geneId: string; headline: string; steps: CityRouteStep[] } | null;
+  avenue: CityAvenue;
 };
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), "../../..");
@@ -117,6 +132,9 @@ export function buildCityModel(now: number = Date.now()): CityModel {
   const tags = loadTags();
   const reactions = loadReactions();
   const sources = loadSourceStates();
+  const hasLiveStates = sources.size > 0;
+  const healthOf = (sourceId: string): CityBuildingHealth =>
+    hasLiveStates ? healthFromStatus(sources.get(sourceId)?.status) : "healthy";
 
   const items = contents
     .map((c) => ({
@@ -155,7 +173,6 @@ export function buildCityModel(now: number = Date.now()): CityModel {
       .slice(0, 14);
 
     for (const { c, weight, decay } of candidates) {
-      const health = healthFromStatus(sources.get(c.source)?.status);
       buildings.push({
         id: c.id,
         title: c.title,
@@ -169,7 +186,7 @@ export function buildCityModel(now: number = Date.now()): CityModel {
         weight,
         importance: Math.max(0.18, Math.min(1, 0.28 + (weight / 3) * 0.42 + decay * 0.5)),
         freshness: decay,
-        health,
+        health: healthOf(c.source),
         archived: atMs - new Date(`${c.publishedAt}T00:00:00Z`).getTime() > 90 * DAY,
       });
     }
@@ -202,9 +219,45 @@ export function buildCityModel(now: number = Date.now()): CityModel {
   const roads: CityRoad[] = [];
   for (const gene of GENES) {
     for (const p of gene.prerequisites ?? []) {
-      roads.push({ from: p, to: gene.id, relationship: "prerequisite", strength: 1 });
+      roads.push({ from: p, to: gene.id, relationship: "prerequisite", strength: 1, kind: "concept" });
     }
   }
+
+  const landmarkBuildings: CityBuilding[] = LANDMARK_REPOS.map((r) => ({
+    id: r.id,
+    title: r.name,
+    source: "github",
+    sourceType: "repository",
+    url: `https://github.com/${r.org}/${r.name}`,
+    publishedAt: null,
+    fetchedAt: 0,
+    excerpt: r.description,
+    geneId: r.geneId,
+    weight: 1 + Math.log10(Math.max(100, r.stars)) / 6,
+    importance: repoImportance(r.stars),
+    freshness: r.archived ? 0.08 : Math.min(1, 0.35 + r.growth * 0.65),
+    health: r.archived ? "stale" : "healthy",
+    archived: r.archived ?? false,
+    kind: "repository" as const,
+    org: r.org,
+    stars: r.stars,
+    growth: r.growth,
+    language: r.language,
+    bridge: r.bridge ?? false,
+    avenueSlot: r.avenueSlot,
+  }));
+  buildings.push(...landmarkBuildings);
+
+  for (const rel of REPO_RELATIONS) {
+    roads.push({ from: rel.from, to: rel.to, relationship: rel.kind, strength: 1, kind: "repo" });
+  }
+
+  const avenue = {
+    ends: AVENUE_ENDS.map((id) => ({ id, label: LANDMARK_BY_ID[id]?.name ?? id })),
+    bridges: LANDMARK_REPOS.filter((r) => r.bridge)
+      .sort((a, b) => (a.avenueSlot ?? 0) - (b.avenueSlot ?? 0))
+      .map((r) => ({ id: r.id, label: r.name })),
+  };
 
   const direction = computeDirection({ genes: GENES, contents, tags, reactions });
   const route = direction
@@ -253,5 +306,6 @@ export function buildCityModel(now: number = Date.now()): CityModel {
       newThisWeek,
     },
     route,
+    avenue,
   };
 }

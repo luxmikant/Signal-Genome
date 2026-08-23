@@ -4,6 +4,7 @@ import type { EcoEdge, EcoNode, EcoSnapshot } from "./types.js";
 
 export type { Confidence, EcoEdge, EcoNode, EcoSnapshot } from "./types.js";
 export * from "./tree.js";
+export * from "./landmarks.js";
 
 export const DATA_PATH = findEcosystemDataPath();
 

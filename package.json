@@ -1,9 +1,10 @@
 {
   "name": "signal-genome",
   "private": true,
-  "version": "0.1.0",
-  "description": "Your radar for what's changing in AI tooling: self-healing Bright Data scraping, rendered as a lineage tree of the ecosystem and a personal concept genome.",
+  "version": "0.3.0",
+  "description": "A self-healing knowledge organism: Bright Data collectors feed a living knowledge city.",
   "type": "module",
+  "packageManager": "pnpm@10.2.1",
   "engines": {
     "node": ">=20"
   },
@@ -11,6 +12,8 @@
     "sync": "node scripts/sync-workspace.mjs",
     "postinstall": "node scripts/sync-workspace.mjs",
     "dev": "pnpm --parallel --filter @signal/api --filter @signal/web dev",
+    "build": "pnpm --filter @signal/web build",
+    "build:web": "pnpm sync && pnpm --filter @signal/web build",
     "harness": "pnpm sync && pnpm --filter @signal/collector harness",
     "create": "pnpm sync && pnpm --filter @signal/collector create",
     "run": "pnpm sync && pnpm --filter @signal/collector run",

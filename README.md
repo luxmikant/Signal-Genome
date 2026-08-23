@@ -1,104 +1,121 @@
-# Signal Genome
+# 🏙 Signal Genome — the Knowledge City
 
-Your radar for what's changing in AI tooling. Bright Data scrapes the web, a self-healing agent loop keeps the scrapers alive when sites change, and the data comes out as **THE KNOWLEDGE CITY** — a living 3D metropolis where every building is a real fact, every crane a rising idea, every lit window fresh evidence.
+> **The web's knowledge about fast-moving tech, built into a living city.**
+> Bright Data Scraper Studio collectors pull public engineering content; a five-agent
+> harness builds, runs, validates and **heals** those collectors; the structured data becomes
+> a vibrant 3D city where **every building is a real source**, every tower a landmark
+> repository, every crane a rising idea — and a time scrubber rebuilds the city month by
+> month, from 2023 to now.
 
 Built for **Into the Scrape-Verse** (WeMakeDevs × Bright Data, Aug 2026).
 
-## Why it exists
+---
 
-Most scraping projects are a pipeline that breaks silently and a dashboard of tables. We wanted two things instead:
+## What it is doing
 
-- scrapers that **repair themselves** — sites change layout all the time, so collectors shouldn't just die
-- data that reads like a **story**, not a spreadsheet
+Signal Genome turns fragmented public technical knowledge (blogs, docs, changelogs) into
+**one spatial picture you can remember**: a city. Instead of a feed that answers "what was
+published today", the city answers **what matters, how things connect, what changed, and
+what to learn next** — and it keeps working when the web moves under it.
 
-## How we use Bright Data
+## How the right data solves the problem
 
-Every content source gets its own Scraper Studio collector. We describe what to extract in plain English and get structured JSON back. Each source goes through a 5-agent loop:
+Developers trying to keep up with a field face three problems — signal is scattered, feeds
+are chronological instead of educational, and scrapers silently die. The city fixes all three:
 
-1. **planner** — decides which sources are due
-2. **builder** — registers a collector on Scraper Studio (`bdata scraper create`)
-3. **runner** — executes it (`bdata scraper run`)
-4. **validator** — checks the output against the expected schema
-5. **healer** — describes the break back to Scraper Studio and re-runs the *same* collector
+- **Curated collection** — four long-tail sources (vLLM docs, Unsloth, Modal, Anyscale blogs)
+  scraped through Scraper Studio, not a pre-built library.
+- **Structure over chronology** — 14 canonical concepts, 18 landmark repositories, and the
+  prerequisite roads between them.
+- **Self-healing collection** — the five-agent harness validates every run and repairs
+  broken collectors in place: same `c_*` Collector ID, same JSON schema, nothing downstream
+  notices.
 
-The loop is the point. When a site changes, validation fails, the healer explains the new structure, and the collector heals in place — same collector id, no manual fixes. It has already happened for real: healthy collector IDs `c_mt46nmay2owkiw51mz` (Modal · 129 items) and `c_mt470woq24l2b1fx7i` (Anyscale · 321 items), while `c_mt42mr6y1zwlpo0mu1` and `c_mt42msus6ft09x2sm` hit a real heal conflict — and the city keeps both visible (red beacons, honest health panel).
+## How the data came from
 
 ```bash
-pnpm harness             # live Bright Data flow (uses credits)
-pnpm harness --offline   # same loop against bundled snapshots (no credits)
-pnpm health              # per-source status board
+bdata scraper create <url> "<plain-language extraction spec>"   # builder
+bdata scraper run <collector_id> <url> --pretty                 # runner
+bdata scraper heal <collector_id> "<what broke>"                # healer
 ```
 
-## What we scrape
+Live collector IDs (in `config/state.json`): `c_mt42mr6y1zwlpo0mu1` (vLLM docs),
+`c_mt42msus6ft09x2sm` (Unsloth), `c_mt46nmay2owkiw51mz` (Modal · 129 items),
+`c_mt470woq24l2b1fx7i` (Anyscale · 321 items). Two of them hit a real heal conflict —
+and the city shows it (red beacons; failures are never hidden).
 
-**Document sources** (Bright Data Scraper Studio): vLLM docs (sitemap), Unsloth blog, Modal blog, Anyscale blog (discovery). Each item: title, url, author, publish date, body, tags. Public pages only.
-
-## How we visualize it — THE KNOWLEDGE CITY
-
-The one and only view. A city built from the web, its visual grammar is fully honest:
-
-- **Buildings** are sources — an engineering blog post, a documentation page, a release note. **Height** = importance; **lit windows** = freshness (45-day decay).
-- **Districts** are concepts, orbiting the city on a ring; each carries a **health beacon** (green = collector healthy, amber = healing, red = failed — failures stay visible, never hidden).
-- **Gold obelisks** = foundational concepts (the thing to learn first). **Dim half-sunk blocks** = abandoned ideas.
-- **Construction cranes** swing over emerging ideas; clicking one opens the site: *"Speculative decoding — 32 fresh sources this month; learn KV Cache first."*
-- **Roads** connect prerequisite concepts; when a road is busy, **traffic pulses** run its length — ideas discussed, flowing toward what they depend on.
-- **The hot ring** pulses around the single most active district; **rising badges** in the HUD show quarter-over-quarter momentum (▲ Paged Attention +1264%).
-- **The time journey** (bottom scrubber) lets you fly back to 2023 and watch the city get built month by month — trends become a landscape you can walk through. Press ▶ and it builds itself.
-- **Plasmi**, a little glowing organism, floats over the city and announces when new evidence lands via the live SSE stream.
-
-Entered after a cinematic arrival screen: *"The signal is alive. A feed is a blur — a city, you can remember."*
-
-## How we represent the data
-
-- Typed end-to-end, with zod at every boundary.
-- Drift is expressed in readable capability axes (loop, gateway, plugins, …), not raw logs.
-- Facts carry confidence chips (verified / approx) — a pretty tree of made-up facts would be worse than a plain chart.
-- The same layout math drives a static SVG snapshot, so the tree is embeddable anywhere.
-
-## The pipeline
+## How the data is managed
 
 ```
-Bright Data Scraper Studio (c_* collectors)
-  → 5-agent harness (create → run → validate → heal)
-  → POST /api/internal/ingest (zod normalizers)
-  → SQLite
-  → gene tagger + fitness + ranker
-  → REST /api/city /api/trends + SSE /api/events
-  → KNOWLEDGE CITY (3D)
-
-GET /api/city → districts, buildings (sources), roads (prerequisites), learn-next route
-GET /api/city?at=<date> → the same city, as it stood at any month since 2023
+collector harness → POST /api/internal/ingest (normalized content)
+→ zod-validated normalizers → SQLite
+→ gene tagger + momentum fitness + trend series
+→ REST /api/city (+?at=), /api/trends + SSE /api/events → the city
 ```
 
-## What's unique here
+Every boundary is typed and zod-checked; the engine is pure, unit-tested logic
+(`packages/engine`, `packages/genes`); the UI never trusts raw scraper output.
 
-- **The heal loop is the product.** A broken scraper is the demo, not an incident.
-- **The city is honest by construction.** Every light = evidence with a link; every red beacon = a real collector failure, never hidden.
-- **Trends become geography.** Scrub the time slider and watch the city rise district by district — industry momentum as a landscape.
-- **An educational payoff.** The learn-next route says *what to learn first and why* — not just what changed today.
+## What the final outcome is
+
+**THE KNOWLEDGE CITY** — the one and only view, with an honest visual grammar:
+
+- **Buildings** = evidence items; **height** = relevance; **lit** = fresh (45-day decay);
+  **dim/sunk** = abandoned ideas
+- **The main avenue** = the posh street: landmark repositories line it — **vLLM ↔ llama.cpp**
+  with **SGLang, bitsandbytes, AutoAWQ, GPTQ** as glowing bridge towers between them —
+  the path that shows how technology A connects to technology B
+- **Roads** = prerequisite concepts and repo relations (fork/integrates/reimplements);
+  **traffic pulses** flow along them by momentum
+- **Cranes** = emerging ideas (click → "learn KV Cache first"); **gold obelisks** = foundations
+- **Hot ring** = the busiest district; **HUD badges** = quarter-over-quarter rises
+  (▲ Paged Attention +1264%)
+- **Time journey** = scrub 2023 → now, press ▶, watch the city get built district by district
+- **Plasmi** — a little organism that floats over the skyline and announces new evidence
 
 ## Run it
 
 ```bash
 pnpm install
-pnpm seed                # historical genome data (54 items)
-pnpm dev                 # open http://localhost:5173
-pnpm harness             # live Bright Data scraping loop
-pnpm demo:break          # simulate a site change, then watch the loop heal
+pnpm dev                 # api (8787) + web (5173) → http://localhost:5173
+pnpm harness             # live Bright Data loop (uses credits)
+pnpm harness --offline   # the same loop, zero credits (bundled snapshots)
+pnpm demo:break          # simulate a site change → watch it heal
+pnpm test && pnpm typecheck
+```
+
+## Deploy to Vercel
+
+The repo is deploy-ready: `vercel.json` ships the Vite app as a static site and
+`api/index.ts` as the serverless API (Fastify app mounted on a function; SQLite rebuilds
+from the seed in `/tmp` at cold start; native `better-sqlite3` binary shipped via
+`includeFiles`).
+
+```bash
+npm i -g vercel && vercel   # or: import the repo at vercel.com
 ```
 
 ## Project layout
 
 ```
-packages/core          content model, schemas, palette
-packages/genes         14 genes + weighted tagger
-packages/engine        normalizers, fitness, ranker, trends, view model
-packages/ecosystem     GitHub trend fetch, lineage facts, tree layout, SVG snapshot
-packages/seed-content  historical seed data
-apps/collector         bdata wrappers + the 5-agent harness
+packages/core          schemas, content model, family palette        (zero deps)
+packages/genes         14 canonical genes + weighted tagger          (pure, tested)
+packages/engine        normalizers, fitness, ranker, trend series    (pure, tested)
+packages/ecosystem     landmark repositories, relations, lineage     (pure, tested)
+packages/seed-content  54-item historical seed
+apps/collector         bdata CLI wrappers + the 5-agent harness
 apps/api               Fastify + SQLite + REST + SSE
-apps/web               React: the KNOWLEDGE CITY (3D)
-docs/                  architecture, demo script, about, pitch
+apps/web               the Knowledge City (React + Three.js)
+api/index.ts           Vercel serverless entry
+docs/                  architecture, demo script, pitch
 ```
 
-Details live in `docs/architecture.md` and `docs/demo-script.md`.
+## Honesty & disclosures
+
+- Built with AI coding assistants (disclosed per hackathon rules); every module is small,
+  tested and explainable.
+- Landmark repository star counts are curated round magnitudes for visual scale —
+  the evidence buildings are real scraped content.
+- Public pages only: no login walls, no paywalls, no government sites, no personal data.
+
+Details: `docs/architecture.md` · `docs/demo-script.md` · `docs/about.md`

@@ -9,6 +9,7 @@ import { IngestBatchSchema } from "@signal/core";
 import { bus } from "./bus.js";
 import { getGenomeState, ingestRaw, recordVisit } from "./genome.js";
 import { addReaction, loadContents, loadTags } from "./db.js";
+import { isServerless } from "./app.js";
 import { loadEcosystem } from "@signal/ecosystem";
 import { buildCityModel } from "./city.js";
 
@@ -148,6 +149,10 @@ export function registerRoutes(app: FastifyInstance): void {
   });
 
   app.get("/api/events", (req, reply) => {
+    if (isServerless) {
+      reply.code(204).send();
+      return;
+    }
     const headers = {
       "content-type": "text/event-stream",
       "cache-control": "no-cache, no-transform",

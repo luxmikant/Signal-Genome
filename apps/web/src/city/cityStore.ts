@@ -20,6 +20,13 @@ export type CityBuilding = {
   freshness: number;
   health: CityHealth;
   archived: boolean;
+  kind?: "evidence" | "repository";
+  org?: string;
+  stars?: number;
+  growth?: number;
+  language?: string;
+  bridge?: boolean;
+  avenueSlot?: number;
 };
 
 export type CityDistrict = {
@@ -37,7 +44,13 @@ export type CityDistrict = {
   beacon: CityHealth;
 };
 
-export type CityRoad = { from: string; to: string; relationship: "prerequisite" | "related_to"; strength: number };
+export type CityRoad = {
+  from: string;
+  to: string;
+  relationship: "prerequisite" | "related_to" | "fork_of" | "builds_on" | "integrates" | "reimplements";
+  strength: number;
+  kind: "concept" | "repo";
+};
 export type CityRouteStep = { geneId: string; label: string; blurb: string; depth: number };
 
 export type CityModel = {
@@ -55,6 +68,7 @@ export type CityModel = {
     newThisWeek: number;
   };
   route: { geneId: string; headline: string; steps: CityRouteStep[] } | null;
+  avenue: { ends: Array<{ id: string; label: string }>; bridges: Array<{ id: string; label: string }> };
 };
 
 type CityState = {

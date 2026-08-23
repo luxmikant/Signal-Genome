@@ -1,4 +1,4 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src", "../../packages/core/src", "../../packages/ecosystem/src", "../../packages/engine/src", "../../packages/genes/src", "../../packages/seed-content/src"]
+  "include": ["src", "../../api/index.ts", "../../packages/core/src", "../../packages/engine/src", "../../packages/genes/src", "../../packages/seed-content/src", "../../packages/ecosystem/src"]
 }

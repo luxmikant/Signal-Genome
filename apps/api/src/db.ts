@@ -5,9 +5,17 @@ import { fileURLToPath } from "node:url";
 import { mkdirSync } from "node:fs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "../../..");
-export const DB_PATH = join(root, "data", "genome.sqlite");
 
-mkdirSync(join(root, "data"), { recursive: true });
+// On Vercel the filesystem is ephemeral and read-only except /tmp — the DB is
+// rebuilt there from the seed at cold start. Locally it lives in data/.
+export const DB_PATH =
+  process.env.VERCEL === "1"
+    ? join("/tmp", "genome.sqlite")
+    : process.env.DATA_DIR
+      ? join(process.env.DATA_DIR, "genome.sqlite")
+      : join(root, "data", "genome.sqlite");
+
+mkdirSync(dirname(DB_PATH), { recursive: true });
 
 export const db = new Database(DB_PATH);
 db.pragma("journal_mode = WAL");

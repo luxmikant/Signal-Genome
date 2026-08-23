@@ -30,7 +30,8 @@ export function Onboarding() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        background: "radial-gradient(ellipse 70% 50% at 50% 40%, #0a1020 0%, #04060b 70%)",
+        background:
+          "radial-gradient(ellipse 60% 45% at 50% 115%, rgba(245,185,66,0.28) 0%, transparent 70%), radial-gradient(ellipse 55% 40% at 18% 15%, rgba(124,58,237,0.12) 0%, transparent 70%), linear-gradient(180deg,#cfe4f7 0%,#eef4fa 55%,#f7f3e8 100%)",
         padding: 24,
         overflowY: "auto",
       }}
@@ -42,8 +43,8 @@ export function Onboarding() {
         style={{ maxWidth: 720, textAlign: "center" }}
       >
         <div className="status-pill" style={{ marginBottom: 26, display: "inline-flex", alignItems: "center", gap: 8 }}>
-          <span style={{ color: connected ? "#7df3a8" : "#8b93a7" }}>{connected ? "●" : "○"}</span>
-          signal genome · live organism booting
+          <span style={{ color: connected ? "#2fbf71" : "#7c8fa0" }}>{connected ? "●" : "○"}</span>
+          signal genome · the knowledge city is booting
         </div>
 
         <h1
@@ -51,18 +52,18 @@ export function Onboarding() {
             fontSize: "clamp(34px, 6vw, 64px)",
             lineHeight: 1.05,
             letterSpacing: "-0.02em",
+            color: "#13222d",
             marginBottom: 14,
           }}
         >
           What do you want to{" "}
-          <span style={{ background: "linear-gradient(90deg,#7df3a8,#22d3ee)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
+          <span style={{ background: "linear-gradient(90deg,#0f766e,#7c3aed)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
             understand next?
           </span>
         </h1>
-        <p style={{ color: "var(--dim)", fontSize: 16, maxWidth: 560, margin: "0 auto 34px", lineHeight: 1.5 }}>
-          A living tree of knowledge grows from everything the web says about AI tooling —
-          scraped live, self-healing, and tuned to your interests. Scroll its lineage:
-          how one idea became a whole family of tools.
+        <p style={{ color: "#45606f", fontSize: 16, maxWidth: 560, margin: "0 auto 34px", lineHeight: 1.5 }}>
+          The web's knowledge about modern LLM inference becomes a living city — scraped by
+          self-healing collectors, built into districts, roads and towers, and tuned to your interests.
         </p>
 
         <motion.div
@@ -82,13 +83,13 @@ export function Onboarding() {
                 style={{
                   display: "flex", gap: 8, alignItems: "center",
                   padding: "10px 16px", borderRadius: 11, cursor: "pointer",
-                  border: depth === d.id ? "1px solid rgba(125,243,168,0.55)" : "1px solid var(--line)",
-                  background: depth === d.id ? "rgba(125,243,168,0.08)" : "var(--glass)",
-                  color: depth === d.id ? "#c9f7df" : "var(--dim)",
+                  border: depth === d.id ? "1px solid rgba(15,118,110,0.55)" : "1px solid var(--line)",
+                  background: depth === d.id ? "rgba(15,118,110,0.08)" : "var(--glass)",
+                  color: depth === d.id ? "#0f766e" : "var(--dim)",
                   fontSize: 13.5, fontFamily: "var(--sans)", transition: "all .16s ease",
                 }}
               >
-                <span style={{ color: depth === d.id ? "#7df3a8" : "var(--faint)" }}>{d.icon}</span>
+                <span style={{ color: depth === d.id ? "#0f766e" : "var(--faint)" }}>{d.icon}</span>
                 {d.label}
               </button>
             ))}
@@ -104,9 +105,9 @@ export function Onboarding() {
                 onClick={() => toggleSource(s)}
                 style={{
                   padding: "8px 14px", borderRadius: 999, cursor: "pointer",
-                  border: sources.includes(s) ? "1px solid rgba(34,211,238,0.55)" : "1px solid var(--line)",
-                  background: sources.includes(s) ? "rgba(34,211,238,0.07)" : "transparent",
-                  color: sources.includes(s) ? "#bef0fb" : "var(--faint)",
+                  border: sources.includes(s) ? "1px solid rgba(124,58,237,0.55)" : "1px solid var(--line)",
+                  background: sources.includes(s) ? "rgba(124,58,237,0.07)" : "transparent",
+                  color: sources.includes(s) ? "#7c3aed" : "var(--faint)",
                   fontSize: 12.5, fontFamily: "var(--sans)", transition: "all .16s ease",
                 }}
               >
@@ -122,13 +123,13 @@ export function Onboarding() {
           onClick={begin}
           style={{
             padding: "14px 34px", borderRadius: 13, cursor: "pointer",
-            background: "linear-gradient(90deg,#7df3a8,#22d3ee)",
+            background: "linear-gradient(90deg,#0f766e,#7c3aed)",
             border: "none", fontSize: 16, fontWeight: 600,
-            color: "#04120d", fontFamily: "var(--sans)",
-            boxShadow: "0 10px 40px rgba(125,243,168,0.25)",
+            color: "#ffffff", fontFamily: "var(--sans)",
+            boxShadow: "0 10px 40px rgba(15,118,110,0.3)",
           }}
         >
-          Sequence my genome →
+          Enter the city →
         </motion.button>
         <div style={{ marginTop: 18, color: "var(--faint)", fontSize: 12, fontFamily: "var(--mono)" }}>
           one prompt · one collector id · a self-healing pipeline

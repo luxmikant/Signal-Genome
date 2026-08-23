@@ -117,16 +117,16 @@ function CompanionBubble({ text }: { text: string }) {
         maxWidth: 300,
         padding: "9px 14px",
         borderRadius: 14,
-        background: "rgba(8, 14, 24, 0.92)",
-        border: "1px solid rgba(94, 234, 212, 0.35)",
-        color: "#d9fbf3",
+        background: "rgba(255, 255, 255, 0.94)",
+        border: "1px solid rgba(15, 118, 110, 0.35)",
+        color: "#13222d",
         fontSize: 12.5,
         lineHeight: "1.35",
         fontFamily: "var(--sans)",
-        boxShadow: "0 8px 30px rgba(20, 184, 166, 0.22)",
+        boxShadow: "0 8px 30px rgba(19, 34, 45, 0.16)",
       }}
     >
-      <span style={{ color: "#5eead4", fontWeight: 600 }}>plasmi:</span> {pickup}
+      <span style={{ color: "#0f766e", fontWeight: 600 }}>plasmi:</span> {pickup}
       <div style={{ opacity: 0.65, marginTop: 2, fontStyle: "italic" }}>“{text.slice(0, 64)}”</div>
     </motion.div>
   );

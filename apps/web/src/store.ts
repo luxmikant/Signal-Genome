@@ -117,6 +117,9 @@ export const useGenome = create<GenomeStore>((set, get) => ({
 }));
 
 export function subscribeSse(): () => void {
+  if (typeof window !== "undefined" && window.location.hostname.endsWith(".vercel.app")) {
+    return () => {};
+  }
   const es = new EventSource("/api/events");
   const listener = (event: MessageEvent): void => {
     let payload: unknown;

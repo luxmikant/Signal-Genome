@@ -193,7 +193,7 @@ function TimeJourney() {
   const [pending, setPending] = useState<number | null>(null);
 
   const value = pending ?? at ?? CITY_RANGE.max;
-  const stepMonths = (CITY_RANGE.max - CITY_RANGE.min) / (36 * 30 * 86_400_000);
+  const stepMs = 30 * 86_400_000;
 
   const commit = (next: number): void => {
     if (next >= CITY_RANGE.max - 10 * 86_400_000) setAt(null);
@@ -228,7 +228,7 @@ function TimeJourney() {
         type="range"
         min={CITY_RANGE.min}
         max={CITY_RANGE.max}
-        step={stepMonths}
+        step={stepMs}
         value={value}
         onChange={(e) => {
           const v = Number(e.target.value);
@@ -351,6 +351,7 @@ function DistrictCard({ district }: { district: CityDistrict }) {
 function EvidenceDrawer({ building }: { building: CityBuilding }) {
   const select = useCity((s) => s.selectBuilding);
   const d = districtOf(useCity((s) => s.model), building.geneId);
+  const isRepo = building.kind === "repository";
   return (
     <motion.div
       initial={{ opacity: 0, x: 60 }}
@@ -360,30 +361,44 @@ function EvidenceDrawer({ building }: { building: CityBuilding }) {
       className="city-drawer"
     >
       <div className="city-drawer-tab">
-        <span className="city-drawer-tab-k">building · source</span>
+        <span className="city-drawer-tab-k">{isRepo ? "landmark · repository" : "building · source"}</span>
         <button className="city-drawer-close" onClick={() => select(null)} aria-label="close">
           ✕
         </button>
       </div>
       <h2 className="city-drawer-title">{building.title}</h2>
       <div className="city-drawer-meta">
-        <span>{building.source}</span>
-        <span>{building.sourceType}</span>
-        <span>{building.publishedAt ? new Date(building.publishedAt).toLocaleDateString() : "no date"}</span>
-        <span className={`city-beacon city-beacon-${building.health}`}>{building.health}</span>
-        {building.archived && <span className="city-beacon city-beacon-stale">abandoned</span>}
+        {isRepo ? (
+          <>
+            <span>{building.org}</span>
+            <span>{building.language}</span>
+            {building.stars ? <span>{building.stars >= 1000 ? `${(building.stars / 1000).toFixed(1)}k ★` : `${building.stars} ★`}</span> : null}
+            {building.growth !== undefined && <span>growth {Math.round(building.growth * 100)}%</span>}
+            {building.bridge && <span style={{ color: "#b45309", fontWeight: 600 }}>bridge</span>}
+          </>
+        ) : (
+          <>
+            <span>{building.source}</span>
+            <span>{building.sourceType}</span>
+            <span>{building.publishedAt ? new Date(building.publishedAt).toLocaleDateString() : "no date"}</span>
+            <span className={`city-beacon city-beacon-${building.health}`}>{building.health}</span>
+            {building.archived && <span className="city-beacon city-beacon-stale">abandoned</span>}
+          </>
+        )}
         {d && <span style={{ color: d.color }}>{d.label}</span>}
       </div>
       <blockquote className="city-drawer-excerpt">“{building.excerpt}…”</blockquote>
       <div className="city-drawer-foot">
         {building.url && (
           <a className="city-source-link" href={building.url} target="_blank" rel="noreferrer">
-            open the source ↗
+            open the {isRepo ? "repository" : "source"} ↗
           </a>
         )}
-        <span className="city-drawer-footnote">
-          scraped {fmtCityDate(building.fetchedAt || Date.now())} · freshness {Math.round(building.freshness * 100)}%
-        </span>
+        {!isRepo && (
+          <span className="city-drawer-footnote">
+            scraped {fmtCityDate(building.fetchedAt || Date.now())} · freshness {Math.round(building.freshness * 100)}%
+          </span>
+        )}
       </div>
     </motion.div>
   );
